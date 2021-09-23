@@ -2,14 +2,14 @@
 <resources>
 
     <style name="Title_Style">
-        <item name="android:paddingStart">20px</item>
-        <item name="android:paddingTop">20px</item>
-        <item name="android:paddingEnd">20px</item>
-        <item name="android:paddingBottom">20px</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
         <item name="android:textSize">28sp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:background">@color/greenbook</item>
-        <item name="android:layout_marginBottom">20px</item>
+        <item name="android:layout_marginBottom">10dp</item>
     </style>
 
     <style name="Margin_Default">

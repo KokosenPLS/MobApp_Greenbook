@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tittel"
         style="@style/Title_Style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -16,14 +16,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/logg_inn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/greenbook_selected"
+        android:padding="10dp"
+        android:text="@string/Logg_inn"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/registrer"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tittel" />
+
+    <TextView
+        android:id="@+id/registrer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/greenbook"
+        android:padding="10dp"
+        android:text="@string/Registrer"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/logg_inn"
+        app:layout_constraintTop_toBottomOf="@+id/tittel" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="com.example.gui3.RegistrerFragment"
+        android:name="com.example.gui3.LoggInnFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/logg_inn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
