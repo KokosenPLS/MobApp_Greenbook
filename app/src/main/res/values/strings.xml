@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">GUI 3</string>
+    <string name="Greenbook">Greenbook</string>
+    <string name="Logg_inn">Logg inn</string>
+    <string name="Registrer_deg">Ikke bruker? Registrer deg her</string>
+    <string name="Glemt_passord">Glemt passord?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Registrer">Registrer deg</string>
+    <string name="Reg_btn">Registrer</string>
+    <string name="Allerede_Bruker">Allerede bruker? Trykk her for å logge inn</string>
+</resources>
