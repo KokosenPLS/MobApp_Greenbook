@@ -20,4 +20,8 @@
         <item name="android:clickable">true</item>
         <item name="android:textSize">19sp</item>
     </style>
+
+    <style name="innlegg_txt">
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

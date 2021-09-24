@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         tittel.setOnClickListener{
-            val intent = Intent(this, FeedActivity::class.java)
+            val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
         }
 
