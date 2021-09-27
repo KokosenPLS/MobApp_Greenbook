@@ -5,12 +5,14 @@
       <map>
         <entry key="..\:/Koding/MobApp_TestGUI/app/src/main/res/drawable/myrect.xml" value="0.3828125" />
         <entry key="..\:/Koding/MobApp_TestGUI/app/src/main/res/drawable/tittelrect.xml" value="0.3828125" />
+        <entry key="..\:/Koding/MobApp_TestGUI/app/src/main/res/layout/activity_arrangement.xml" value="0.36666666666666664" />
         <entry key="..\:/Koding/MobApp_TestGUI/app/src/main/res/layout/activity_feed.xml" value="0.25" />
         <entry key="..\:/Koding/MobApp_TestGUI/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Koding/MobApp_TestGUI/app/src/main/res/layout/activity_user.xml" value="0.36666666666666664" />
+        <entry key="..\:/Koding/MobApp_TestGUI/app/src/main/res/layout/activity_user.xml" value="0.33" />
         <entry key="..\:/Koding/MobApp_TestGUI/app/src/main/res/layout/feed_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Koding/MobApp_TestGUI/app/src/main/res/layout/feed_row.xml" value="0.36666666666666664" />
         <entry key="..\:/Koding/MobApp_TestGUI/app/src/main/res/layout/nav_header.xml" value="0.36666666666666664" />
+        <entry key="..\:/Koding/MobApp_TestGUI/app/src/main/res/layout/toolbar.xml" value="0.36666666666666664" />
         <entry key="..\:/Koding/MobApp_TestGUI/app/src/main/res/menu/drawer_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Alexander/Documents/Skole/MobApp/GUI3/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Alexander/Documents/Skole/MobApp/GUI3/app/src/main/res/layout/fragment_logg_inn.xml" value="0.25416666666666665" />
