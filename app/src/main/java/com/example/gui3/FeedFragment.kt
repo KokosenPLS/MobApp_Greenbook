@@ -26,7 +26,6 @@ class FeedFragment : Fragment(), PostAdaptor.OnItemClickListener{
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
-        // TODO: Use the ViewModel
 
         val posts : ArrayList<Post> = ArrayList()
 
@@ -43,8 +42,8 @@ class FeedFragment : Fragment(), PostAdaptor.OnItemClickListener{
     }
 
     override fun onItemClick(position: Int) {
-        val intent: Intent = Intent(activity, ArrangementActivity::class.java)
-        startActivity(intent)
+        val intent: Intent = Intent(context, ArrangementActivity::class.java)
+
     }
 
 
