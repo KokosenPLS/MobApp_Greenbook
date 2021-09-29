@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class FeedFragment : Fragment(), PostAdaptor.OnItemClickListener{
+class FeedFragment : Fragment(), PostAdaptor.OnItemClickListener {
 
     companion object {
         fun newInstance() = FeedFragment()
@@ -18,20 +18,30 @@ class FeedFragment : Fragment(), PostAdaptor.OnItemClickListener{
 
     private lateinit var viewModel: FeedViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
         return inflater.inflate(R.layout.feed_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
-        // TODO: Use the ViewModel
 
-        val posts : ArrayList<Post> = ArrayList()
+        val posts: ArrayList<Post> = ArrayList()
 
-        for (i in 1..50){
-            posts.add(Post("Tittel " + i , "Bullgring", "24.12.2021", i, "https://picsum.photos/900/600?random&" + i))
+        for (i in 1..50) {
+            posts.add(
+                Post(
+                    "Tittel " + i,
+                    "Bullgring",
+                    "24.12.2021",
+                    i,
+                    "https://picsum.photos/900/600?random&" + i
+                )
+            )
         }
 
         val recyclerView = getView()?.findViewById<RecyclerView>(R.id.recyclerView)
@@ -43,9 +53,6 @@ class FeedFragment : Fragment(), PostAdaptor.OnItemClickListener{
     }
 
     override fun onItemClick(position: Int) {
-        val intent: Intent = Intent(activity, ArrangementActivity::class.java)
-        startActivity(intent)
+
     }
-
-
 }

@@ -17,6 +17,10 @@
             android:id="@+id/nav_arrangementer"
             android:icon="@drawable/arrangement"
             android:title="Arrangement"></item>
+        <item
+            android:id="@+id/nav_nytt_arrangement"
+            android:icon="@drawable/ic_new_event"
+            android:title="Nytt arrangement"></item>
 
     </group>
 

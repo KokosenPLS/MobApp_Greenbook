@@ -86,6 +86,12 @@ class UserActivity() : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
             }
 
+            R.id.nav_nytt_arrangement -> {
+
+                val intent = Intent(this, LagArrangementActivity::class.java)
+                startActivity(intent)
+            }
+
         }
         drawer.closeDrawer(GravityCompat.END)
         return true

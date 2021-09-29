@@ -8,18 +8,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class PostAdaptor(val posts : ArrayList<Post>, val listener: OnItemClickListener) : RecyclerView.Adapter<PostAdaptor.ViewHolder>() {
+class ProfilAdaptor(val profiler: ArrayList<ProfilDisplay>,val listener: OnItemClickListener) : RecyclerView.Adapter<ProfilAdaptor.ViewHolder>(){
 
     inner class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView),
-    View.OnClickListener{
-        val tittel: TextView = itemView.findViewById(R.id.tittel)
-        val sted: TextView = itemView.findViewById(R.id.sted)
-        val tid: TextView = itemView.findViewById(R.id.tid)
-        val skal: TextView = itemView.findViewById(R.id.registered)
-        val bilde: ImageView = itemView.findViewById(R.id.innlegg_img)
+        View.OnClickListener{
+        val bilde: ImageView = itemView.findViewById(R.id.profilBildeDisplay)
+        val navn: TextView = itemView.findViewById(R.id.profilNavnDisplay)
 
         init {
-            tittel.setOnClickListener(this)
+            navn.setOnClickListener(this)
         }
 
         override fun onClick(p0: View?) {
@@ -29,17 +26,15 @@ class PostAdaptor(val posts : ArrayList<Post>, val listener: OnItemClickListener
             }
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.feed_row, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tittel.text = posts[position].tittel
-        holder.sted.text = posts[position].sted
-        holder.tid.text = posts[position].tid
-        holder.skal.text = "" + posts[position].going + " påmeldte"
-        Picasso.get().load(posts[position].bildeURL).into(holder.bilde)
+        Picasso.get().load(profiler[position].img).into(holder.bilde)
+        holder.navn.text = profiler[position].navn
     }
 
     interface OnItemClickListener{
@@ -47,11 +42,8 @@ class PostAdaptor(val posts : ArrayList<Post>, val listener: OnItemClickListener
     }
 
     override fun getItemCount(): Int  {
-        return posts.size
+        return profiler.size
     }
-
-
-
 
 
 }

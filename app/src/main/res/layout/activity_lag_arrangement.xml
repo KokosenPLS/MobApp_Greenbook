@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LagArrangementActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/toolbar_lagArr"
+                layout="@layout/toolbar"
+                android:elevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/myrect"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_lagArr"
+                app:layout_constraintVertical_bias="0.22000003">>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/Title_Style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tittelrect"
+                    android:text="Nytt arrangement"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    tools:ignore="TextContrastCheck" />
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName"
+                    style="@style/Margin_Default"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Tittel"
+                    android:inputType="textPersonName"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName4"
+                    style="@style/Margin_Default"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Sted"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/editTextDate"
+                    style="@style/Margin_Default"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Dato"
+                    android:inputType="date" />
+
+                <EditText
+                    android:id="@+id/editTextTime"
+                    style="@style/Margin_Default"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Tid"
+                    android:inputType="time" />
+
+                <EditText
+                    android:id="@+id/editTextNumber"
+                    style="@style/Margin_Default"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Plasser"
+                    android:inputType="number" />
+
+                <Button
+                    android:id="@+id/button"
+                    style="@style/Margin_Default"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Opprett" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
