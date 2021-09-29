@@ -43,8 +43,7 @@ class FeedFragment : Fragment(), PostAdaptor.OnItemClickListener{
     }
 
     override fun onItemClick(position: Int) {
-        val intent: Intent = Intent(activity, ArrangementActivity::class.java)
-        startActivity(intent)
+
     }
 
 
