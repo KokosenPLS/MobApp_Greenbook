@@ -5,14 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.size
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class ChatFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -22,8 +24,33 @@ class ChatFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_chat, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        val meldinger: ArrayList<ChatMessage> = ArrayList()
+        var testbool: Boolean = true
+
+        for (i in 1..50) {
+            meldinger.add(
+                ChatMessage(
+                    "Dette er melding $i i chatten",
+                    testbool,
+                    "16:20"
+                )
+            )
+            testbool = !testbool
+        }
+
+
+        val recyclerView = view?.findViewById<RecyclerView>(R.id.chatRecyclerView)
+
+        recyclerView?.layoutManager = LinearLayoutManager(view?.context)
+        recyclerView?.adapter = ChatAdaptor(meldinger)
+        recyclerView?.scrollToPosition(meldinger.size-1)
+    }
+
     companion object {
 
-        fun newInstance(param1: String, param2: String) = ChatFragment()
+        fun newInstance() = ChatFragment()
     }
 }
