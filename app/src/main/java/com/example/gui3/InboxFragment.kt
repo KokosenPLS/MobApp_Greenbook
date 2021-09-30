@@ -50,6 +50,7 @@ class InboxFragment : Fragment() {
 
             tabAktive?.setBackgroundResource(R.color.greenbook)
             tabFollows.setBackgroundResource(R.color.greenbook_selected)
+
         }
 
     }

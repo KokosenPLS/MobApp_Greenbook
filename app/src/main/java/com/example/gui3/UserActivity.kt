@@ -20,8 +20,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
+import java.sql.Array
 
-class UserActivity() : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class UserActivity() : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, FeedFragment.OnArrangementClick {
 
     lateinit var drawer: DrawerLayout
     lateinit var fragmentContainerView: FragmentContainerView
@@ -52,6 +53,9 @@ class UserActivity() : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener (this)
 
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(fragmentContainerView.id, FeedFragment(this)).commit()
+
 
     }
 
@@ -73,13 +77,20 @@ class UserActivity() : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         when (item.itemId){
             R.id.nav_account -> {
 
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.fragContainerUser, ProfilFragment())
+                transaction.addToBackStack(null) // Legger til i backstack får å kunne gå tilbake mellom fragments
+                transaction.commit()
+
             }
 
             R.id.nav_message -> {
+
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.fragContainerUser, InboxFragment())
                 transaction.addToBackStack(null) // Legger til i backstack får å kunne gå tilbake mellom fragments
                 transaction.commit()
+
             }
 
             R.id.nav_arrangementer -> {
@@ -95,5 +106,11 @@ class UserActivity() : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         }
         drawer.closeDrawer(GravityCompat.END)
         return true
+    }
+
+    override fun onArrangementClick(position: Int) {
+
+
+
     }
 }

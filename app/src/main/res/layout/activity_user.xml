@@ -27,7 +27,6 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragContainerUser"
-                android:name="com.example.gui3.FeedFragment"
                 android:tag="FEED"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
