@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 class ArrangementFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        activity?.findViewById<TextView>(R.id.toolbar_tittel)?.text = "Arrangement tittel"
+
     }
 
     override fun onCreateView(
@@ -17,6 +21,7 @@ class ArrangementFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_arrangement, container, false)
+
     }
 
     companion object {
