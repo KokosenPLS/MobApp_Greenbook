@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 
 
@@ -31,23 +33,14 @@ class InboxFragment : Fragment() {
         val tabAktive = view?.findViewById<TextView>(R.id.aktiveSamtalerTab)
         val tabFollows = view?.findViewById<TextView>(R.id.followsTab)
 
-
         tabAktive?.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.inboxFragmentContainer, AktiveSamtalerFragment())
-                commit()
-            }
-
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.inboxFragmentContainer, AktiveSamtalerFragment())?.commit()
             tabAktive.setBackgroundResource(R.color.greenbook_selected)
             tabFollows?.setBackgroundResource(R.color.greenbook)
         }
 
         tabFollows?.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.inboxFragmentContainer, InboxFollowFragment())
-                commit()
-            }
-
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.inboxFragmentContainer, InboxFollowFragment())?.commit()
             tabAktive?.setBackgroundResource(R.color.greenbook)
             tabFollows.setBackgroundResource(R.color.greenbook_selected)
 

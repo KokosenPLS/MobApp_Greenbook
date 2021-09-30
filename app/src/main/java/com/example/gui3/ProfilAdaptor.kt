@@ -28,7 +28,7 @@ class ProfilAdaptor(val profiler: ArrayList<ProfilDisplay>,val listener: OnItemC
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.feed_row, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.profil_display_row, parent, false)
         return ViewHolder(view)
     }
 

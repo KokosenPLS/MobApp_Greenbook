@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="greenbook">#92AA83</color>
     <color name="greenbook_selected">#FFB0CC9E</color>
+    <color name="boxGrey">#EDECEC</color>
 </resources>

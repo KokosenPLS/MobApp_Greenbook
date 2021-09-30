@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -16,41 +17,47 @@ class AktiveSamtalerFragment : Fragment(), ProfilAdaptor.OnItemClickListener {
         fun newInstance() = AktiveSamtalerFragment()
     }
 
-    private lateinit var viewModel: FeedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.feed_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_aktive_samtaler, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
+
 
         val posts: ArrayList<ProfilDisplay> = ArrayList()
 
         for (i in 1..50) {
             posts.add(
                 ProfilDisplay(
-                    "https://picsum.photos/900/600?random&" + i,
-                    "Stein"+i
+                    "https://picsum.photos/180/125?random&" + i,
+                    "Hauk"+i+"stein McSteinesen"
                 )
             )
         }
 
 
-        val recyclerView = getView()?.findViewById<RecyclerView>(R.id.aktiveSamtalerRV)
+        val recyclerView = view?.findViewById<RecyclerView>(R.id.aktiveSamtalerRecyclerView)
 
-        recyclerView?.layoutManager = LinearLayoutManager(view?.context)
+        val gridLayout = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
+
+        recyclerView?.setHasFixedSize(true)
+        recyclerView?.layoutManager = gridLayout
         recyclerView?.adapter = ProfilAdaptor(posts, this)
-        Toast.makeText(context, "Toast", Toast.LENGTH_LONG)
+
+
 
     }
 
     override fun onItemClick(position: Int) {
-
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        transaction?.replace(R.id.fragContainerUser, ChatFragment())
+        transaction?.addToBackStack(null)
+        transaction?.commit()
     }
 }
