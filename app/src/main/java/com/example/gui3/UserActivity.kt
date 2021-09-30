@@ -77,15 +77,20 @@ class UserActivity() : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         when (item.itemId){
             R.id.nav_account -> {
 
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.fragContainerUser, ProfilFragment())
+                transaction.addToBackStack(null) // Legger til i backstack får å kunne gå tilbake mellom fragments
+                transaction.commit()
+
             }
 
             R.id.nav_message -> {
-                if(supportFragmentManager.backStackEntryCount == 0) {
-                    val transaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.fragContainerUser, InboxFragment())
-                    transaction.addToBackStack(null) // Legger til i backstack får å kunne gå tilbake mellom fragments
-                    transaction.commit()
-                }
+
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.fragContainerUser, InboxFragment())
+                transaction.addToBackStack(null) // Legger til i backstack får å kunne gå tilbake mellom fragments
+                transaction.commit()
+
             }
 
             R.id.nav_arrangementer -> {
