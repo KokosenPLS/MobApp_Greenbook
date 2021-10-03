@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         val registrer = findViewById<TextView>(R.id.registrer)
         val tittel = findViewById<TextView>(R.id.tittel)
 
+
+
         loggInn.setOnClickListener {
 
             supportFragmentManager.beginTransaction().apply {
