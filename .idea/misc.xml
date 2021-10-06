@@ -53,15 +53,19 @@
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/arrangement_lag_innlegg.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/arrangement_layout.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/arrangement_pomeldte_layout.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/chat_message.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/chat_message_recieved.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/deltakere_layout.xml" value="0.42441860465116277" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/fragment_aktive_samtaler.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/fragment_arrangement.xml" value="0.3307291666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/fragment_arrangement_pomeldte.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/fragment_blank.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/fragment_chat.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/fragment_deltakere_arrangement.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/fragment_deltakere_arrangement.xml" value="0.4590780809031044" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/fragment_inbox.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/fragment_inbox_follow.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/fragment_lag_arrangement.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/fragment_logg_inn.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/fragment_profil.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/fragment_registrer.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_TestGUIJobb/app/src/main/res/layout/innlegg_row.xml" value="0.5541666666666667" />
