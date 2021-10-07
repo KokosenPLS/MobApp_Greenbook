@@ -53,11 +53,12 @@
             android:text="@string/Logg_inn" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/textViewGlemtPassord"
             style="@style/logg_inn_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autoLink="web"
+            android:clickable="true"
             android:linksClickable="true"
             android:text="@string/Glemt_passord" />
 

@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 class LoggInnFragment : Fragment() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -22,5 +25,18 @@ class LoggInnFragment : Fragment() {
     companion object {
         fun newInstance(param1: String, param2: String) =
             LoggInnFragment()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    val forgotpasswordtextview = view?.findViewById<TextView>(R.id.textViewGlemtPassord)
+
+    forgotpasswordtextview?.setOnClickListener {
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        transaction?.replace(R.id.fragmentContainerView,Glemt_Passord())
+        transaction?.commit()
+
+    }
+
     }
 }
