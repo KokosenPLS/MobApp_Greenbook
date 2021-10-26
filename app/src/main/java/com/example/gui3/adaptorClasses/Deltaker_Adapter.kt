@@ -1,4 +1,4 @@
-package com.example.gui3
+package com.example.gui3.adaptorClasses
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gui3.dataObjekter.DeltakerDisplay
+import com.example.gui3.R
 import com.squareup.picasso.Picasso
 
 
-class Deltaker_Adapter(val deltakere: ArrayList<DeltakerDisplay>,val listener: OnItemClickListener) : RecyclerView.Adapter<Deltaker_Adapter.ViewHolder>(){
+class Deltaker_Adapter(val deltakere: ArrayList<DeltakerDisplay>, val listener: OnItemClickListener) : RecyclerView.Adapter<Deltaker_Adapter.ViewHolder>(){
 
     inner class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView),
         View.OnClickListener{

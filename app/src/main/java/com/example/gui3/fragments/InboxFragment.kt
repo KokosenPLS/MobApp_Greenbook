@@ -1,4 +1,4 @@
-package com.example.gui3
+package com.example.gui3.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,17 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.fragment.app.FragmentContainerView
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import com.example.gui3.R
 
 
 class InboxFragment : Fragment() {
 
-
+    private lateinit var localController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val localNavHost = childFragmentManager.findFragmentById(R.id.inbox_nav_host_fragment) as NavHostFragment
+
+        localController = localNavHost.navController
+
     }
 
     override fun onCreateView(
@@ -34,13 +40,15 @@ class InboxFragment : Fragment() {
         val tabFollows = view?.findViewById<TextView>(R.id.followsTab)
 
         tabAktive?.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.inboxFragmentContainer, AktiveSamtalerFragment())?.commit()
+            val action = AktiveSamtalerFragmentDirections.actionAktiveSamtalerFragmentToInboxFollowFragment()
+            findNavController().navigate(action)
             tabAktive.setBackgroundResource(R.color.greenbook_selected)
             tabFollows?.setBackgroundResource(R.color.greenbook)
         }
 
         tabFollows?.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.inboxFragmentContainer, InboxFollowFragment())?.commit()
+            val action = InboxFollowFragmentDirections.actionInboxFollowFragmentToAktiveSamtalerFragment()
+            findNavController().navigate(action)
             tabAktive?.setBackgroundResource(R.color.greenbook)
             tabFollows.setBackgroundResource(R.color.greenbook_selected)
 

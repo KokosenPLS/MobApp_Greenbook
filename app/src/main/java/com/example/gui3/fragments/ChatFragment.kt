@@ -1,14 +1,15 @@
-package com.example.gui3
+package com.example.gui3.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.size
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gui3.adaptorClasses.ChatAdaptor
+import com.example.gui3.dataObjekter.ChatMessage
+import com.example.gui3.R
 
 class ChatFragment : Fragment() {
 

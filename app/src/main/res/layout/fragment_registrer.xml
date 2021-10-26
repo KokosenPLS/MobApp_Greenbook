@@ -10,15 +10,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/txt_login"
             style="@style/Title_Style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,7 +28,7 @@
             android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress"
+            android:id="@+id/txt_email"
             style="@style/Margin_Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +38,7 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/txt_passord"
             style="@style/Margin_Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,7 +48,7 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/txt_fornavn"
             style="@style/Margin_Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +57,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/txt_etternavn"
             style="@style/Margin_Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,29 +65,67 @@
             android:hint="Etternavn"
             android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/pickDate"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Fødselsdato"
-            android:inputType="datetime"
-            tools:ignore="TextFields" />
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/fdato_day"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:ems="10"
+                    android:hint="dd"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/fdato_month"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:ems="10"
+                    android:hint="mm"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/fdato_day"
+                    app:layout_constraintStart_toEndOf="@+id/fdato_day"
+                    app:layout_constraintTop_toTopOf="@+id/fdato_day" />
+
+                <EditText
+                    android:id="@+id/fdato_year"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:ems="10"
+                    android:hint="yyyy"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/fdato_day"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/fdato_month"
+                    app:layout_constraintTop_toTopOf="@+id/fdato_day" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_registrer"
             style="@style/Margin_Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Reg_btn" />
-
-        <TextView
-            android:id="@+id/textView6"
-            style="@style/logg_inn_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:text="@string/Allerede_Bruker" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

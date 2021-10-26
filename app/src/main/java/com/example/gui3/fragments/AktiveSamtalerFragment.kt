@@ -1,17 +1,20 @@
-package com.example.gui3
+package com.example.gui3.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gui3.adaptorClasses.ProfilAdaptor
+import com.example.gui3.R
+import com.example.gui3.dataObjekter.Profil
 
 class AktiveSamtalerFragment : Fragment(), ProfilAdaptor.OnItemClickListener {
+
+    private lateinit var posts: ArrayList<Profil>
 
     companion object {
         fun newInstance() = AktiveSamtalerFragment()
@@ -30,13 +33,12 @@ class AktiveSamtalerFragment : Fragment(), ProfilAdaptor.OnItemClickListener {
         super.onActivityCreated(savedInstanceState)
 
 
-        val posts: ArrayList<ProfilDisplay> = ArrayList()
+        posts = ArrayList()
 
         for (i in 1..50) {
             posts.add(
-                ProfilDisplay(
-                    "https://picsum.photos/180/125?random&" + i,
-                    "Hauk"+i+"stein McSteinesen"
+                Profil(
+                    null, "Hauk"+i, "McStein", "mail@mail.com", "24/12/1998"
                 )
             )
         }
@@ -55,9 +57,7 @@ class AktiveSamtalerFragment : Fragment(), ProfilAdaptor.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        val transaction = activity?.supportFragmentManager?.beginTransaction()
-        transaction?.replace(R.id.fragContainerUser, ChatFragment())
-        transaction?.addToBackStack(null)
-        transaction?.commit()
+        val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(posts[position].fornavn)
+        findNavController().navigate(action)
     }
 }

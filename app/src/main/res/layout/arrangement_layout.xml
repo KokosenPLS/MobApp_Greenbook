@@ -9,14 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/include"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            layout="@layout/toolbar"
-            android:elevation="4dp" />
-
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
@@ -24,11 +16,11 @@
             android:paddingTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/ic_launcher_round" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/arrangement_tittel"
             style="@style/Title_Style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -41,7 +33,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/txt_beskrivelse"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -51,31 +43,31 @@
             android:text="Arrangement tekst"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
+            app:layout_constraintTop_toBottomOf="@+id/arrangement_btn_blimed" />
 
         <Button
-            android:id="@+id/btnPaameldte"
+            android:id="@+id/arrangement_påmeldte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
             android:text="22 Påmeldte"
-            app:layout_constraintEnd_toStartOf="@+id/button2"
+            app:layout_constraintEnd_toStartOf="@+id/arrangement_btn_blimed"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/button2" />
+            app:layout_constraintTop_toTopOf="@+id/arrangement_btn_blimed" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/arrangement_btn_blimed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bli med"
-            app:layout_constraintEnd_toStartOf="@+id/button3"
+            app:layout_constraintEnd_toStartOf="@+id/arrangement_btn_skriv_innlegg"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnPaameldte"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+            app:layout_constraintStart_toEndOf="@+id/arrangement_påmeldte"
+            app:layout_constraintTop_toBottomOf="@+id/arrangement_tittel" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/arrangement_btn_skriv_innlegg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -84,11 +76,11 @@
             app:icon="@drawable/ic_message"
             app:iconPadding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/button2" />
+            app:layout_constraintTop_toTopOf="@+id/arrangement_btn_blimed" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView2"
-            android:name="com.example.gui3.FeedFragment"
+            android:name="com.example.gui3.fragments.FeedFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
@@ -98,7 +90,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_beskrivelse" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

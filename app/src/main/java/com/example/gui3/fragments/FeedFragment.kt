@@ -1,25 +1,28 @@
-package com.example.gui3
+package com.example.gui3.fragments
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.FragmentContainerView
-import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gui3.adaptorClasses.PostAdaptor
+import com.example.gui3.viewModels.FeedViewModel
+import com.example.gui3.R
+import com.example.gui3.dataObjekter.Post
 
-class FeedFragment(val listener: OnArrangementClick) : Fragment(), PostAdaptor.OnItemClickListener {
-
+class FeedFragment() : Fragment(), PostAdaptor.OnItemClickListener {
 
 
     private lateinit var viewModel: FeedViewModel
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +38,6 @@ class FeedFragment(val listener: OnArrangementClick) : Fragment(), PostAdaptor.O
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
 
-
-
         for (i in 1..50) {
             posts.add(
                 Post(
@@ -49,24 +50,19 @@ class FeedFragment(val listener: OnArrangementClick) : Fragment(), PostAdaptor.O
             )
         }
 
+
+
         val recyclerView = getView()?.findViewById<RecyclerView>(R.id.recyclerView)
 
         recyclerView?.layoutManager = LinearLayoutManager(view?.context)
         recyclerView?.adapter = PostAdaptor(posts, this)
 
-
-    }
-
-    interface OnArrangementClick{
-        fun onArrangementClick(position: Int)
     }
 
     override fun onItemClick(position: Int) {
-
-        val transaction = activity?.supportFragmentManager?.beginTransaction()
-        transaction?.replace(R.id.fragContainerUser, ArrangementFragment())
-        transaction?.addToBackStack(null)
-        transaction?.commit()
+        val post = posts[position]
+        val action = FeedFragmentDirections.actionFeedFragmentToArrangementFragment(post.tittel)
+        findNavController().navigate(action)
 
     }
 }

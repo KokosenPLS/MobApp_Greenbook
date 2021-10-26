@@ -1,6 +1,5 @@
-package com.example.gui3
+package com.example.gui3.adaptorClasses
 
-import android.opengl.Visibility
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +7,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gui3.dataObjekter.ChatMessage
+import com.example.gui3.R
 
 class ChatAdaptor(val meldinger: ArrayList<ChatMessage>): RecyclerView.Adapter<ChatAdaptor.ViewHolder>() {
 
