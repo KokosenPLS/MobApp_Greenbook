@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "555710395602",
+    "project_id": "greenbook-a2981",
+    "storage_bucket": "greenbook-a2981.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555710395602:android:a69bc14f4bb9a9eb6c690b",
+        "android_client_info": {
+          "package_name": "com.example.gui3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "555710395602-scf05lu2mqc4diuod3ggra7faq1eoonr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gui3",
+            "certificate_hash": "9f78e0a13a948474ef28826db18e23c526f07aba"
+          }
+        },
+        {
+          "client_id": "555710395602-v89fk2nh9rg8fd10t5l3f3i2fchgoqre.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCu3ac3Oy6IO8HRBM3WWdlTXoHt_EXBbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "555710395602-v89fk2nh9rg8fd10t5l3f3i2fchgoqre.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-package com.example.gui3
+package com.example.gui3.adaptorClasses
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,9 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gui3.R
+import com.example.gui3.dataObjekter.Profil
 import com.squareup.picasso.Picasso
 
-class ProfilAdaptor(val profiler: ArrayList<ProfilDisplay>,val listener: OnItemClickListener) : RecyclerView.Adapter<ProfilAdaptor.ViewHolder>(){
+class ProfilAdaptor(val profiler: ArrayList<Profil>, val listener: OnItemClickListener) : RecyclerView.Adapter<ProfilAdaptor.ViewHolder>(){
 
     inner class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView),
         View.OnClickListener{
@@ -33,8 +35,7 @@ class ProfilAdaptor(val profiler: ArrayList<ProfilDisplay>,val listener: OnItemC
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Picasso.get().load(profiler[position].img).into(holder.bilde)
-        holder.navn.text = profiler[position].navn
+        // TODO < Lage ny profiladaptor med connection til database >
     }
 
     interface OnItemClickListener{

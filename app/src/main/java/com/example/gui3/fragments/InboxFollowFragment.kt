@@ -1,26 +1,31 @@
-package com.example.gui3
+package com.example.gui3.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gui3.adaptorClasses.ProfilAdaptor
+import com.example.gui3.R
+import com.example.gui3.dataObjekter.Profil
 
 
 class InboxFollowFragment : Fragment(), ProfilAdaptor.OnItemClickListener {
 
+    private lateinit var posts: ArrayList<Profil>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val posts: ArrayList<ProfilDisplay> = ArrayList()
+        posts= ArrayList()
 
         for (i in 1..50) {
             posts.add(
-                ProfilDisplay(
-                    "https://picsum.photos/900/600?random&" + i,
-                    "Stein"+i
+                Profil(
+                    null, "Hauk"+i, "McStein", "mail@mail.com", "24/12/1998"
                 )
             )
         }
@@ -45,6 +50,7 @@ class InboxFollowFragment : Fragment(), ProfilAdaptor.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        TODO("Not yet implemented")
+        val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(posts[position].fornavn)
+        findNavController().navigate(action)
     }
 }

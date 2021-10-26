@@ -10,15 +10,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/txt_login"
             style="@style/Title_Style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,7 +28,7 @@
             android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress"
+            android:id="@+id/login_epost"
             style="@style/Margin_Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +38,7 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/login_passord"
             style="@style/Margin_Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,28 +48,27 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_login"
             style="@style/Margin_Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Logg_inn" />
 
+        <Button
+            android:id="@+id/btn_ikke_registrert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Registrer_deg" />
+
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/txt_glemt_passord"
             style="@style/logg_inn_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autoLink="web"
             android:linksClickable="true"
+            android:paddingTop="5dp"
             android:text="@string/Glemt_passord" />
-
-        <TextView
-            android:id="@+id/textView6"
-            style="@style/logg_inn_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:text="Ikke bruker? Registrer deg her" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

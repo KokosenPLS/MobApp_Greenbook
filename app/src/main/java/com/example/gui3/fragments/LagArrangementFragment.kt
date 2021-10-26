@@ -1,11 +1,14 @@
-package com.example.gui3
+package com.example.gui3.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-class ProfilFragment : Fragment() {
+import com.example.gui3.R
+
+class LagArrangementFragment : Fragment() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -14,10 +17,10 @@ class ProfilFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_profil, container, false)
+        return inflater.inflate(R.layout.fragment_lag_arrangement, container, false)
     }
 
     companion object {
-        fun newInstance() = ProfilFragment()
+        fun newInstance()  = LagArrangementFragment()
     }
 }

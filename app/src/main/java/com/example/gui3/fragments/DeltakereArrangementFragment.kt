@@ -1,4 +1,4 @@
-package com.example.gui3
+package com.example.gui3.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gui3.R
+import com.example.gui3.adaptorClasses.Deltaker_Adapter
+import com.example.gui3.dataObjekter.DeltakerDisplay
 
 
-
-
-class DeltakereArrangement : Fragment(), Deltaker_Adapter.OnItemClickListener {
+class DeltakereArrangementFragment : Fragment(), Deltaker_Adapter.OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +41,7 @@ class DeltakereArrangement : Fragment(), Deltaker_Adapter.OnItemClickListener {
     }
 
     companion object {
-        fun newInstance() = DeltakereArrangement()
+        fun newInstance() = DeltakereArrangementFragment()
     }
 
     override fun onItemClick(position: Int) {

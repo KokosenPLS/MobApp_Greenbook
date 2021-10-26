@@ -1,4 +1,4 @@
-package com.example.gui3
+package com.example.gui3.viewModels
 
 import androidx.lifecycle.ViewModel
 

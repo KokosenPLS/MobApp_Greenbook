@@ -1,12 +1,13 @@
-package com.example.gui3
+package com.example.gui3.adaptorClasses
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gui3.R
+import com.example.gui3.dataObjekter.Post
 import com.squareup.picasso.Picasso
 
 class PostAdaptor(val posts : ArrayList<Post>, val listener: OnItemClickListener) : RecyclerView.Adapter<PostAdaptor.ViewHolder>() {
