@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loggInnFragment"
-        android:name="com.example.gui3.fragments.LoggInnFragment"
+        android:name="com.example.greenbook.fragments.LoggInnFragment"
         android:label="LoggInnFragment" >
         <action
             android:id="@+id/action_loggInnFragment_to_registrerFragment"
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/registrerFragment"
-        android:name="com.example.gui3.fragments.RegistrerFragment"
+        android:name="com.example.greenbook.fragments.RegistrerFragment"
         android:label="RegistrerFragment" >
         <action
             android:id="@+id/action_registrerFragment_to_feedFragment"
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.example.gui3.fragments.FeedFragment"
+        android:name="com.example.greenbook.fragments.FeedFragment"
         android:label="Feed"
         tools:layout="@layout/feed_fragment" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/arrangementFragment"
-        android:name="com.example.gui3.fragments.ArrangementFragment"
+        android:name="com.example.greenbook.fragments.ArrangementFragment"
         android:label="fragment_arrangement"
         tools:layout="@layout/fragment_arrangement" >
         <argument
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/profilFragment"
-        android:name="com.example.gui3.fragments.ProfilFragment"
+        android:name="com.example.greenbook.fragments.ProfilFragment"
         android:label="fragment_profil"
         tools:layout="@layout/fragment_profil" >
         <argument
@@ -60,9 +60,9 @@
     </fragment>
     <fragment
         android:id="@+id/lagArrangementFragment"
-        android:name="com.example.gui3.fragments.LagArrangementFragment"
-        android:label="fragment_lag_arrangement"
-        tools:layout="@layout/fragment_lag_arrangement" >
+        android:name="com.example.greenbook.fragments.LagArrangementFragment"
+        android:label="Lag nytt arrangement"
+        tools:layout="@layout/fragment_lag_arrangement">
         <action
             android:id="@+id/action_lagArrangementFragment_to_arrangementFragment"
             app:destination="@id/arrangementFragment" />
@@ -70,7 +70,7 @@
     <action android:id="@+id/action_global_lagArrangementFragment" app:destination="@id/lagArrangementFragment" />
     <fragment
         android:id="@+id/inboxFragment"
-        android:name="com.example.gui3.fragments.InboxFragment"
+        android:name="com.example.greenbook.fragments.InboxFragment"
         android:label="Inboks" >
         <action
             android:id="@+id/action_inboxFragment_to_chatFragment"
@@ -80,7 +80,7 @@
     <action android:id="@+id/action_global_profilFragment" app:destination="@id/profilFragment" />
     <fragment
         android:id="@+id/deltakereArrangement"
-        android:name="com.example.gui3.fragments.DeltakereArrangementFragment"
+        android:name="com.example.greenbook.fragments.DeltakereArrangementFragment"
         android:label="fragment_deltakere_arrangement"
         tools:layout="@layout/fragment_deltakere_arrangement" >
         <argument
@@ -89,7 +89,7 @@
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.example.gui3.fragments.ChatFragment"
+        android:name="com.example.greenbook.fragments.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" >
         <argument
