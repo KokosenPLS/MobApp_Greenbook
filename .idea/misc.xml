@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Koding/Greenbook/app/src/main/res/layout/activity_lag_arrangement.xml" value="0.36666666666666664" />
         <entry key="..\:/Koding/Greenbook/app/src/main/res/layout/activity_test.xml" value="0.36666666666666664" />
+        <entry key="..\:/Koding/Greenbook/app/src/main/res/layout/arrangement_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Koding/Greenbook/app/src/main/res/layout/feed_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Koding/Greenbook/app/src/main/res/layout/fragment_arrangement.xml" value="0.36666666666666664" />
         <entry key="..\:/Koding/Greenbook/app/src/main/res/layout/fragment_registrer.xml" value="0.36666666666666664" />
         <entry key="..\:/Koding/Greenbook/app/src/main/res/layout/fragment_test_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Koding/Greenbook/app/src/main/res/layout/fragment_test_login.xml" value="0.36666666666666664" />
