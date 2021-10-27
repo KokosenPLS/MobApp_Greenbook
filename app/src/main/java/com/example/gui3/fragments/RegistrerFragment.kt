@@ -12,8 +12,6 @@ import com.example.gui3.R
 import com.example.gui3.dataObjekter.Profil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
@@ -34,7 +32,6 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
 
         auth = Firebase.auth
         database = Database()
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,37 +46,33 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
         fdato_year = view?.findViewById(R.id.fdato_year)
 
         view?.findViewById<Button>(R.id.btn_registrer).setOnClickListener {
-            if (Patterns.EMAIL_ADDRESS.matcher(email.text).matches() && passord.text != null && isDatoValid()){
+
+            if (Patterns.EMAIL_ADDRESS.matcher(email.text).matches() && passord.text != null && isDatoValid()) {
 
                 auth.createUserWithEmailAndPassword(email.text.toString(), passord.text.toString())
-                    .addOnCompleteListener(requireActivity()){task ->
-                        if(task.isSuccessful){
+                    .addOnCompleteListener(requireActivity()) { task ->
+                        if (task.isSuccessful) {
                             val user = auth.currentUser
-
-                            val uid = user?.uid
-
-                            Toast.makeText(context, "Bruker lagt til: $uid", Toast.LENGTH_LONG).show()
-
                             val bruker = Profil(
-                                uid!!,
+                                email.text.toString(),
                                 fornavn.text.toString(),
                                 etternavn.text.toString(),
-                                email.text.toString(),
-                                fdato_day.text.toString()+"/"+fdato_month.text.toString()+"/"+fdato_year.text.toString()
+                                fdato_day.text.toString() + "/" + fdato_month.text.toString() + "/" + fdato_year.text.toString()
                             )
-
-                            database.addBruker(bruker)
-
+                            database.addBruker(user?.uid!!, bruker)
                             reload()
-
-                        }
-                        else {
-                            Toast.makeText(context, "Autentisering feilet: ${task.exception.toString()}", Toast.LENGTH_LONG).show()
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "Autentisering feilet: ${task.exception.toString()}",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     }
-
             }
         }
+
+
 
     }
 

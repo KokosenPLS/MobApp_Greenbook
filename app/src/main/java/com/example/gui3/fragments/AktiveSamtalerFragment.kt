@@ -38,7 +38,7 @@ class AktiveSamtalerFragment : Fragment(), ProfilAdaptor.OnItemClickListener {
         for (i in 1..50) {
             posts.add(
                 Profil(
-                    null, "Hauk"+i, "McStein", "mail@mail.com", "24/12/1998"
+                    "Hauk"+i, "McStein", "mail@mail.com", "24/12/1998"
                 )
             )
         }
