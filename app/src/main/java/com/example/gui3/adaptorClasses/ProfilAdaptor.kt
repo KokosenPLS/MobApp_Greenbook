@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gui3.R
 import com.example.gui3.dataObjekter.Profil
-import com.squareup.picasso.Picasso
 
 class ProfilAdaptor(val profiler: ArrayList<Profil>, val listener: OnItemClickListener) : RecyclerView.Adapter<ProfilAdaptor.ViewHolder>(){
 

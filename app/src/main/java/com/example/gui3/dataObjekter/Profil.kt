@@ -1,10 +1,9 @@
 package com.example.gui3.dataObjekter
 
 data class Profil(
-    val brukerID: String? = null,
+    val email: String,
     val fornavn: String,
     val etternavn: String,
-    val email: String,
-    val fdato: String,
+    val fdato: String? = null,
     val imgUrl: String? = null
 )
