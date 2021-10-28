@@ -2,6 +2,7 @@ package com.example.greenbook.fragments
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.example.greenbook.Database
 import com.example.greenbook.R
 import com.example.greenbook.dataObjekter.Arrangement
@@ -19,7 +21,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-class LagArrangementFragment : Fragment() {
+class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
 
     lateinit var tittelTF: EditText
     lateinit var beskrivelseTF: EditText
@@ -43,13 +45,6 @@ class LagArrangementFragment : Fragment() {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_lag_arrangement, container, false)
-    }
-
     // TODO: 10/27/2021 Truls: Gjør om beskrivelse til et popupvindu? 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,6 +61,7 @@ class LagArrangementFragment : Fragment() {
 
         btnLag.setOnClickListener {
             val arr = Arrangement(
+                null,
                 user.uid,
                 tittelTF.text.toString(),
                 beskrivelseTF.text.toString(),
@@ -75,14 +71,13 @@ class LagArrangementFragment : Fragment() {
                 plasserTF.text.toString().toInt()
             )
 
-            database.addArrangement(arr)
+            val arrangementId = database.addArrangement(arr)
+            Log.i("huge", arrangementId)
+            val action = LagArrangementFragmentDirections.actionLagArrangementFragmentToArrangementFragment(arrangementId)
+            findNavController().navigate(action)
 
         }
 
-    }
-
-    companion object {
-        fun newInstance()  = LagArrangementFragment()
     }
 
     // TODO: 10/27/2021 Truls: metode for å gjøre det ryddigerer, usikker på om det funker å kalle de der med !!

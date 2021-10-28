@@ -1,13 +1,13 @@
 package com.example.greenbook.dataObjekter
 
-// TODO: 10/27/2021 legg til beskrivelse
 data class Arrangement(
-    val arrangør: String,
-    val tittel: String,
-    val beskrivelse: String,
-    val sted: String,
+    val arrangementId: String ?= null,
+    val arrangør: String ?= null,
+    val tittel: String ?= null,
+    val beskrivelse: String ?= null,
+    val sted: String ?= null,
     val dato: String? = null,
-    val tid: String,
-    val plasser: Int,
+    val tid: String ?= null,
+    val plasser: Int ?= null,
     val bildeUrl: String? = null
 )

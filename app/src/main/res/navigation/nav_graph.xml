@@ -65,7 +65,9 @@
         tools:layout="@layout/fragment_lag_arrangement">
         <action
             android:id="@+id/action_lagArrangementFragment_to_arrangementFragment"
-            app:destination="@id/arrangementFragment" />
+            app:destination="@id/arrangementFragment"
+            app:popUpTo="@id/feedFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <action android:id="@+id/action_global_lagArrangementFragment" app:destination="@id/lagArrangementFragment" />
     <fragment
