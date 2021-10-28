@@ -36,6 +36,9 @@ class FeedFragment() : Fragment(R.layout.feed_fragment), PostAdaptor.OnItemClick
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
+
+
         auth = Firebase.auth
         user = auth.currentUser!!
         database = Database()
@@ -43,6 +46,8 @@ class FeedFragment() : Fragment(R.layout.feed_fragment), PostAdaptor.OnItemClick
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         hentArrangementer()
     }
@@ -65,7 +70,7 @@ class FeedFragment() : Fragment(R.layout.feed_fragment), PostAdaptor.OnItemClick
     }
 
     private fun update(arr: ArrayList<Arrangement>){
-        viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
+
         val recyclerView = getView()?.findViewById<RecyclerView>(R.id.recyclerView)
 
         recyclerView?.layoutManager = LinearLayoutManager(view?.context)
