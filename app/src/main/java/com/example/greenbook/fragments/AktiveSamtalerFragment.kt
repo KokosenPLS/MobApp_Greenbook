@@ -16,11 +16,6 @@ class AktiveSamtalerFragment : Fragment(), ProfilAdaptor.OnItemClickListener {
 
     private lateinit var posts: ArrayList<Profil>
 
-    companion object {
-        fun newInstance() = AktiveSamtalerFragment()
-    }
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
