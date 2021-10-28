@@ -78,15 +78,15 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/lag_arrangement_dp_icon"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/registrer_bruker_dp_icon"
+                        style="@style/Margin_Default"
+                        android:layout_width="55dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        style="@style/Margin_Default"
                         android:src="@drawable/arrangement" />
 
                     <TextView
-                        android:id="@+id/lag_arrangement_datepicker"
+                        android:id="@+id/registrer_bruker_datepicker"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -94,14 +94,29 @@
                         android:hint="@string/hint_datepicker"/>
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/txt_tid"
-                    style="@style/Margin_Default"
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Tid"
-                    android:inputType="time" />
+                    android:background="@drawable/myrect"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/txt_lag_arrangement_tidKnapp"
+                        style="@style/Margin_Default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:src="@android:drawable/ic_menu_recent_history" />
+
+                    <TextView
+                        android:id="@+id/txt_lag_arrangement_tid"
+                        style="@style/Margin_Default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Trykk på bilde for å velge tid" />
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/txt_plasser"

@@ -1,11 +1,11 @@
 package com.example.greenbook.fragments
 
+import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.greenbook.Database
 import com.example.greenbook.R
@@ -13,6 +13,7 @@ import com.example.greenbook.dataObjekter.Profil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
 
@@ -21,11 +22,11 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
 
     private lateinit var email: EditText
     private lateinit var passord: EditText
+    private lateinit var passord2: EditText
     private lateinit var fornavn: EditText
     private lateinit var etternavn: EditText
-    private lateinit var fdato_day: EditText
-    private lateinit var fdato_month: EditText
-    private lateinit var fdato_year: EditText
+    private lateinit var fdato: TextView
+    private lateinit var datoKnapp: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,17 +39,16 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
         super.onViewCreated(view, savedInstanceState)
 
         email = view?.findViewById(R.id.txt_email)
-        passord = view?.findViewById(R.id.txt_passord)
+        passord = view?.findViewById(R.id.registrer_bruker_passord_1)
+        passord2 = view?.findViewById(R.id.registrer_bruker_passord_2)
         fornavn = view?.findViewById(R.id.txt_tittel)
         etternavn = view?.findViewById(R.id.txt_etternavn)
-        fdato_day = view?.findViewById(R.id.fdato_day)
-        fdato_month = view?.findViewById(R.id.fdato_month)
-        fdato_year = view?.findViewById(R.id.fdato_year)
+
+        datepicker()
 
         view?.findViewById<Button>(R.id.btn_registrer).setOnClickListener {
-
-            if (Patterns.EMAIL_ADDRESS.matcher(email.text).matches() && passord.text != null && isDatoValid()) {
-
+            if (Patterns.EMAIL_ADDRESS.matcher(email.text).matches() && passord.text != null && passord2.getText().toString().equals( passord.getText().toString())) { // TODO: 10/28/2021 denne koden sto på slutten her: && isDatoValid()
+                Log.i("key",passord2.text.equals(passord.text).toString())
                 auth.createUserWithEmailAndPassword(email.text.toString(), passord.text.toString())
                     .addOnCompleteListener(requireActivity()) { task ->
                         if (task.isSuccessful) {
@@ -57,7 +57,7 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
                                 email.text.toString(),
                                 fornavn.text.toString(),
                                 etternavn.text.toString(),
-                                fdato_day.text.toString() + "/" + fdato_month.text.toString() + "/" + fdato_year.text.toString()
+                                fdato.text.toString()
                             )
                             database.addBruker(user?.uid!!, bruker)
                             reload()
@@ -76,7 +76,26 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
 
     }
 
-    private fun isDatoValid(): Boolean{
+    fun datepicker() {
+        // TODO: Truls lettere om du også gjøre textview klikkbar
+        datoKnapp = view?.findViewById(R.id.registrer_bruker_dp_icon)!!
+        fdato = view?.findViewById(R.id.registrer_bruker_datepicker)!!
+
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        datoKnapp.setOnClickListener {
+            val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener{ view, mYear, mMonth, mDay ->
+                fdato.setText(""+mDay+"/"+mMonth+"/"+mYear)
+            }, year, month, day)
+            dpd.show()
+        }
+    }
+
+    // TODO: 10/28/2021 lar denne stå her, du kan da velge hva du skal gjøre med den
+    /*private fun isDatoValid(): Boolean{
 
         val day = fdato_day.text.toString().toInt()
         val month = fdato_month.text.toString().toInt()
@@ -102,7 +121,7 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
             }
 
         return false
-    }
+    }*/
 
     private fun reload(){
         activity?.finish()
