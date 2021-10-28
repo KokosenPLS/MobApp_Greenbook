@@ -48,7 +48,6 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
 
         view?.findViewById<Button>(R.id.btn_registrer).setOnClickListener {
             if (Patterns.EMAIL_ADDRESS.matcher(email.text).matches() && passord.text != null && passord2.getText().toString().equals( passord.getText().toString())) { // TODO: 10/28/2021 denne koden sto på slutten her: && isDatoValid()
-                Log.i("key",passord2.text.equals(passord.text).toString())
                 auth.createUserWithEmailAndPassword(email.text.toString(), passord.text.toString())
                     .addOnCompleteListener(requireActivity()) { task ->
                         if (task.isSuccessful) {
