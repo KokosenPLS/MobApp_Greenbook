@@ -17,5 +17,6 @@
     <string name="glemt_felt_dato">du må velge en dato!</string>
     <string name="glemt_felt_tid">Du må velge et tidspunkt!!</string>
     <string name="glemt_felt_plasser">Du må velge antall plasser!</string>
+    <string name="title_activity_maps">Google Search Location</string>
 
 </resources>

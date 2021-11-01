@@ -1,10 +1,13 @@
 package com.example.greenbook.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
@@ -31,6 +34,7 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement) {
     private lateinit var påmeldte: Button
     private lateinit var btn_join: Button
     private lateinit var skrivInlegg: Button
+    private lateinit var googleMapsImage: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +51,7 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement) {
         påmeldte = view?.findViewById(R.id.arrangement_påmeldte)
         btn_join = view?.findViewById(R.id.arrangement_btn_blimed)
         skrivInlegg = view?.findViewById(R.id.arrangement_btn_skriv_innlegg)
+        googleMapsImage = view?.findViewById(R.id.arrangement_goToGoogleMaps)
 
         updateUI()
 
@@ -58,6 +63,13 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement) {
             else{
                 database.meldBrukerAvArrangement(user.uid, args.arrangementID)
             }
+        }
+
+        googleMapsImage.setOnClickListener {
+            val gmmIntentUri = Uri.parse("geo:0,0?q=-33.8666,151.1957")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            startActivity(mapIntent)
         }
 
     }
