@@ -57,46 +57,51 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
 
 
         btnLag.setOnClickListener {
-            val arr = Arrangement(
-                null,
-                user.uid,
-                tittelTF.text.toString(),
-                beskrivelseTF.text.toString(),
-                stedTF.text.toString(),
-                dateTV.text.toString(),
-                tidTF.text.toString(),
-                plasserTF.text.toString().toInt()
-            )
-            if (tittelTF.text.isEmpty() || beskrivelseTF.text.isEmpty() || stedTF.text.isEmpty() || dateTV.text.isEmpty() || tidTF.text.isEmpty()) {
-                if(tittelTF.text.isEmpty()) {
-                    tittelTF.setError(resources.getString(R.string.glemt_felt_tittel))
-                    //tittelTF.setHintTextColor(resources.getColor(R.color.error))
+            if(!plasserTF.text.isEmpty()){
+
+                val arr = Arrangement(
+                    null,
+                    user.uid,
+                    tittelTF.text.toString(),
+                    beskrivelseTF.text.toString(),
+                    stedTF.text.toString(),
+                    dateTV.text.toString(),
+                    tidTF.text.toString(),
+                    plasserTF.text.toString().toInt()
+                )
+                if (tittelTF.text.isEmpty() || beskrivelseTF.text.isEmpty() || stedTF.text.isEmpty() || dateTV.text.isEmpty() || tidTF.text.isEmpty()) {
+                    if(tittelTF.text.isEmpty()) {
+                        tittelTF.setError(resources.getString(R.string.glemt_felt_tittel))
+                        //tittelTF.setHintTextColor(resources.getColor(R.color.error))
+                    }
+                    if (beskrivelseTF.text.isEmpty()) {
+                        beskrivelseTF.setError(resources.getString(R.string.glemt_felt_beskrivelse))
+                        //beskrivelseTF.setHintTextColor(resources.getColor(R.color.error))
+                    }
+                    if(stedTF.text.isEmpty()) {
+                        stedTF.setError(resources.getString(R.string.glemt_felt_sted))
+                        //stedTF.setHintTextColor(resources.getColor(R.color.error))
+                    }
+                    if(dateTV.text.isEmpty()) {
+                        dateTV.setError(resources.getString(R.string.glemt_felt_dato))
+                        //dateTV.setHintTextColor(resources.getColor(R.color.error))
+                    }
+                    if (tidTF.text.isEmpty()) {
+                        tidTF.setError(resources.getString(R.string.glemt_felt_tid))
+                        //tidTF.setHintTextColor(resources.getColor(R.color.error))
+                    }
+                } else {
+                    val arrangementId = database.addArrangement(arr)
+                    Log.i("huge", arrangementId)
+                    val action =
+                        LagArrangementFragmentDirections.actionLagArrangementFragmentToArrangementFragment(
+                            arrangementId
+                        )
+                    findNavController().navigate(action)
                 }
-                if (beskrivelseTF.text.isEmpty()) {
-                    beskrivelseTF.setError(resources.getString(R.string.glemt_felt_beskrivelse))
-                    //beskrivelseTF.setHintTextColor(resources.getColor(R.color.error))
-                }
-                if(stedTF.text.isEmpty()) {
-                    stedTF.setError(resources.getString(R.string.glemt_felt_sted))
-                    //stedTF.setHintTextColor(resources.getColor(R.color.error))
-                }
-                if(dateTV.text.isEmpty()) {
-                    dateTV.setError(resources.getString(R.string.glemt_felt_dato))
-                    //dateTV.setHintTextColor(resources.getColor(R.color.error))
-                }
-                if (tidTF.text.isEmpty()) {
-                    tidTF.setError(resources.getString(R.string.glemt_felt_tid))
-                    //tidTF.setHintTextColor(resources.getColor(R.color.error))
-                }
-            } else {
-                val arrangementId = database.addArrangement(arr)
-                Log.i("huge", arrangementId)
-                val action =
-                    LagArrangementFragmentDirections.actionLagArrangementFragmentToArrangementFragment(
-                        arrangementId
-                    )
-                findNavController().navigate(action)
+
             }
+
 
         }
 

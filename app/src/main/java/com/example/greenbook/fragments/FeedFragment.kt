@@ -63,6 +63,7 @@ class FeedFragment() : Fragment(R.layout.feed_fragment), PostAdaptor.OnItemClick
                 update(arrangement)
             }
             override fun onCancelled(error: DatabaseError) {
+
             }
         }
         database.database.child("arrangement").addValueEventListener(arrangementListener)
