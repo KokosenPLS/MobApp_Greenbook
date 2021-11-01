@@ -69,24 +69,24 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
             )
             if (tittelTF.text.isEmpty() || beskrivelseTF.text.isEmpty() || stedTF.text.isEmpty() || dateTV.text.isEmpty() || tidTF.text.isEmpty()) {
                 if(tittelTF.text.isEmpty()) {
-                    tittelTF.setHint(resources.getString(R.string.glemt_felt_tittel))
-                    tittelTF.setHintTextColor(resources.getColor(R.color.error))
+                    tittelTF.setError(resources.getString(R.string.glemt_felt_tittel))
+                    //tittelTF.setHintTextColor(resources.getColor(R.color.error))
                 }
                 if (beskrivelseTF.text.isEmpty()) {
-                    beskrivelseTF.setHint(resources.getString(R.string.glemt_felt_beskrivelse))
-                    beskrivelseTF.setHintTextColor(resources.getColor(R.color.error))
+                    beskrivelseTF.setError(resources.getString(R.string.glemt_felt_beskrivelse))
+                    //beskrivelseTF.setHintTextColor(resources.getColor(R.color.error))
                 }
                 if(stedTF.text.isEmpty()) {
-                    stedTF.setHint(resources.getString(R.string.glemt_felt_sted))
-                    stedTF.setHintTextColor(resources.getColor(R.color.error))
+                    stedTF.setError(resources.getString(R.string.glemt_felt_sted))
+                    //stedTF.setHintTextColor(resources.getColor(R.color.error))
                 }
                 if(dateTV.text.isEmpty()) {
-                    dateTV.setHint(resources.getString(R.string.glemt_felt_dato))
-                    dateTV.setHintTextColor(resources.getColor(R.color.error))
+                    dateTV.setError(resources.getString(R.string.glemt_felt_dato))
+                    //dateTV.setHintTextColor(resources.getColor(R.color.error))
                 }
                 if (tidTF.text.isEmpty()) {
-                    tidTF.setHint(resources.getString(R.string.glemt_felt_tid))
-                    tidTF.setHintTextColor(resources.getColor(R.color.error))
+                    tidTF.setError(resources.getString(R.string.glemt_felt_tid))
+                    //tidTF.setHintTextColor(resources.getColor(R.color.error))
                 }
             } else {
                 val arrangementId = database.addArrangement(arr)

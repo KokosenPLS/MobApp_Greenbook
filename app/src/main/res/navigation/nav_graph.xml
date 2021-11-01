@@ -17,6 +17,9 @@
             app:destination="@id/feedFragment"
             app:popUpTo="@id/loggInnFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loggInnFragment_to_glemtPassordFragment"
+            app:destination="@id/glemtPassordFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrerFragment"
@@ -98,4 +101,9 @@
             android:name="brukerID"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/glemtPassordFragment"
+        android:name="com.example.greenbook.fragments.GlemtPassordFragment"
+        android:label="fragment_glemt_passord"
+        tools:layout="@layout/fragment_glemt_passord" />
 </navigation>

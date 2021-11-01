@@ -13,7 +13,11 @@ import com.example.greenbook.dataObjekter.Profil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
 
@@ -47,32 +51,63 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
         datepicker()
 
         view?.findViewById<Button>(R.id.btn_registrer).setOnClickListener {
-            if (Patterns.EMAIL_ADDRESS.matcher(email.text).matches() && passord.text != null && passord2.getText().toString().equals( passord.getText().toString())) { // TODO: 10/28/2021 denne koden sto på slutten her: && isDatoValid()
-                auth.createUserWithEmailAndPassword(email.text.toString(), passord.text.toString())
-                    .addOnCompleteListener(requireActivity()) { task ->
-                        if (task.isSuccessful) {
-                            val user = auth.currentUser
-                            val bruker = Profil(
-                                email.text.toString(),
-                                fornavn.text.toString(),
-                                etternavn.text.toString(),
-                                fdato.text.toString()
-                            )
-                            database.addBruker(user?.uid!!, bruker)
-                            reload()
-                        } else {
-                            Toast.makeText(
-                                context,
-                                "Autentisering feilet: ${task.exception.toString()}",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
+                if(email.text.isEmpty()){
+                    email.setError(resources.getString(R.string.tomEpost_error))
+                    //email.setHintTextColor(resources.getColor(R.color.error))
+                }else if(isEmailValid(email.toString()))
+                    else email.setError(resources.getString(R.string.validitetEpost_error))
+
+                if(passord.text.isEmpty()){
+                    passord.setError(resources.getString(R.string.tomPassord_error))
+                    //passord.setHintTextColor(resources.getColor(R.color.error))
+                }
+                if(passord2.text.isEmpty()){
+                    passord.setError(resources.getString(R.string.tomPassord_error))
+                    //passord2.setHintTextColor(resources.getColor(R.color.error))
+                }
+                if(fornavn.text.isEmpty()){
+                    fornavn.setError(resources.getString(R.string.tomFornavn_error))
+                    //fornavn.setHintTextColor(resources.getColor(R.color.error))
+                }
+                if(etternavn.text.isEmpty()){
+                    etternavn.setError(resources.getString(R.string.tomEtternavn_error))
+                    //etternavn.setHintTextColor(resources.getColor(R.color.error))
+                }
+                if(fdato.text.isEmpty()){
+                    fdato.setHint(resources.getString(R.string.tomFDato_error))
+                    fdato.setHintTextColor(resources.getColor(R.color.error))
+                }
+
+                if(passord.text != null && passord2.getText().toString().equals(passord.getText().toString())){
+                    if (Patterns.EMAIL_ADDRESS.matcher(email.text).matches()) { // TODO: 10/28/2021 denne koden sto på slutten her: && isDatoValid()
+                        auth.createUserWithEmailAndPassword(email.text.toString(), passord.text.toString())
+                            .addOnCompleteListener(requireActivity()) { task ->
+                                if (task.isSuccessful) {
+                                    val user = auth.currentUser
+                                    val bruker = Profil(
+                                        email.text.toString(),
+                                        fornavn.text.toString(),
+                                        etternavn.text.toString(),
+                                        fdato.text.toString()
+                                    )
+                                    database.addBruker(user?.uid!!, bruker)
+                                    reload()
+                                } else{
+                                    Toast.makeText(
+                                        context,
+                                        "Autentisering feilet: ${task.exception.toString()}",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
                     }
-            }
+                }else{
+                    passord.setError(resources.getString(R.string.passordMatch_error))
+                    //passord.setHintTextColor(resources.getColor(R.color.error))
+                    passord.setError(resources.getString(R.string.passordMatch_error))
+                    //passord2.setHintTextColor(resources.getColor(R.color.error))
+                }
         }
-
-
-
     }
 
     fun datepicker() {
@@ -80,12 +115,16 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
         datoKnapp = view?.findViewById(R.id.registrer_bruker_dp_icon)!!
         fdato = view?.findViewById(R.id.registrer_bruker_datepicker)!!
 
+        //Vet ikke om du har funnet koden her, Truls?
+        //https://stackoverflow.com/questions/45842167/how-to-use-datepickerdialog-in-kotlin   ???
+
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
         datoKnapp.setOnClickListener {
+
             val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener{ view, mYear, mMonth, mDay ->
                 fdato.setText(""+mDay+"/"+mMonth+"/"+mYear)
             }, year, month, day)
@@ -94,6 +133,7 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
     }
 
     // TODO: 10/28/2021 lar denne stå her, du kan da velge hva du skal gjøre med den
+
     /*private fun isDatoValid(): Boolean{
 
         val day = fdato_day.text.toString().toInt()
@@ -127,6 +167,11 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
         startActivity(activity?.intent)
     }
 
+    //https://roytuts.com/validate-email-address-with-regular-expression-using-kotlin/
+    val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
+    fun isEmailValid(email: String): Boolean {
+        return EMAIL_REGEX.toRegex().matches(email);
+    }
 
     companion object {
         fun newInstance(param1: String, param2: String) = RegistrerFragment()

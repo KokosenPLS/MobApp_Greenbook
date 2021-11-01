@@ -1,4 +1,5 @@
 <resources>
+    <!-- Generelle -->
     <string name="app_name">Greenbook</string>
     <string name="Greenbook">Greenbook</string>
     <string name="Logg_inn">Logg inn</string>
@@ -10,12 +11,25 @@
     <string name="Allerede_Bruker">Allerede bruker? Trykk her for å logge inn</string>
     <string name="navigation_open_drawer">Open navigation drawer</string>
     <string name="navigation_close_drawer">Close navigation drawer</string>
+
+    <!-- LagArrangementFragment-->
     <string name="hint_datepicker">Trykk på bilde for å velge dato</string>
-    <string name="glemt_felt_tittel">Tittel kan ikke være tom!</string>
-    <string name="glemt_felt_beskrivelse">beskrivelse kan ikke være tom!</string>
-    <string name="glemt_felt_sted">Du må velge et sted!</string>
-    <string name="glemt_felt_dato">du må velge en dato!</string>
-    <string name="glemt_felt_tid">Du må velge et tidspunkt!!</string>
-    <string name="glemt_felt_plasser">Du må velge antall plasser!</string>
+    <string name="glemt_felt_tittel">Tittel kan ikke være tom</string>
+    <string name="glemt_felt_beskrivelse">Beskrivelse kan ikke være tom</string>
+    <string name="glemt_felt_sted">Du må velge et sted</string>
+    <string name="glemt_felt_dato">Du må velge en dato</string>
+    <string name="glemt_felt_tid">Du må velge et tidspunkt</string>
+    <string name="glemt_felt_plasser">Du må velge antall plasser</string>
+
+    <!-- RegistrerFragment--> <!-- LoggInnFragment --> <!-- GlemtPassordFragment -->
+    <string name="tomEpost_error">E-post må fylles ut</string>
+    <string name="validitetEpost_error">E-post kan ikke valideres</string>
+    <string name="tomPassord_error">Passord må fylles ut</string>
+    <string name="tomFornavn_error">Fornavn må fylles ut</string>
+    <string name="tomEtternavn_error">Etternavn må fylles ut</string>
+    <string name="tomFDato_error">Fødselsdato må fylles ut</string>
+    <string name="passordMatch_error">Passordene matcher ikke</string>
+    <string name="feilLogInn">Feil med login, prøv igjen</string>
+    <string name="sendtEpost">E-post har blitt sendt til</string>
 
 </resources>
