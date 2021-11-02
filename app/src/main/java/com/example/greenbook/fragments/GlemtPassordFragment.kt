@@ -36,10 +36,7 @@ class GlemtPassordFragment : Fragment(R.layout.fragment_glemt_passord) {
         view?.findViewById<Button>(R.id.glemtPassord).setOnClickListener{
             val epost: String = glemtPassord_epost.text.toString().trim{it <= ' '}
             if(epost.isEmpty()){
-                Toast.makeText(activity,
-                    resources.getString(R.string.tomEpost_error),
-                    Toast.LENGTH_LONG
-                ).show()
+                glemtPassord_epost.setError(resources.getString(R.string.tomEpost_error))
             }else if(isEmailValid(epost.toString()) == false)
                 Toast.makeText(activity,
                     resources.getString(R.string.validitetEpost_error),
@@ -61,8 +58,8 @@ class GlemtPassordFragment : Fragment(R.layout.fragment_glemt_passord) {
         }
     }
     //https://roytuts.com/validate-email-address-with-regular-expression-using-kotlin/
-    val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
+    //val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
     fun isEmailValid(email: String): Boolean {
-        return EMAIL_REGEX.toRegex().matches(email);
+        return resources.getString(R.string.EMAIL_REGEX).toRegex().matches(email)
     }
 }

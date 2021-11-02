@@ -13,6 +13,7 @@ import com.example.greenbook.dataObjekter.Profil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.security.Key
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -54,15 +55,17 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
                 if(email.text.isEmpty()){
                     email.setError(resources.getString(R.string.tomEpost_error))
                     //email.setHintTextColor(resources.getColor(R.color.error))
+                    //Denne er litt bugga/funker ikke
                 }else if(isEmailValid(email.toString()))
-                    else email.setError(resources.getString(R.string.validitetEpost_error))
+                        email.setError(resources.getString(R.string.validitetEpost_error))
+                        Log.i("Key",email.toString())
 
                 if(passord.text.isEmpty()){
                     passord.setError(resources.getString(R.string.tomPassord_error))
                     //passord.setHintTextColor(resources.getColor(R.color.error))
                 }
                 if(passord2.text.isEmpty()){
-                    passord.setError(resources.getString(R.string.tomPassord_error))
+                    passord2.setError(resources.getString(R.string.tomPassord_error))
                     //passord2.setHintTextColor(resources.getColor(R.color.error))
                 }
                 if(fornavn.text.isEmpty()){
@@ -78,36 +81,34 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
                     fdato.setHintTextColor(resources.getColor(R.color.error))
                 }
 
-                if(passord.text != null && passord2.getText().toString().equals(passord.getText().toString())){
-                    if (Patterns.EMAIL_ADDRESS.matcher(email.text).matches()) { // TODO: 10/28/2021 denne koden sto på slutten her: && isDatoValid()
-                        auth.createUserWithEmailAndPassword(email.text.toString(), passord.text.toString())
-                            .addOnCompleteListener(requireActivity()) { task ->
-                                if (task.isSuccessful) {
-                                    val user = auth.currentUser
-                                    val bruker = Profil(
-                                        email.text.toString(),
-                                        fornavn.text.toString(),
-                                        etternavn.text.toString(),
-                                        fdato.text.toString()
-                                    )
-                                    database.addBruker(user?.uid!!, bruker)
-                                    reload()
-                                } else{
-                                    Toast.makeText(
-                                        context,
-                                        "Autentisering feilet: ${task.exception.toString()}",
-                                        Toast.LENGTH_LONG
-                                    ).show()
+                if(passord.text != null
+                    && passord2.getText().toString().equals(passord.getText().toString())
+                    && fornavn.text.isEmpty() == false
+                    && etternavn.text.isEmpty() == false
+                    && fdato.text.isEmpty() == false
+                    && Patterns.EMAIL_ADDRESS.matcher(email.text).matches()){
+                    auth.createUserWithEmailAndPassword(email.text.toString(), passord.text.toString())
+                                .addOnCompleteListener(requireActivity()) { task ->
+                                    if (task.isSuccessful) {
+                                        val user = auth.currentUser
+                                        val bruker = Profil(
+                                            email.text.toString(),
+                                            fornavn.text.toString(),
+                                            etternavn.text.toString(),
+                                            fdato.text.toString()
+                                        )
+                                        database.addBruker(user?.uid!!, bruker)
+                                        reload()
+                                    } else{
+                                        Toast.makeText(
+                                            context,
+                                            "Autentisering feilet: ${task.exception.toString()}",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
                                 }
-                            }
-                    }
-                }else{
-                    passord.setError(resources.getString(R.string.passordMatch_error))
-                    //passord.setHintTextColor(resources.getColor(R.color.error))
-                    passord.setError(resources.getString(R.string.passordMatch_error))
-                    //passord2.setHintTextColor(resources.getColor(R.color.error))
+                        }
                 }
-        }
     }
 
     fun datepicker() {
@@ -168,9 +169,9 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
     }
 
     //https://roytuts.com/validate-email-address-with-regular-expression-using-kotlin/
-    val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
+    //val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
     fun isEmailValid(email: String): Boolean {
-        return EMAIL_REGEX.toRegex().matches(email);
+        return resources.getString(R.string.EMAIL_REGEX).toRegex().matches(email)
     }
 
     companion object {

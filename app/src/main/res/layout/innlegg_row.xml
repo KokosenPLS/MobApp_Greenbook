@@ -10,7 +10,7 @@
     android:paddingBottom="8dp">
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/innlegg_person"
         style="@style/Title_Style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/innlegg_beskrivelse"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -33,16 +33,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/innlegg_bilde" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/innlegg_bilde"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/innlegg_person"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
@@ -51,13 +51,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="X kommentarer"
-        app:layout_constraintEnd_toStartOf="@+id/button8"
+        app:layout_constraintEnd_toStartOf="@+id/innlegg_btn_se_kommentar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/innlegg_beskrivelse" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/innlegg_btn_se_kommentar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Se kommentarer"

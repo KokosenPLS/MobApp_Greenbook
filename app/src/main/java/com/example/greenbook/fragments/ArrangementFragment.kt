@@ -1,16 +1,23 @@
 package com.example.greenbook.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.view.ViewGroup
+import android.widget.*
+import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.greenbook.Database
 import com.example.greenbook.R
+import com.example.greenbook.adaptorClasses.InnleggAdaptor
+import com.example.greenbook.adaptorClasses.PostAdaptor
 import com.example.greenbook.dataObjekter.Arrangement
+import com.example.greenbook.dataObjekter.Innlegg
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -19,7 +26,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
-class ArrangementFragment : Fragment(R.layout.fragment_arrangement) {
+class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdaptor.OnItemClickListener{
 
     private val args: ArrangementFragmentArgs by navArgs()
     private lateinit var database: Database
@@ -28,9 +35,12 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement) {
 
     private lateinit var tittel: TextView
     private lateinit var beskrivelse: TextView
-    private lateinit var påmeldte: Button
+    private lateinit var btn_påmeldte: Button
     private lateinit var btn_join: Button
-    private lateinit var skrivInlegg: Button
+    private lateinit var btn_skrivInlegg: Button
+
+    var innlegg: ArrayList<Innlegg> = ArrayList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,11 +54,37 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement) {
 
         tittel = view?.findViewById(R.id.arrangement_tittel)
         beskrivelse = view?.findViewById(R.id.arrangement_txt_beskrivelse)
-        påmeldte = view?.findViewById(R.id.arrangement_påmeldte)
+        btn_påmeldte = view?.findViewById(R.id.arrangement_påmeldte)
         btn_join = view?.findViewById(R.id.arrangement_btn_blimed)
-        skrivInlegg = view?.findViewById(R.id.arrangement_btn_skriv_innlegg)
+        btn_skrivInlegg = view?.findViewById(R.id.arrangement_btn_skriv_innlegg)
+
 
         updateUI()
+
+        btn_skrivInlegg.setOnClickListener{
+            var dialog = DialogFragment()
+            //dialogLayout(childFragmentManager, "Hei")
+            //dialog.show(requireActivity().supportFragmentManager, "Hei")
+/*
+            //NOE MONKEY BUSINESS MED D HER, mye kanskje
+            val builder = AlertDialog.Builder(activity)
+            val inflater = layoutInflater
+            val dialogLayout = inflater.inflate(R.layout.fragment_innlegg_dialogvindu, null)
+            val editTextView = dialogLayout.findViewById<EditText>(R.id.editTextTextPersonName)
+
+            with(builder){
+                setTitle("Innlegg")
+                setPositiveButton("OK"){dialog, which ->
+                    //arrangement_innlegg.text = editTextView.text.toString()
+                    setView(dialogLayout)
+                }
+                setNegativeButton("Feil"){dialog, which ->
+                    Log.d("Main", "Negative button clicked")
+                }
+                setView(dialogLayout)
+                show()
+            }*/
+        }
 
         btn_join.setOnClickListener {
             if(btn_join.text.equals("Bli med")){
@@ -59,9 +95,28 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement) {
                 database.meldBrukerAvArrangement(user.uid, args.arrangementID)
             }
         }
-
     }
+    fun hentInnlegg(){
+        innlegg = ArrayList()
+        val arrangementListener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(arr in snapshot.children){
+                    val arra= arr.getValue<Innlegg>()
+                    innlegg.add(arra!!)
+                }
+                update(innlegg)
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        }
+        database.database.child("innlegg").addValueEventListener(arrangementListener)
+    }
+    private fun update(arr: ArrayList<Innlegg>){
+        val recyclerView = getView()?.findViewById<RecyclerView>(R.id.recyclerView)
 
+        recyclerView?.layoutManager = LinearLayoutManager(view?.context)
+        recyclerView?.adapter = InnleggAdaptor(arr, this)
+    }
     private fun updateUI(){
         val arrangementListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -77,9 +132,9 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement) {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val joined = snapshot.childrenCount.toInt()
                 if(joined == 1)
-                    påmeldte.text = joined.toString() + " påmeldt"
+                    btn_påmeldte.text = joined.toString() + " påmeldt"
                 else
-                    påmeldte.text = joined.toString() + " påmeldte"
+                    btn_påmeldte.text = joined.toString() + " påmeldte"
 
                 if(snapshot.hasChild(user.uid))
                     btn_join.text =  "Påmeldt"
@@ -104,6 +159,10 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement) {
                         "Tid: " + arrangement.tid + "\n"+
                         arrangement.beskrivelse
                 )
+    }
+
+    override fun onItemClick(position: Int) {
+        TODO("Not yet implemented")
     }
 }
 

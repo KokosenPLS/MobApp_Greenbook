@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.*
 import com.example.greenbook.NavGraphDirections
 import com.example.greenbook.R
+import com.example.greenbook.fragments.ArrangementFragment
 import com.example.greenbook.fragments.LoggInnFragmentDirections
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
