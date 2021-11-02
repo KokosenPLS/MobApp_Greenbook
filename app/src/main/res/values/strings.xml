@@ -14,6 +14,7 @@
 
     <!-- LagArrangementFragment-->
     <string name="hint_datepicker">Trykk på bilde for å velge dato</string>
+
     <string name="glemt_felt_tittel">Tittel kan ikke være tom</string>
     <string name="glemt_felt_beskrivelse">Beskrivelse kan ikke være tom</string>
     <string name="glemt_felt_sted">Du må velge et sted</string>
@@ -31,5 +32,6 @@
     <string name="passordMatch_error">Passordene matcher ikke</string>
     <string name="feilLogInn">Feil med login, prøv igjen</string>
     <string name="sendtEpost">E-post har blitt sendt til</string>
+
 
 </resources>

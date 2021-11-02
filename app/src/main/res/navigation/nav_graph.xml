@@ -71,6 +71,9 @@
             app:destination="@id/arrangementFragment"
             app:popUpTo="@id/feedFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_lagArrangementFragment_to_lagArrangementMapsFragment"
+            app:destination="@id/lagArrangementMapsFragment" />
     </fragment>
     <action android:id="@+id/action_global_lagArrangementFragment" app:destination="@id/lagArrangementFragment" />
     <fragment
@@ -105,6 +108,15 @@
             app:argType="string" />
     </fragment>
     <fragment
+        android:id="@+id/lagArrangementMapsFragment"
+        android:name="com.example.greenbook.fragments.LagArrangementMapsFragment"
+        android:label="fragment_lag_arrangement_maps"
+        tools:layout="@layout/fragment_lag_arrangement_maps" >
+        <action
+            android:id="@+id/action_lagArrangementMapsFragment_to_lagArrangementFragment"
+            app:destination="@id/lagArrangementFragment" />
+    </fragment>
+  <fragment
         android:id="@+id/glemtPassordFragment"
         android:name="com.example.greenbook.fragments.GlemtPassordFragment"
         android:label="fragment_glemt_passord"

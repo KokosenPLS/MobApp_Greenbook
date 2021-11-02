@@ -2,15 +2,19 @@ package com.example.greenbook.fragments
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.*
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.example.greenbook.Database
 import com.example.greenbook.R
 import com.example.greenbook.dataObjekter.Arrangement
+import com.example.greenbook.viewModels.MyViewModelLokasjon
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -28,10 +32,15 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
     lateinit var btnLag: Button
     lateinit var dateImage: ImageView
     lateinit var dateTV:TextView
-
+    lateinit var btnMaps:ImageView
+    private lateinit var bildeTF:TextView
+    private lateinit var btnBilde:ImageView
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
     private lateinit var database: Database
+
+    private lateinit var imageUri:Uri
+    val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,22 +51,35 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
 
     }
 
-    // TODO: 10/27/2021 Truls: Gjør om beskrivelse til et popupvindu?
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         datepicker()
         clockpicker()
 
-        tittelTF = view?.findViewById(R.id.txt_tittel)
-        beskrivelseTF = view?.findViewById(R.id.txt_lag_arrangement_beskrivelse)
-        stedTF = view?.findViewById(R.id.txt_sted)
-        plasserTF = view?.findViewById(R.id.txt_plasser)
-        btnLag = view?.findViewById(R.id.btn_registrer)
+        tittelTF = view.findViewById(R.id.txt_tittel)
+        beskrivelseTF = view.findViewById(R.id.txt_lag_arrangement_beskrivelse)
+        stedTF = view.findViewById(R.id.txt_sted)
+        plasserTF = view.findViewById(R.id.txt_plasser)
+        btnLag = view.findViewById(R.id.btn_registrer)
+        btnMaps = view.findViewById(R.id.lag_arrangement_btnMap)
+        btnBilde = view.findViewById(R.id.lag_arrangement_btnBilde)
+        bildeTF = view.findViewById(R.id.lag_arrangement_bilde)
 
+
+        btnMaps.setOnClickListener {
+            val action = LagArrangementFragmentDirections.actionLagArrangementFragmentToLagArrangementMapsFragment()
+            findNavController().navigate(action)
+        }
+
+        btnBilde.setOnClickListener {
+            /*//selectImage()
+            val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
+            tittelTF.setText(myViewModelLokasjon.latLng.value.toString())
+            val name = myViewModelLokasjon.latLng.value*/
+        }
 
         btnLag.setOnClickListener {
-
             if (tittelTF.text.isEmpty() || beskrivelseTF.text.isEmpty() || stedTF.text.isEmpty() || dateTV.text.isEmpty() || tidTF.text.isEmpty()) {
                 if(tittelTF.text.isEmpty()) {
                     tittelTF.setError(resources.getString(R.string.glemt_felt_tittel))
@@ -88,7 +110,9 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
                     stedTF.text.toString(),
                     dateTV.text.toString(),
                     tidTF.text.toString(),
-                    plasserTF.text.toString().toInt()
+                    plasserTF.text.toString().toInt(),
+                    myViewModelLokasjon.latLng.value?.latitude.toString(),
+                    myViewModelLokasjon.latLng.value?.longitude.toString()
                 )
                 val arrangementId = database.addArrangement(arr)
                 Log.i("huge", arrangementId)
@@ -103,9 +127,22 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
 
     }
 
-    // TODO: 10/27/2021 Truls: metode for å gjøre det ryddigerer, usikker på om det funker å kalle de der med !!
+    private fun selectImage() {
+        var intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent,1)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode==1 && data != null && data.data != null) {
+            imageUri = data.data!!
+        }
+    }
+
     fun datepicker() {
-        // TODO: Truls lettere om du også gjøre textview klikkbar
         dateImage = view?.findViewById(R.id.registrer_bruker_dp_icon)!!
         dateTV = view?.findViewById(R.id.registrer_bruker_datepicker)!!
 
@@ -116,7 +153,7 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
 
         dateImage.setOnClickListener {
             val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener{ view, mYear, mMonth, mDay ->
-                dateTV.setText(""+mDay+"/"+mMonth+"/"+mYear)
+                dateTV.text = ""+mDay+"/"+mMonth+"/"+mYear
             }, year, month, day)
             dpd.show()
         }
@@ -133,7 +170,7 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
 
         mTimePicker = TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {
             override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-                tidTF.setText(String.format("%d : %d", hourOfDay, minute))
+                tidTF.text = String.format("%d : %d", hourOfDay, minute)
             }
         }, hour, minute, false)
 
