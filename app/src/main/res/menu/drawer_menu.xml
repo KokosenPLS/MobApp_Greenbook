@@ -10,7 +10,7 @@
             android:icon="@drawable/account"
             android:title="Bruker"></item>
         <item
-            android:id="@+id/nav_message"
+            android:id="@+id/nav_inbox"
             android:icon="@drawable/message"
             android:title="Meldinger"></item>
         <item

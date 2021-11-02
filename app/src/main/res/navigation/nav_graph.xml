@@ -76,12 +76,12 @@
     <fragment
         android:id="@+id/inboxFragment"
         android:name="com.example.greenbook.fragments.InboxFragment"
-        android:label="Inboks" >
+        android:label="Innboks">
         <action
             android:id="@+id/action_inboxFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
     </fragment>
-    <action android:id="@+id/action_global_inboxFragment2" app:destination="@id/inboxFragment" />
+    <action android:id="@+id/action_global_inboxFragment" app:destination="@id/inboxFragment" />
     <action android:id="@+id/action_global_profilFragment" app:destination="@id/profilFragment" />
     <fragment
         android:id="@+id/deltakereArrangement"
@@ -95,10 +95,13 @@
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.example.greenbook.fragments.ChatFragment"
-        android:label="fragment_chat"
+        android:label="{navn}"
         tools:layout="@layout/fragment_chat" >
         <argument
             android:name="brukerID"
+            app:argType="string" />
+        <argument
+            android:name="navn"
             app:argType="string" />
     </fragment>
     <fragment

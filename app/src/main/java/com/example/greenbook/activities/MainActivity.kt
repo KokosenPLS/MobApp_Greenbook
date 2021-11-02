@@ -2,8 +2,10 @@ package com.example.greenbook.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -55,6 +57,17 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_arrangementer -> {
                     val action = NavGraphDirections.actionGlobalDineArrangementerFragment()
                     navController.navigate(action)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_inbox -> {
+                    val action =  NavGraphDirections.actionGlobalInboxFragment()
+                    navController.navigate(action)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_account -> {
+
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }

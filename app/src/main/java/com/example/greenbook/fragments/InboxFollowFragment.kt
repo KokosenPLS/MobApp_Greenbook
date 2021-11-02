@@ -30,7 +30,7 @@ class InboxFollowFragment : Fragment(), ProfilAdaptor.OnItemClickListener {
             )
         }
 
-        val recyclerView = getView()?.findViewById<RecyclerView>(R.id.inboxFollowRecyclerView)
+        val recyclerView = view?.findViewById<RecyclerView>(R.id.inboxFollowRecyclerView)
 
         recyclerView?.layoutManager = LinearLayoutManager(view?.context)
         recyclerView?.adapter = ProfilAdaptor(posts, this)
@@ -50,7 +50,7 @@ class InboxFollowFragment : Fragment(), ProfilAdaptor.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(posts[position].fornavn)
+        val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(posts[position].fornavn, posts[position].fornavn)
         findNavController().navigate(action)
     }
 }
