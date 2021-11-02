@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
@@ -64,14 +65,6 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement) {
                 database.meldBrukerAvArrangement(user.uid, args.arrangementID)
             }
         }
-
-        googleMapsImage.setOnClickListener {
-            val gmmIntentUri = Uri.parse("geo:0,0?q=-33.8666,151.1957")
-            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-            mapIntent.setPackage("com.google.android.apps.maps")
-            startActivity(mapIntent)
-        }
-
     }
 
     private fun updateUI(){
@@ -92,7 +85,6 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement) {
                     påmeldte.text = joined.toString() + " påmeldt"
                 else
                     påmeldte.text = joined.toString() + " påmeldte"
-
                 if(snapshot.hasChild(user.uid))
                     btn_join.text =  "Påmeldt"
                 else
@@ -116,6 +108,13 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement) {
                         "Tid: " + arrangement.tid + "\n"+
                         arrangement.beskrivelse
                 )
+        googleMapsImage.setOnClickListener{
+            val gmmIntentUri = Uri.parse("geo:0,0?q=-${arrangement.long},${arrangement.lat}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            startActivity(mapIntent)
+        }
+
     }
 }
 

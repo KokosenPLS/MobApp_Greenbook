@@ -11,5 +11,9 @@ data class Arrangement(
     val dato: String? = null,
     val tid: String ?= null,
     val plasser: Int ?= null,
-    val bildeUrl: String? = null,
+    val lat:String?=null,
+    val long:String?=null,
+    val bildeUrl: String? = null
+
+
 )

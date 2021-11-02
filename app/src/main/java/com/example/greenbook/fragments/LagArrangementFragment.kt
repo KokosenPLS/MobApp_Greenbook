@@ -14,7 +14,7 @@ import androidx.navigation.navGraphViewModels
 import com.example.greenbook.Database
 import com.example.greenbook.R
 import com.example.greenbook.dataObjekter.Arrangement
-import com.example.greenbook.dataObjekter.MyViewModel
+import com.example.greenbook.viewModels.MyViewModelLokasjon
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -40,6 +40,7 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
     private lateinit var database: Database
 
     private lateinit var imageUri:Uri
+    val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,13 +73,15 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
         }
 
         btnBilde.setOnClickListener {
-            //selectImage()
-            val myViewModel: MyViewModel by navGraphViewModels(R.id.lagArrangementFragment)
-            tittelTF.setText(myViewModel.latLng.value.toString())
-            val name = myViewModel.latLng.value
+            /*//selectImage()
+            val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
+            tittelTF.setText(myViewModelLokasjon.latLng.value.toString())
+            val name = myViewModelLokasjon.latLng.value*/
         }
 
         btnLag.setOnClickListener {
+            Log.i("tag1", myViewModelLokasjon.latLng.value?.latitude.toString())
+            Log.i("tag1", myViewModelLokasjon.latLng.value?.longitude.toString())
             val arr = Arrangement(
                 null,
                 user.uid,
@@ -87,7 +90,11 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
                 stedTF.text.toString(),
                 dateTV.text.toString(),
                 tidTF.text.toString(),
-                plasserTF.text.toString().toInt()
+                plasserTF.text.toString().toInt(),
+                myViewModelLokasjon.latLng.value?.latitude.toString(),
+                myViewModelLokasjon.latLng.value?.longitude.toString()
+
+                //mMap.addMarker(MarkerOptions().position(LatLng(myViewModelLokasjon.latLng.value!!.latitude,myViewModelLokasjon.latLng.value!!.longitude )))
             )
             if (tittelTF.text.isEmpty() || beskrivelseTF.text.isEmpty() || stedTF.text.isEmpty() || dateTV.text.isEmpty() || tidTF.text.isEmpty()) {
                 if(tittelTF.text.isEmpty()) {

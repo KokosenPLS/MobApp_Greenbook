@@ -27,6 +27,8 @@ class Database {
             arrangement.dato,
             arrangement.tid,
             arrangement.plasser,
+            arrangement.lat,
+            arrangement.long,
             arrangement.bildeUrl
         )
         ref.child(arrId!!).setValue(ferdigArrangement)

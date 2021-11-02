@@ -1,6 +1,5 @@
 package com.example.greenbook.fragments
 
-import android.content.Intent
 import android.location.*
 import androidx.fragment.app.Fragment
 
@@ -14,10 +13,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.example.greenbook.R
-import com.example.greenbook.dataObjekter.MyViewModel
+import com.example.greenbook.viewModels.MyViewModelLokasjon
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -32,11 +30,11 @@ class LagArrangementMapsFragment : Fragment() {
     private lateinit var sokeFelt:EditText
     private lateinit var godkjennKnapp:Button
     private var markerLokasjon: LatLng? = null
-    val myViewModel: MyViewModel by navGraphViewModels(R.id.lagArrangementFragment)
+    val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
 
     private val callback = OnMapReadyCallback { mMap ->
-        if (markerLokasjon==null && myViewModel.latLng.value != null) {
-            mMap.addMarker(MarkerOptions().position(LatLng(myViewModel.latLng.value!!.latitude,myViewModel.latLng.value!!.longitude )))
+        if (markerLokasjon==null && myViewModelLokasjon.latLng.value != null) {
+            mMap.addMarker(MarkerOptions().position(LatLng(myViewModelLokasjon.latLng.value!!.latitude,myViewModelLokasjon.latLng.value!!.longitude )))
         }
 
         init(mMap)
@@ -66,7 +64,7 @@ class LagArrangementMapsFragment : Fragment() {
 
         godkjennKnapp.setOnClickListener {
             if(markerLokasjon!=null) {
-                myViewModel.latLng.value = markerLokasjon
+                myViewModelLokasjon.latLng.value = markerLokasjon
             }
             else
                 Toast.makeText(context, "Du må velge en lokasjon", Toast.LENGTH_SHORT).show()
