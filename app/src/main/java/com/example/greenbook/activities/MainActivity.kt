@@ -2,9 +2,12 @@ package com.example.greenbook.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -33,21 +36,39 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
-
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.loggInnFragment, R.id.feedFragment), findViewById<DrawerLayout>(
-            R.id.drawer_layout
-        ))
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.loggInnFragment, R.id.feedFragment),
+            drawerLayout)
 
         setSupportActionBar(findViewById(R.id.toolbar))
         setupActionBarWithNavController(navController, appBarConfiguration)
-        findViewById<NavigationView>(R.id.nav_view).setupWithNavController(navController)
+        val nav_view = findViewById<NavigationView>(R.id.nav_view)
+        nav_view.setupWithNavController(navController)
 
         // TODO: 10/27/2021 Truls: Denne har jeg lagt til for å kunne navigere seg 
-        findViewById<NavigationView>(R.id.nav_view).setNavigationItemSelectedListener { menuItem ->
+        nav_view.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_nytt_arrangement -> {
                     val action = NavGraphDirections.actionGlobalLagArrangementFragment()
                     navController.navigate(action)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_arrangementer -> {
+                    val action = NavGraphDirections.actionGlobalDineArrangementerFragment()
+                    navController.navigate(action)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_inbox -> {
+                    val action =  NavGraphDirections.actionGlobalInboxFragment()
+                    navController.navigate(action)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_account -> {
+
+                    drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 else -> {
@@ -74,7 +95,8 @@ class MainActivity : AppCompatActivity() {
             auth.signOut()
             reload()
             true
-        } else
+        }
+        else
             item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 

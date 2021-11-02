@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -52,7 +53,8 @@ class AktiveSamtalerFragment : Fragment(), ProfilAdaptor.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(posts[position].fornavn)
+        Toast.makeText(activity, "Trykket på item $position", Toast.LENGTH_SHORT).show()
+        val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(posts[position].fornavn, posts[position].fornavn)
         findNavController().navigate(action)
     }
 }

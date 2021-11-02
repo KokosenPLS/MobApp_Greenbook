@@ -14,7 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GUI3">
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -26,7 +25,12 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
+        <activity
+            android:name=".activities.GlemtPassord"
+            android:exported="true" />
+        <activity
+            android:name=".fragments.GlemtPassrtActivity"
+            android:exported="true" />
         <activity
             android:name=".activities.MainActivity"
             android:exported="true"
