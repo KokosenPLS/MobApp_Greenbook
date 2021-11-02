@@ -1,5 +1,6 @@
 # MobApp - Greenbook
-Eksamenprosjekt i "Mobilutvikling for mobile enheter"
+Eksamenprosjekt i "Apputvikling for mobile enheter"
+ved USN Campus Bø
 
 Gruppemedlemmer:
  - Alexander Longum Olsen
