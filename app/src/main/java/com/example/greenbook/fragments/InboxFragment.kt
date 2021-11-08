@@ -19,10 +19,6 @@ class InboxFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val localNavHost = childFragmentManager.findFragmentById(R.id.inbox_nav_host_fragment) as NavHostFragment
-
-        localController = localNavHost.navController
-
     }
 
     override fun onCreateView(
@@ -40,15 +36,13 @@ class InboxFragment : Fragment() {
         val tabFollows = view?.findViewById<TextView>(R.id.followsTab)
 
         tabAktive?.setOnClickListener {
-            val action = AktiveSamtalerFragmentDirections.actionAktiveSamtalerFragmentToInboxFollowFragment()
-            findNavController().navigate(action)
+
             tabAktive.setBackgroundResource(R.color.greenbook_selected)
             tabFollows?.setBackgroundResource(R.color.greenbook)
         }
 
         tabFollows?.setOnClickListener {
-            val action = InboxFollowFragmentDirections.actionInboxFollowFragmentToAktiveSamtalerFragment()
-            findNavController().navigate(action)
+
             tabAktive?.setBackgroundResource(R.color.greenbook)
             tabFollows.setBackgroundResource(R.color.greenbook_selected)
 

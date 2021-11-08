@@ -14,9 +14,7 @@
             app:destination="@id/registrerFragment" />
         <action
             android:id="@+id/action_loggInnFragment_to_feedFragment"
-            app:destination="@id/feedFragment"
-            app:popUpTo="@id/loggInnFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/feedFragment" />
         <action
             android:id="@+id/action_loggInnFragment_to_glemtPassordFragment"
             app:destination="@id/glemtPassordFragment" />
@@ -51,14 +49,20 @@
         <action
             android:id="@+id/action_arrangementFragment_to_deltakereArrangement"
             app:destination="@id/deltakereArrangement" />
+        <action
+            android:id="@+id/action_arrangementFragment_to_skrivInnleggFragment"
+            app:destination="@id/skrivInnleggFragment" />
     </fragment>
     <fragment
         android:id="@+id/profilFragment"
         android:name="com.example.greenbook.fragments.ProfilFragment"
-        android:label="fragment_profil"
+        android:label="{brukernavn}"
         tools:layout="@layout/fragment_profil" >
         <argument
             android:name="brukerID"
+            app:argType="string" />
+        <argument
+            android:name="brukernavn"
             app:argType="string" />
     </fragment>
     <fragment
@@ -76,7 +80,7 @@
     <fragment
         android:id="@+id/inboxFragment"
         android:name="com.example.greenbook.fragments.InboxFragment"
-        android:label="Inboks" >
+        android:label="Innboks">
         <action
             android:id="@+id/action_inboxFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
@@ -86,8 +90,8 @@
     <fragment
         android:id="@+id/deltakereArrangement"
         android:name="com.example.greenbook.fragments.DeltakereArrangementFragment"
-        android:label="fragment_deltakere_arrangement"
-        tools:layout="@layout/fragment_deltakere_arrangement" >
+        android:label="Deltakere"
+        tools:layout="@layout/fragment_deltakere_arrangement">
         <argument
             android:name="arrangementID"
             app:argType="string" />
@@ -95,10 +99,13 @@
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.example.greenbook.fragments.ChatFragment"
-        android:label="fragment_chat"
+        android:label="{brukernavn}"
         tools:layout="@layout/fragment_chat" >
         <argument
             android:name="brukerID"
+            app:argType="string" />
+        <argument
+            android:name="brukernavn"
             app:argType="string" />
     </fragment>
     <fragment
@@ -106,4 +113,13 @@
         android:name="com.example.greenbook.fragments.GlemtPassordFragment"
         android:label="fragment_glemt_passord"
         tools:layout="@layout/fragment_glemt_passord" />
+    <fragment
+        android:id="@+id/skrivInnleggFragment"
+        android:name="com.example.greenbook.fragments.SkrivInnleggFragment"
+        android:label="Skriv nytt innlegg"
+        tools:layout="@layout/fragment_skriv_innlegg">
+        <argument
+            android:name="arrangementId"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -62,28 +63,8 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         updateUI()
 
         btn_skrivInlegg.setOnClickListener{
-            var dialog = DialogFragment()
-            //dialogLayout(childFragmentManager, "Hei")
-            //dialog.show(requireActivity().supportFragmentManager, "Hei")
-/*
-            //NOE MONKEY BUSINESS MED D HER, mye kanskje
-            val builder = AlertDialog.Builder(activity)
-            val inflater = layoutInflater
-            val dialogLayout = inflater.inflate(R.layout.fragment_innlegg_dialogvindu, null)
-            val editTextView = dialogLayout.findViewById<EditText>(R.id.editTextTextPersonName)
-
-            with(builder){
-                setTitle("Innlegg")
-                setPositiveButton("OK"){dialog, which ->
-                    //arrangement_innlegg.text = editTextView.text.toString()
-                    setView(dialogLayout)
-                }
-                setNegativeButton("Feil"){dialog, which ->
-                    Log.d("Main", "Negative button clicked")
-                }
-                setView(dialogLayout)
-                show()
-            }*/
+            val action = ArrangementFragmentDirections.actionArrangementFragmentToSkrivInnleggFragment(args.arrangementID)
+            findNavController().navigate(action)
         }
 
         btn_join.setOnClickListener {
