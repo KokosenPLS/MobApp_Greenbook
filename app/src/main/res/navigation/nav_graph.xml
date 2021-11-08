@@ -41,6 +41,7 @@
     <fragment
         android:id="@+id/arrangementFragment"
         android:name="com.example.greenbook.fragments.ArrangementFragment"
+
         android:label="{arrangementNavn}"
         tools:layout="@layout/fragment_arrangement" >
         <argument
