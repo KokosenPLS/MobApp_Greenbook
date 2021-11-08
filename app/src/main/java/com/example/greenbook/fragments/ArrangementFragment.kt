@@ -83,8 +83,8 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         val arrangementListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(arr in snapshot.children){
-                    val arra= arr.getValue<Innlegg>()
-                    innlegg.add(arra!!)
+                    val inl= arr.getValue<Innlegg>()
+                    innlegg.add(inl!!)
                 }
                 update(innlegg)
             }
@@ -93,12 +93,14 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         }
         database.database.child("innlegg").child(args.arrangementID).addValueEventListener(arrangementListener)
     }
+
     private fun update(arr: ArrayList<Innlegg>){
         val recyclerView = getView()?.findViewById<RecyclerView>(R.id.arrangement_innlegg_rv)
 
         recyclerView?.layoutManager = LinearLayoutManager(view?.context)
         recyclerView?.adapter = InnleggAdaptor(arr, this)
     }
+
     private fun updateUI(){
         val arrangementListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -131,9 +133,7 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         }
 
         database.database.child("påmeldinger").child(args.arrangementID).addValueEventListener(deltakereListener)
-
         hentInnlegg()
-
     }
 
     private fun update(arrangement: Arrangement){
@@ -153,7 +153,8 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
     }
 
     override fun onItemClick(position: Int) {
-        TODO("Not yet implemented")
+        val action = ArrangementFragmentDirections.actionArrangementFragmentToInnleggFragment(args.arrangementNavn, innlegg[position].innleggId.toString(), args.arrangementID)
+        findNavController().navigate(action)
     }
 }
 
