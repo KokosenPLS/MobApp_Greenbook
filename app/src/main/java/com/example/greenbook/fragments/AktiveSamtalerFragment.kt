@@ -53,7 +53,7 @@ class AktiveSamtalerFragment : Fragment(), ProfilAdaptor.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(posts[position].fornavn, posts[position].fornavn)
+        val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(posts[position].fornavn!!, posts[position].fornavn!!)
         findNavController().navigate(action)
     }
 }

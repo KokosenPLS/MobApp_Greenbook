@@ -5,11 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.view.ViewGroup
-import android.widget.*
 import androidx.navigation.fragment.findNavController
 import android.widget.Button
 import android.widget.ImageView
@@ -21,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.greenbook.Database
 import com.example.greenbook.R
 import com.example.greenbook.adaptorClasses.InnleggAdaptor
-import com.example.greenbook.adaptorClasses.PostAdaptor
 import com.example.greenbook.dataObjekter.Arrangement
 import com.example.greenbook.dataObjekter.Innlegg
 import com.google.firebase.auth.FirebaseUser
@@ -95,10 +91,10 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
             override fun onCancelled(error: DatabaseError) {
             }
         }
-        database.database.child("innlegg").addValueEventListener(arrangementListener)
+        database.database.child("innlegg").child(args.arrangementID).addValueEventListener(arrangementListener)
     }
     private fun update(arr: ArrayList<Innlegg>){
-        val recyclerView = getView()?.findViewById<RecyclerView>(R.id.recyclerView)
+        val recyclerView = getView()?.findViewById<RecyclerView>(R.id.arrangement_innlegg_rv)
 
         recyclerView?.layoutManager = LinearLayoutManager(view?.context)
         recyclerView?.adapter = InnleggAdaptor(arr, this)
@@ -135,6 +131,8 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         }
 
         database.database.child("påmeldinger").child(args.arrangementID).addValueEventListener(deltakereListener)
+
+        hentInnlegg()
 
     }
 

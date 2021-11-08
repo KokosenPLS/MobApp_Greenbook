@@ -84,7 +84,7 @@ class DineArrangementerFragment : Fragment(R.layout.fragment_dine_arrangementer)
 
     override fun onItemClick(position: Int) {
         val arrangement = arrangement[position]
-        val action = DineArrangementerFragmentDirections.actionDineArrangementerFragmentToArrangementFragment(arrangement.arrangementId!!)
+        val action = DineArrangementerFragmentDirections.actionDineArrangementerFragmentToArrangementFragment(arrangement.arrangementId!!, arrangement.tittel!!)
         findNavController().navigate(action)
     }
 

@@ -79,7 +79,7 @@ class FeedFragment() : Fragment(R.layout.feed_fragment), PostAdaptor.OnItemClick
 
     override fun onItemClick(position: Int) {
         val arrangement = arrangement[position]
-        val action = FeedFragmentDirections.actionFeedFragmentToArrangementFragment(arrangement.arrangementId!!)
+        val action = FeedFragmentDirections.actionFeedFragmentToArrangementFragment(arrangement.arrangementId!!, arrangement.tittel!!)
         findNavController().navigate(action)
 
     }
