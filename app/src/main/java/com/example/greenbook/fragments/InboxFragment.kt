@@ -31,18 +31,14 @@ class InboxFragment : Fragment(R.layout.fragment_inbox) {
         tabAktive?.setOnClickListener {
 
             childFragmentManager.beginTransaction().replace(fragmentContainerView.id, AktiveSamtalerFragment()).commit()
-
             tabAktive.setBackgroundResource(R.color.greenbook_selected)
             tabFollows?.setBackgroundResource(R.color.greenbook)
         }
 
         tabFollows?.setOnClickListener {
-
             childFragmentManager.beginTransaction().replace(fragmentContainerView.id, InboxFollowFragment()).commit()
-
             tabAktive?.setBackgroundResource(R.color.greenbook)
             tabFollows.setBackgroundResource(R.color.greenbook_selected)
-
         }
     }
 }

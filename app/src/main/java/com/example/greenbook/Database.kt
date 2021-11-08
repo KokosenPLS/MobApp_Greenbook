@@ -1,6 +1,7 @@
 package com.example.greenbook
 
 import com.example.greenbook.dataObjekter.Arrangement
+import com.example.greenbook.dataObjekter.Innlegg
 import com.example.greenbook.dataObjekter.Profil
 import com.google.firebase.database.*
 
@@ -43,6 +44,20 @@ class Database {
 
     fun meldBrukerAvArrangement(id: String, arrangementId: String){
         database.child("påmeldinger").child(arrangementId).child(id).removeValue()
+    }
+
+    fun addInnlegg(innlegg: Innlegg): String{
+        val ref = database.child("innlegg")
+        val innleggId = ref.push().key
+        val ferdigInnlegg = Innlegg(
+            innleggId,
+            innlegg.arrangementId,
+            innlegg.innlegg_skriver,
+            innlegg.innlegg_beskrivelse,
+            innlegg.bildeURL
+            )
+        ref.child(innlegg.arrangementId!!).child(innleggId!!).setValue(ferdigInnlegg)
+        return innleggId
     }
 
     fun follow(id: String, følgerId: String){

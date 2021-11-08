@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.*
 import com.example.greenbook.NavGraphDirections
 import com.example.greenbook.R
+import com.example.greenbook.fragments.ArrangementFragment
 import com.example.greenbook.fragments.LoggInnFragmentDirections
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -27,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private lateinit var auth: FirebaseAuth
+
+    private var loggedIn = false // Fiksa en bug når appen kom tilbake fra velge bilde activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +82,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
@@ -92,8 +96,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if(item.itemId == R.id.menu_logout){
+            loggedIn = false
             auth.signOut()
             reload()
+
             true
         }
         else
@@ -104,16 +110,18 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
 
         val user = auth.currentUser
-        if(user != null){
+        if(user != null && !loggedIn){
             val action = LoggInnFragmentDirections.actionLoggInnFragmentToFeedFragment()
 
             navController.navigate(action)
+            loggedIn = true
         }
         else{
             supportActionBar?.hide()
             findViewById<DrawerLayout>(R.id.drawer_layout).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }
     }
+
 
     private fun reload(){
         finish()

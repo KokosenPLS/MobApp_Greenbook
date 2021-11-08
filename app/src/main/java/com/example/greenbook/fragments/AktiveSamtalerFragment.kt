@@ -53,8 +53,7 @@ class AktiveSamtalerFragment : Fragment(), ProfilAdaptor.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        Toast.makeText(activity, "Trykket på item $position", Toast.LENGTH_SHORT).show()
-        val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(posts[position].fornavn, posts[position].fornavn)
+        val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(posts[position].fornavn!!, posts[position].fornavn!!)
         findNavController().navigate(action)
     }
 }

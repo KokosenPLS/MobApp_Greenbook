@@ -11,6 +11,7 @@
     <string name="Allerede_Bruker">Allerede bruker? Trykk her for å logge inn</string>
     <string name="navigation_open_drawer">Open navigation drawer</string>
     <string name="navigation_close_drawer">Close navigation drawer</string>
+    <string name="EMAIL_REGEX">"^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"</string>
 
     <!-- LagArrangementFragment-->
     <string name="hint_datepicker">Trykk på bilde for å velge dato</string>
@@ -32,6 +33,9 @@
     <string name="passordMatch_error">Passordene matcher ikke</string>
     <string name="feilLogInn">Feil med login, prøv igjen</string>
     <string name="sendtEpost">E-post har blitt sendt til</string>
+    <string name="inlegg_btn_done" >Legg ut innlegg</string>
+    <string name="skriv_innlegg">Skriv innlegg</string>
+    <string name="velg_bilde">Velg bilde</string>
 
 
 </resources>

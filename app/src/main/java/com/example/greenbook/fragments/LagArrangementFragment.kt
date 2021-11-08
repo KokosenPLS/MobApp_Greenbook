@@ -115,7 +115,6 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
                     myViewModelLokasjon.latLng.value?.longitude.toString()
                 )
                 val arrangementId = database.addArrangement(arr)
-                Log.i("huge", arrangementId)
                 val action =
                     LagArrangementFragmentDirections.actionLagArrangementFragmentToArrangementFragment(
                         arrangementId,

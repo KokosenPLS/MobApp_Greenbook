@@ -46,7 +46,7 @@ class LoggInnFragment : Fragment(R.layout.fragment_logg_inn) {
             if(epost.text.isEmpty()){
                 epost.setError(resources.getString(R.string.tomEpost_error))
                 //epost.setHintTextColor(resources.getColor(R.color.error))
-            }else if(isEmailValid(epost.toString()))
+            }else if(isEmailValid(epost.toString()) == false)
                 else epost.setError(resources.getString(R.string.validitetEpost_error))
             if(passord.text.isEmpty()){
                 passord.setError(resources.getString(R.string.tomPassord_error))
@@ -76,9 +76,9 @@ class LoggInnFragment : Fragment(R.layout.fragment_logg_inn) {
         }
     }
     //https://roytuts.com/validate-email-address-with-regular-expression-using-kotlin/
-    val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
+    //val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
     fun isEmailValid(email: String): Boolean {
-        return EMAIL_REGEX.toRegex().matches(email);
+        return resources.getString(R.string.EMAIL_REGEX).toRegex().matches(email)
     }
 
     //https://www.codegrepper.com/code-examples/kotlin/get+keyboard+down+after+enter+kotlin
@@ -92,5 +92,4 @@ class LoggInnFragment : Fragment(R.layout.fragment_logg_inn) {
         activity?.finish()
         startActivity(activity?.intent)
     }
-
 }

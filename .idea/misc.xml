@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/fragment_arrangement.xml" value="0.33" />
+        <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/fragment_inbox.xml" value="0.20520833333333333" />
+        <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/fragment_lag_arrangement.xml" value="0.26268115942028986" />
+        <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/fragment_lag_arrangement_maps.xml" value="0.34057971014492755" />
+        <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/fragment_skriv_innlegg.xml" value="0.22" />
+        <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/innlegg_row.xml" value="0.3446557971014493" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
