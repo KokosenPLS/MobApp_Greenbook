@@ -8,7 +8,7 @@
     tools:context=".fragments.ProfilFragment">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/profil_bilde"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingTop="32dp"
@@ -18,7 +18,7 @@
         tools:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/profil_navn"
         style="@style/Title_Style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -28,10 +28,10 @@
         android:text="Ola Nordmann"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/profil_bilde" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/profil_btn_følgere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="false"
@@ -39,26 +39,26 @@
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:text="38 følgere"
-        app:layout_constraintEnd_toStartOf="@+id/button10"
+        app:layout_constraintEnd_toStartOf="@+id/profil_button_follow"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/profil_navn" />
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/profil_button_follow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="4dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:text="Følg"
-        app:layout_constraintEnd_toStartOf="@+id/button11"
+        app:layout_constraintEnd_toStartOf="@+id/profil_btn_send_melding"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button9"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintStart_toEndOf="@+id/profil_btn_følgere"
+        app:layout_constraintTop_toBottomOf="@+id/profil_navn" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/profil_btn_send_melding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="4dp"
@@ -68,11 +68,11 @@
         app:icon="@drawable/ic_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button10"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintStart_toEndOf="@+id/profil_button_follow"
+        app:layout_constraintTop_toBottomOf="@+id/profil_navn" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/profil_txt_bio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -85,10 +85,10 @@
         android:text="Biotekst kommer herBiotekst kommer herBiotekst kommer herBiotekst kommer herBiotekst kommer herBiotekst kommer herBiotekst kommer her"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button10" />
+        app:layout_constraintTop_toBottomOf="@+id/profil_button_follow" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/profil_txt_innlegg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -101,5 +101,5 @@
         android:text="Her kommer innlegg til personen Her kommer innlegg til personen Her kommer innlegg til personen Her kommer innlegg til personen Her kommer innlegg til personen "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/profil_txt_bio" />
 </androidx.constraintlayout.widget.ConstraintLayout>

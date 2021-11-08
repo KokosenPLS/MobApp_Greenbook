@@ -1,13 +1,9 @@
 package com.example.greenbook
 
-import android.util.Log
-import android.widget.Toast
 import com.example.greenbook.dataObjekter.Arrangement
 import com.example.greenbook.dataObjekter.Innlegg
 import com.example.greenbook.dataObjekter.Profil
-import com.example.greenbook.dataObjekter.Påmelding
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 
 class Database {
     lateinit var database: DatabaseReference
@@ -32,6 +28,8 @@ class Database {
             arrangement.dato,
             arrangement.tid,
             arrangement.plasser,
+            arrangement.lat,
+            arrangement.long,
             arrangement.bildeUrl
         )
         ref.child(arrId!!).setValue(ferdigArrangement)

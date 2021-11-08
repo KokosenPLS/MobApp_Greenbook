@@ -75,6 +75,9 @@
             app:destination="@id/arrangementFragment"
             app:popUpTo="@id/feedFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_lagArrangementFragment_to_lagArrangementMapsFragment"
+            app:destination="@id/lagArrangementMapsFragment" />
     </fragment>
     <action android:id="@+id/action_global_lagArrangementFragment" app:destination="@id/lagArrangementFragment" />
     <fragment
@@ -85,7 +88,7 @@
             android:id="@+id/action_inboxFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
     </fragment>
-    <action android:id="@+id/action_global_inboxFragment2" app:destination="@id/inboxFragment" />
+    <action android:id="@+id/action_global_inboxFragment" app:destination="@id/inboxFragment" />
     <action android:id="@+id/action_global_profilFragment" app:destination="@id/profilFragment" />
     <fragment
         android:id="@+id/deltakereArrangement"
@@ -109,11 +112,21 @@
             app:argType="string" />
     </fragment>
     <fragment
+        android:id="@+id/lagArrangementMapsFragment"
+        android:name="com.example.greenbook.fragments.LagArrangementMapsFragment"
+        android:label="fragment_lag_arrangement_maps"
+        tools:layout="@layout/fragment_lag_arrangement_maps" >
+        <action
+            android:id="@+id/action_lagArrangementMapsFragment_to_lagArrangementFragment"
+            app:destination="@id/lagArrangementFragment" />
+    </fragment>
+  <fragment
         android:id="@+id/glemtPassordFragment"
         android:name="com.example.greenbook.fragments.GlemtPassordFragment"
         android:label="fragment_glemt_passord"
         tools:layout="@layout/fragment_glemt_passord" />
     <fragment
+
         android:id="@+id/skrivInnleggFragment"
         android:name="com.example.greenbook.fragments.SkrivInnleggFragment"
         android:label="Skriv nytt innlegg"
@@ -122,4 +135,15 @@
             android:name="arrangementId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/dineArrangementerFragment"
+        android:name="com.example.greenbook.fragments.DineArrangementerFragment"
+        android:label="Dine arrangement"
+        tools:layout="@layout/fragment_dine_arrangementer" >
+        <action
+            android:id="@+id/action_dineArrangementerFragment_to_arrangementFragment"
+            app:destination="@id/arrangementFragment" />
+    </fragment>
+    <action android:id="@+id/action_global_dineArrangementerFragment" app:destination="@id/dineArrangementerFragment"/>
+
 </navigation>

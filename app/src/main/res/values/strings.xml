@@ -15,6 +15,7 @@
 
     <!-- LagArrangementFragment-->
     <string name="hint_datepicker">Trykk på bilde for å velge dato</string>
+
     <string name="glemt_felt_tittel">Tittel kan ikke være tom</string>
     <string name="glemt_felt_beskrivelse">Beskrivelse kan ikke være tom</string>
     <string name="glemt_felt_sted">Du må velge et sted</string>
@@ -35,5 +36,6 @@
     <string name="inlegg_btn_done" >Legg ut innlegg</string>
     <string name="skriv_innlegg">Skriv innlegg</string>
     <string name="velg_bilde">Velg bilde</string>
+
 
 </resources>

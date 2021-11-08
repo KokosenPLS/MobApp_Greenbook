@@ -1,0 +1,51 @@
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lag_arrangement_map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.LagArrangementMapsFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:elevation="10dp"
+        android:background="@drawable/white_border_maps"
+        android:id="@+id/mapsLayout">
+
+        <ImageView
+            android:id="@+id/maps_sook"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="#F3F0F1"
+            android:backgroundTint="#0C0808"
+            android:src="@drawable/ic_search" />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/maps_sook"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:id="@+id/maps_input_sook"
+            android:background="@null"
+            android:hint="Skriv inn noe for å søke"
+            android:imeOptions="actionSearch"/>
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            style="@style/Margin_Default"
+            android:id="@+id/googleMaps_sendData"
+            android:text="Velg"
+            android:layout_toEndOf="@+id/maps_input_sook"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+</fragment>

@@ -38,7 +38,6 @@ class FeedFragment() : Fragment(R.layout.feed_fragment), PostAdaptor.OnItemClick
 
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
 
-
         auth = Firebase.auth
         user = auth.currentUser!!
         database = Database()
@@ -63,6 +62,7 @@ class FeedFragment() : Fragment(R.layout.feed_fragment), PostAdaptor.OnItemClick
                 update(arrangement)
             }
             override fun onCancelled(error: DatabaseError) {
+
             }
         }
         database.database.child("arrangement").addValueEventListener(arrangementListener)

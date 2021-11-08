@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/innlegg_bilde"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -10,6 +11,7 @@
     android:paddingBottom="8dp">
 
     <TextView
+
         android:id="@+id/innlegg_person"
         style="@style/Title_Style"
         android:layout_width="0dp"
@@ -23,6 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+
         android:id="@+id/innlegg_beskrivelse"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -42,15 +45,17 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/innlegg_person"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/innlegg_btn_ant_kommentarer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="X kommentarer"
+
         app:layout_constraintEnd_toStartOf="@+id/innlegg_btn_se_kommentar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +68,7 @@
         android:text="Se kommentarer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button7"
-        app:layout_constraintTop_toTopOf="@+id/button7" />
+        app:layout_constraintStart_toEndOf="@+id/innlegg_btn_ant_kommentarer"
+        app:layout_constraintTop_toTopOf="@+id/innlegg_btn_ant_kommentarer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

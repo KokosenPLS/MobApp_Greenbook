@@ -1,6 +1,8 @@
 package com.example.greenbook.fragments
 
-import android.app.AlertDialog
+
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,8 +10,11 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
@@ -39,9 +45,8 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
     private lateinit var btn_påmeldte: Button
     private lateinit var btn_join: Button
     private lateinit var btn_skrivInlegg: Button
-
     var innlegg: ArrayList<Innlegg> = ArrayList()
-
+    private lateinit var googleMapsImage: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +63,7 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         btn_påmeldte = view?.findViewById(R.id.arrangement_påmeldte)
         btn_join = view?.findViewById(R.id.arrangement_btn_blimed)
         btn_skrivInlegg = view?.findViewById(R.id.arrangement_btn_skriv_innlegg)
-
+        googleMapsImage = view?.findViewById(R.id.arrangement_goToGoogleMaps)
 
         updateUI()
 
@@ -140,6 +145,13 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
                         "Tid: " + arrangement.tid + "\n"+
                         arrangement.beskrivelse
                 )
+        googleMapsImage.setOnClickListener{
+            val gmmIntentUri = Uri.parse("geo:0,0?q=-${arrangement.long},${arrangement.lat}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            startActivity(mapIntent)
+        }
+
     }
 
     override fun onItemClick(position: Int) {
