@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/arrangementFragment"
         android:name="com.example.greenbook.fragments.ArrangementFragment"
-        android:label="fragment_arrangement"
+        android:label="{arrangement_tittel}"
         tools:layout="@layout/fragment_arrangement" >
         <argument
             android:name="arrangementID"
@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_arrangementFragment_to_deltakereArrangement"
             app:destination="@id/deltakereArrangement" />
+        <argument
+            android:name="arrangement_tittel"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/profilFragment"
