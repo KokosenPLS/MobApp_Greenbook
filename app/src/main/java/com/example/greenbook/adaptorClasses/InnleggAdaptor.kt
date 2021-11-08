@@ -17,6 +17,7 @@ import com.example.greenbook.dataObjekter.Arrangement
 import com.example.greenbook.dataObjekter.Innlegg
 import com.example.greenbook.dataObjekter.Post
 import com.example.greenbook.dataObjekter.Profil
+import com.example.greenbook.fragments.ArrangementFragmentDirections
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -61,9 +62,8 @@ class InnleggAdaptor (val innlegg : ArrayList<Innlegg>, val listener: OnItemClic
                 val bruker = snapshot.getValue<Profil>()
                 holder.tittel.text = bruker?.fornavn + " " + bruker?.etternavn
             }
-
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
 
         }
@@ -76,6 +76,7 @@ class InnleggAdaptor (val innlegg : ArrayList<Innlegg>, val listener: OnItemClic
         } catch (ex: NullPointerException){
             Log.i("bilde", "har ikke bilde")
         }
+
     }
 
     interface OnItemClickListener{

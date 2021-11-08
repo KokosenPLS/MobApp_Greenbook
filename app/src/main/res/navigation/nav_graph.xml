@@ -56,6 +56,9 @@
         <argument
             android:name="arrangementNavn"
             app:argType="string" />
+        <action
+            android:id="@+id/action_arrangementFragment_to_innleggFragment"
+            app:destination="@id/innleggFragment" />
     </fragment>
     <fragment
         android:id="@+id/profilFragment"
@@ -149,5 +152,20 @@
             app:destination="@id/arrangementFragment" />
     </fragment>
     <action android:id="@+id/action_global_dineArrangementerFragment" app:destination="@id/dineArrangementerFragment"/>
+    <fragment
+        android:id="@+id/innleggFragment"
+        android:name="com.example.greenbook.fragments.InnleggFragment"
+        android:label="{innleggTittel}"
+        tools:layout="@layout/fragment_innlegg" >
+        <argument
+            android:name="innleggTittel"
+            app:argType="string" />
+        <argument
+            android:name="innleggId"
+            app:argType="string" />
+        <argument
+            android:name="arrangementId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

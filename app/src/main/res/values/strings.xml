@@ -33,9 +33,11 @@
     <string name="passordMatch_error">Passordene matcher ikke</string>
     <string name="feilLogInn">Feil med login, prøv igjen</string>
     <string name="sendtEpost">E-post har blitt sendt til</string>
-    <string name="inlegg_btn_done" >Legg ut innlegg</string>
+    <string name="inlegg_btn_done">Legg ut innlegg</string>
     <string name="skriv_innlegg">Skriv innlegg</string>
     <string name="velg_bilde">Velg bilde</string>
+    <string name="skrivEnKommentar">Skriv en kommentar</string>
+    <string name="kommenter">Kommenter</string>
 
 
 </resources>
