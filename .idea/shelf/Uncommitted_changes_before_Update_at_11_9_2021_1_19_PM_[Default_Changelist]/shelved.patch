@@ -1,0 +1,543 @@
+Index: app/src/main/java/com/example/greenbook/fragments/ArrangementFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.greenbook.fragments\r\n\r\nimport android.content.Intent\r\nimport android.net.Uri\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.View\r\nimport android.widget.Button\r\nimport android.widget.ImageView\r\nimport android.widget.TextView\r\nimport android.widget.Toast\r\nimport androidx.navigation.fragment.navArgs\r\nimport com.example.greenbook.Database\r\nimport com.example.greenbook.R\r\nimport com.example.greenbook.dataObjekter.Arrangement\r\nimport com.google.firebase.auth.FirebaseUser\r\nimport com.google.firebase.auth.ktx.auth\r\nimport com.google.firebase.database.DataSnapshot\r\nimport com.google.firebase.database.DatabaseError\r\nimport com.google.firebase.database.FirebaseDatabase\r\nimport com.google.firebase.database.ValueEventListener\r\nimport com.google.firebase.database.ktx.getValue\r\nimport com.google.firebase.ktx.Firebase\r\n\r\nclass ArrangementFragment : Fragment(R.layout.fragment_arrangement) {\r\n\r\n    private val args: ArrangementFragmentArgs by navArgs()\r\n    private lateinit var database: Database\r\n    private lateinit var arrangement: Arrangement\r\n    private lateinit var user: FirebaseUser\r\n\r\n    private lateinit var tittel: TextView\r\n    private lateinit var beskrivelse: TextView\r\n    private lateinit var påmeldte: Button\r\n    private lateinit var btn_join: Button\r\n    private lateinit var skrivInlegg: Button\r\n    private lateinit var googleMapsImage: ImageView\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        database = Database()\r\n        user = Firebase.auth.currentUser!!\r\n\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        tittel = view?.findViewById(R.id.arrangement_tittel)\r\n        beskrivelse = view?.findViewById(R.id.arrangement_txt_beskrivelse)\r\n        påmeldte = view?.findViewById(R.id.arrangement_påmeldte)\r\n        btn_join = view?.findViewById(R.id.arrangement_btn_blimed)\r\n        skrivInlegg = view?.findViewById(R.id.arrangement_btn_skriv_innlegg)\r\n        googleMapsImage = view?.findViewById(R.id.arrangement_goToGoogleMaps)\r\n\r\n        updateUI()\r\n\r\n        btn_join.setOnClickListener {\r\n            if(btn_join.text.equals(\"Bli med\")){\r\n\r\n                database.meldBrukerPåArrangement(user.uid, args.arrangementID)\r\n            }\r\n            else{\r\n                database.meldBrukerAvArrangement(user.uid, args.arrangementID)\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun updateUI(){\r\n        val arrangementListener = object : ValueEventListener {\r\n            override fun onDataChange(snapshot: DataSnapshot) {\r\n                val arr = snapshot.getValue<Arrangement>()!!\r\n                update(arr!!)\r\n            }\r\n            override fun onCancelled(error: DatabaseError) {\r\n            }\r\n        }\r\n        database.database.child(\"arrangement\").child(args.arrangementID).addValueEventListener(arrangementListener)\r\n\r\n        val deltakereListener = object : ValueEventListener{\r\n            override fun onDataChange(snapshot: DataSnapshot) {\r\n                val joined = snapshot.childrenCount.toInt()\r\n                if(joined == 1)\r\n                    påmeldte.text = joined.toString() + \" påmeldt\"\r\n                else\r\n                    påmeldte.text = joined.toString() + \" påmeldte\"\r\n                if(snapshot.hasChild(user.uid))\r\n                    btn_join.text =  \"Påmeldt\"\r\n                else\r\n                    btn_join.text =  \"Bli med\"\r\n            }\r\n\r\n            override fun onCancelled(error: DatabaseError) {\r\n                TODO(\"Not yet implemented\")\r\n            }\r\n\r\n        }\r\n\r\n        database.database.child(\"påmeldinger\").child(args.arrangementID).addValueEventListener(deltakereListener)\r\n\r\n    }\r\n\r\n    private fun update(arrangement: Arrangement){\r\n        tittel.text = arrangement.tittel\r\n        beskrivelse.text = (\r\n                        \"Sted: \" + arrangement.sted + \"\\n\"+\r\n                        \"Tid: \" + arrangement.tid + \"\\n\"+\r\n                        arrangement.beskrivelse\r\n                )\r\n        googleMapsImage.setOnClickListener{\r\n            val gmmIntentUri = Uri.parse(\"geo:0,0?q=-${arrangement.long},${arrangement.lat}\")\r\n            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)\r\n            mapIntent.setPackage(\"com.google.android.apps.maps\")\r\n            startActivity(mapIntent)\r\n        }\r\n\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/greenbook/fragments/ArrangementFragment.kt b/app/src/main/java/com/example/greenbook/fragments/ArrangementFragment.kt
+--- a/app/src/main/java/com/example/greenbook/fragments/ArrangementFragment.kt	(revision a70d938595455f8faaf57e23c06bc651bf4e6df4)
++++ b/app/src/main/java/com/example/greenbook/fragments/ArrangementFragment.kt	(date 1636397534520)
+@@ -47,12 +47,12 @@
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+ 
+-        tittel = view?.findViewById(R.id.arrangement_tittel)
+-        beskrivelse = view?.findViewById(R.id.arrangement_txt_beskrivelse)
+-        påmeldte = view?.findViewById(R.id.arrangement_påmeldte)
+-        btn_join = view?.findViewById(R.id.arrangement_btn_blimed)
+-        skrivInlegg = view?.findViewById(R.id.arrangement_btn_skriv_innlegg)
+-        googleMapsImage = view?.findViewById(R.id.arrangement_goToGoogleMaps)
++        tittel = view?.findViewById(R.id.arrangement_tittel)!!
++        beskrivelse = view?.findViewById(R.id.arrangement_txt_beskrivelse)!!
++        påmeldte = view?.findViewById(R.id.arrangement_påmeldte)!!
++        btn_join = view?.findViewById(R.id.arrangement_btn_blimed)!!
++        skrivInlegg = view?.findViewById(R.id.arrangement_btn_skriv_innlegg)!!
++        googleMapsImage = view?.findViewById(R.id.arrangement_goToGoogleMaps)!!
+ 
+         updateUI()
+ 
+@@ -109,7 +109,7 @@
+                         arrangement.beskrivelse
+                 )
+         googleMapsImage.setOnClickListener{
+-            val gmmIntentUri = Uri.parse("geo:0,0?q=-${arrangement.long},${arrangement.lat}")
++            val gmmIntentUri = Uri.parse("geo:0,0?q=-${arrangement.lat},${arrangement.long}")
+             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+             mapIntent.setPackage("com.google.android.apps.maps")
+             startActivity(mapIntent)
+Index: app/src/main/java/com/example/greenbook/fragments/LagArrangementMapsFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.greenbook.fragments\r\n\r\nimport android.location.*\r\nimport androidx.fragment.app.Fragment\r\n\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport android.view.KeyEvent\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.view.inputmethod.EditorInfo\r\nimport android.widget.Button\r\nimport android.widget.EditText\r\nimport android.widget.Toast\r\nimport androidx.navigation.navGraphViewModels\r\nimport com.example.greenbook.R\r\nimport com.example.greenbook.viewModels.MyViewModelLokasjon\r\nimport com.google.android.gms.maps.CameraUpdateFactory\r\nimport com.google.android.gms.maps.GoogleMap\r\nimport com.google.android.gms.maps.OnMapReadyCallback\r\nimport com.google.android.gms.maps.SupportMapFragment\r\nimport com.google.android.gms.maps.model.LatLng\r\nimport com.google.android.gms.maps.model.MarkerOptions\r\nimport java.io.IOException\r\nimport java.lang.IndexOutOfBoundsException\r\n\r\nclass LagArrangementMapsFragment : Fragment() {\r\n\r\n    private lateinit var sokeFelt:EditText\r\n    private lateinit var godkjennKnapp:Button\r\n    private var markerLokasjon: LatLng? = null\r\n    val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)\r\n\r\n    private val callback = OnMapReadyCallback { mMap ->\r\n        if (markerLokasjon==null && myViewModelLokasjon.latLng.value != null) {\r\n            mMap.addMarker(MarkerOptions().position(LatLng(myViewModelLokasjon.latLng.value!!.latitude,myViewModelLokasjon.latLng.value!!.longitude )))\r\n        }\r\n\r\n        init(mMap)\r\n        mMap.setOnMapClickListener { it ->\r\n            mMap.clear()\r\n            mMap.addMarker(MarkerOptions().position(LatLng(it.latitude,it.longitude)))\r\n            markerLokasjon= LatLng(it.latitude,it.longitude)\r\n        }\r\n    }\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater,\r\n        container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        return inflater.inflate(R.layout.fragment_lag_arrangement_maps, container, false)\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        val mapFragment = childFragmentManager.findFragmentById(R.id.lag_arrangement_map) as SupportMapFragment?\r\n        mapFragment?.getMapAsync(callback)\r\n        //------\r\n        sokeFelt = view?.findViewById(R.id.maps_input_sook)\r\n        godkjennKnapp=view?.findViewById(R.id.googleMaps_sendData)\r\n\r\n\r\n        godkjennKnapp.setOnClickListener {\r\n            if(markerLokasjon!=null) {\r\n                myViewModelLokasjon.latLng.value = markerLokasjon\r\n            }\r\n            else\r\n                Toast.makeText(context, \"Du må velge en lokasjon\", Toast.LENGTH_SHORT).show()\r\n        }\r\n\r\n    }\r\n\r\n    fun init (mMap:GoogleMap)  {\r\n        sokeFelt.setOnEditorActionListener { _, actionId, keyEvent ->\r\n            if(actionId == EditorInfo.IME_ACTION_SEARCH\r\n                || actionId == EditorInfo.IME_ACTION_DONE\r\n                || keyEvent.action==KeyEvent.ACTION_DOWN\r\n                || keyEvent.action==KeyEvent.KEYCODE_ENTER) {\r\n                geoLocate(mMap)\r\n                return@setOnEditorActionListener true\r\n            }\r\n                false\r\n        }\r\n    }\r\n\r\n    private fun geoLocate(mMap:GoogleMap) {\r\n        val searchString = sokeFelt.text.toString()\r\n        val geoCoder = Geocoder(context)\r\n        var list: List<Address>? = null\r\n        try {\r\n            list = geoCoder.getFromLocationName(searchString.toString(), 1)\r\n        // TODO: 10/31/2021 kan hende denne er problemet\r\n            //val noe = list[0].getAddressLine(0) // kan hende denne hjelper deg?\r\n        }catch (e:IOException){\r\n            Log.e(tag, \"Finner ikke GeoCoder\", e)\r\n        }\r\n        finally {\r\n            try {\r\n                if (list != null) {\r\n                    Log.i(\"tag\", list[0].toString())\r\n                    var address = list[0]\r\n                    setPoint(LatLng(address.latitude, address.longitude), mMap)\r\n                }\r\n            }catch (e:IndexOutOfBoundsException) {\r\n                Toast.makeText(context, \"Ugyldig verdi\", Toast.LENGTH_SHORT).show()\r\n                Log.e(tag, \"Adresse er ugyldig\", e)\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun setPoint(latLng: LatLng,mMap: GoogleMap) {\r\n            mMap.clear()\r\n            mMap.addMarker(MarkerOptions().position(LatLng(latLng.latitude, latLng.longitude)))\r\n            //floar kan endres for å bestemme hvor mye den skal zoome in\r\n            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))\r\n            markerLokasjon=latLng\r\n\r\n    }\r\n\r\n\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/greenbook/fragments/LagArrangementMapsFragment.kt b/app/src/main/java/com/example/greenbook/fragments/LagArrangementMapsFragment.kt
+--- a/app/src/main/java/com/example/greenbook/fragments/LagArrangementMapsFragment.kt	(revision a70d938595455f8faaf57e23c06bc651bf4e6df4)
++++ b/app/src/main/java/com/example/greenbook/fragments/LagArrangementMapsFragment.kt	(date 1636397239611)
+@@ -15,7 +15,7 @@
+ import android.widget.Toast
+ import androidx.navigation.navGraphViewModels
+ import com.example.greenbook.R
+-import com.example.greenbook.viewModels.MyViewModelLokasjon
++import com.example.greenbook.viewModels.ViewModelLagArrangement
+ import com.google.android.gms.maps.CameraUpdateFactory
+ import com.google.android.gms.maps.GoogleMap
+ import com.google.android.gms.maps.OnMapReadyCallback
+@@ -30,11 +30,11 @@
+     private lateinit var sokeFelt:EditText
+     private lateinit var godkjennKnapp:Button
+     private var markerLokasjon: LatLng? = null
+-    val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
++    private val viewModelLagArrangement: ViewModelLagArrangement by navGraphViewModels(R.id.lagArrangementFragment)
+ 
+     private val callback = OnMapReadyCallback { mMap ->
+-        if (markerLokasjon==null && myViewModelLokasjon.latLng.value != null) {
+-            mMap.addMarker(MarkerOptions().position(LatLng(myViewModelLokasjon.latLng.value!!.latitude,myViewModelLokasjon.latLng.value!!.longitude )))
++        if (markerLokasjon==null && viewModelLagArrangement.latLng.value != null) {
++            mMap.addMarker(MarkerOptions().position(LatLng(viewModelLagArrangement.latLng.value!!.latitude,viewModelLagArrangement.latLng.value!!.longitude )))
+         }
+ 
+         init(mMap)
+@@ -58,13 +58,14 @@
+         val mapFragment = childFragmentManager.findFragmentById(R.id.lag_arrangement_map) as SupportMapFragment?
+         mapFragment?.getMapAsync(callback)
+         //------
+-        sokeFelt = view?.findViewById(R.id.maps_input_sook)
+-        godkjennKnapp=view?.findViewById(R.id.googleMaps_sendData)
++        sokeFelt = view?.findViewById(R.id.maps_input_sook)!!
++        godkjennKnapp= view?.findViewById(R.id.googleMaps_sendData)!!
+ 
+ 
+         godkjennKnapp.setOnClickListener {
+             if(markerLokasjon!=null) {
+-                myViewModelLokasjon.latLng.value = markerLokasjon
++                viewModelLagArrangement.latLng.value = markerLokasjon
++                Toast.makeText(context, "Lokasjon er valgt", Toast.LENGTH_SHORT).show()
+             }
+             else
+                 Toast.makeText(context, "Du må velge en lokasjon", Toast.LENGTH_SHORT).show()
+@@ -90,22 +91,19 @@
+         val geoCoder = Geocoder(context)
+         var list: List<Address>? = null
+         try {
+-            list = geoCoder.getFromLocationName(searchString.toString(), 1)
+-        // TODO: 10/31/2021 kan hende denne er problemet
+-            //val noe = list[0].getAddressLine(0) // kan hende denne hjelper deg?
++            list = geoCoder.getFromLocationName(searchString, 1)
+         }catch (e:IOException){
+-            Log.e(tag, "Finner ikke GeoCoder", e)
++            Log.e("error", "Finner ikke GeoCoder", e)
+         }
+         finally {
+             try {
+                 if (list != null) {
+-                    Log.i("tag", list[0].toString())
+                     var address = list[0]
+                     setPoint(LatLng(address.latitude, address.longitude), mMap)
+                 }
+             }catch (e:IndexOutOfBoundsException) {
+                 Toast.makeText(context, "Ugyldig verdi", Toast.LENGTH_SHORT).show()
+-                Log.e(tag, "Adresse er ugyldig", e)
++                Log.e("error", "Adresse er ugyldig", e)
+             }
+         }
+     }
+@@ -113,7 +111,7 @@
+     private fun setPoint(latLng: LatLng,mMap: GoogleMap) {
+             mMap.clear()
+             mMap.addMarker(MarkerOptions().position(LatLng(latLng.latitude, latLng.longitude)))
+-            //floar kan endres for å bestemme hvor mye den skal zoome in
++            //float kan endres for å bestemme hvor mye den skal zoome in
+             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+             markerLokasjon=latLng
+ 
+Index: app/src/main/java/com/example/greenbook/fragments/LagArrangementFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.greenbook.fragments\r\n\r\nimport android.app.DatePickerDialog\r\nimport android.app.TimePickerDialog\r\nimport android.content.Intent\r\nimport android.net.Uri\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.View\r\nimport android.widget.*\r\nimport androidx.navigation.fragment.findNavController\r\nimport androidx.navigation.navGraphViewModels\r\nimport com.example.greenbook.Database\r\nimport com.example.greenbook.R\r\nimport com.example.greenbook.dataObjekter.Arrangement\r\nimport com.example.greenbook.viewModels.MyViewModelLokasjon\r\nimport com.google.firebase.auth.FirebaseAuth\r\nimport com.google.firebase.auth.FirebaseUser\r\nimport com.google.firebase.auth.ktx.auth\r\nimport com.google.firebase.ktx.Firebase\r\nimport java.util.*\r\n\r\nclass LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {\r\n\r\n    lateinit var tittelTF: EditText\r\n    lateinit var beskrivelseTF: EditText\r\n    lateinit var stedTF: EditText\r\n    lateinit var tidTF: TextView\r\n    lateinit var tidBtn: ImageButton\r\n    lateinit var plasserTF: EditText\r\n    lateinit var btnLag: Button\r\n    lateinit var dateImage: ImageView\r\n    lateinit var dateTV:TextView\r\n    lateinit var btnMaps:ImageView\r\n    private lateinit var bildeTF:TextView\r\n    private lateinit var btnBilde:ImageView\r\n    private lateinit var auth: FirebaseAuth\r\n    private lateinit var user: FirebaseUser\r\n    private lateinit var database: Database\r\n\r\n    private lateinit var imageUri:Uri\r\n    val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n\r\n        auth = Firebase.auth\r\n        user = auth.currentUser!!\r\n        database = Database()\r\n\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        datepicker()\r\n        clockpicker()\r\n\r\n        tittelTF = view.findViewById(R.id.txt_tittel)\r\n        beskrivelseTF = view.findViewById(R.id.txt_lag_arrangement_beskrivelse)\r\n        stedTF = view.findViewById(R.id.txt_sted)\r\n        plasserTF = view.findViewById(R.id.txt_plasser)\r\n        btnLag = view.findViewById(R.id.btn_registrer)\r\n        btnMaps = view.findViewById(R.id.lag_arrangement_btnMap)\r\n        btnBilde = view.findViewById(R.id.lag_arrangement_btnBilde)\r\n        bildeTF = view.findViewById(R.id.lag_arrangement_bilde)\r\n\r\n\r\n        btnMaps.setOnClickListener {\r\n            val action = LagArrangementFragmentDirections.actionLagArrangementFragmentToLagArrangementMapsFragment()\r\n            findNavController().navigate(action)\r\n        }\r\n\r\n        btnBilde.setOnClickListener {\r\n            /*//selectImage()\r\n            val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)\r\n            tittelTF.setText(myViewModelLokasjon.latLng.value.toString())\r\n            val name = myViewModelLokasjon.latLng.value*/\r\n        }\r\n\r\n        btnLag.setOnClickListener {\r\n            if (tittelTF.text.isEmpty() || beskrivelseTF.text.isEmpty() || stedTF.text.isEmpty() || dateTV.text.isEmpty() || tidTF.text.isEmpty()) {\r\n                if(tittelTF.text.isEmpty()) {\r\n                    tittelTF.setError(resources.getString(R.string.glemt_felt_tittel))\r\n                //tittelTF.setHintTextColor(resources.getColor(R.color.error))\r\n                }\r\n                if (beskrivelseTF.text.isEmpty()) {\r\n                    beskrivelseTF.setError(resources.getString(R.string.glemt_felt_beskrivelse))\r\n                //beskrivelseTF.setHintTextColor(resources.getColor(R.color.error))\r\n                }\r\n                if(stedTF.text.isEmpty()) {\r\n                    stedTF.setError(resources.getString(R.string.glemt_felt_sted))\r\n                //stedTF.setHintTextColor(resources.getColor(R.color.error))\r\n                }\r\n                if(dateTV.text.isEmpty()) {\r\n                    dateTV.setError(resources.getString(R.string.glemt_felt_dato))\r\n                //dateTV.setHintTextColor(resources.getColor(R.color.error))\r\n                }\r\n                if (tidTF.text.isEmpty()) {\r\n                    tidTF.setError(resources.getString(R.string.glemt_felt_tid))\r\n                //tidTF.setHintTextColor(resources.getColor(R.color.error))\r\n                }\r\n            } else {\r\n                val arr = Arrangement(\r\n                    null,\r\n                    user.uid,\r\n                    tittelTF.text.toString(),\r\n                    beskrivelseTF.text.toString(),\r\n                    stedTF.text.toString(),\r\n                    dateTV.text.toString(),\r\n                    tidTF.text.toString(),\r\n                    plasserTF.text.toString().toInt(),\r\n                    myViewModelLokasjon.latLng.value?.latitude.toString(),\r\n                    myViewModelLokasjon.latLng.value?.longitude.toString()\r\n                )\r\n                val arrangementId = database.addArrangement(arr)\r\n                Log.i(\"huge\", arrangementId)\r\n                val action =\r\n                    LagArrangementFragmentDirections.actionLagArrangementFragmentToArrangementFragment(\r\n                        arrangementId,\r\n                        arr.tittel!!\r\n                    )\r\n                findNavController().navigate(action)\r\n            }\r\n        }\r\n        \r\n\r\n    }\r\n\r\n    private fun selectImage() {\r\n        var intent = Intent()\r\n        intent.type = \"image/*\"\r\n        intent.action = Intent.ACTION_GET_CONTENT\r\n        startActivityForResult(intent,1)\r\n    }\r\n\r\n    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {\r\n        super.onActivityResult(requestCode, resultCode, data)\r\n\r\n        if(requestCode==1 && data != null && data.data != null) {\r\n            imageUri = data.data!!\r\n        }\r\n    }\r\n\r\n    fun datepicker() {\r\n        dateImage = view?.findViewById(R.id.registrer_bruker_dp_icon)!!\r\n        dateTV = view?.findViewById(R.id.registrer_bruker_datepicker)!!\r\n\r\n        val c = Calendar.getInstance()\r\n        val year = c.get(Calendar.YEAR)\r\n        val month = c.get(Calendar.MONTH)\r\n        val day = c.get(Calendar.DAY_OF_MONTH)\r\n\r\n        dateImage.setOnClickListener {\r\n            val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener{ view, mYear, mMonth, mDay ->\r\n                dateTV.text = \"\"+mDay+\"/\"+mMonth+\"/\"+mYear\r\n            }, year, month, day)\r\n            dpd.show()\r\n        }\r\n    }\r\n\r\n    fun clockpicker() {\r\n        tidTF = view?.findViewById(R.id.txt_lag_arrangement_tid)!!\r\n        tidBtn = view?.findViewById(R.id.txt_lag_arrangement_tidKnapp)!!\r\n\r\n        val mTimePicker: TimePickerDialog\r\n        val mcurrentTime = Calendar.getInstance()\r\n        val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)\r\n        val minute = mcurrentTime.get(Calendar.MINUTE)\r\n\r\n        mTimePicker = TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {\r\n            override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {\r\n                tidTF.text = String.format(\"%d : %d\", hourOfDay, minute)\r\n            }\r\n        }, hour, minute, false)\r\n\r\n        tidBtn.setOnClickListener {\r\n            mTimePicker.show()\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/greenbook/fragments/LagArrangementFragment.kt b/app/src/main/java/com/example/greenbook/fragments/LagArrangementFragment.kt
+--- a/app/src/main/java/com/example/greenbook/fragments/LagArrangementFragment.kt	(revision a70d938595455f8faaf57e23c06bc651bf4e6df4)
++++ b/app/src/main/java/com/example/greenbook/fragments/LagArrangementFragment.kt	(date 1636397239629)
+@@ -1,9 +1,9 @@
+ package com.example.greenbook.fragments
+ 
++import android.app.Activity.RESULT_OK
+ import android.app.DatePickerDialog
+ import android.app.TimePickerDialog
+ import android.content.Intent
+-import android.net.Uri
+ import android.os.Bundle
+ import android.util.Log
+ import androidx.fragment.app.Fragment
+@@ -14,11 +14,14 @@
+ import com.example.greenbook.Database
+ import com.example.greenbook.R
+ import com.example.greenbook.dataObjekter.Arrangement
+-import com.example.greenbook.viewModels.MyViewModelLokasjon
++import com.example.greenbook.viewModels.ViewModelLagArrangement
++import com.google.android.gms.tasks.OnSuccessListener
+ import com.google.firebase.auth.FirebaseAuth
+ import com.google.firebase.auth.FirebaseUser
+ import com.google.firebase.auth.ktx.auth
+ import com.google.firebase.ktx.Firebase
++import com.google.firebase.storage.FirebaseStorage
++import com.google.firebase.storage.StorageReference
+ import java.util.*
+ 
+ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
+@@ -38,9 +41,9 @@
+     private lateinit var auth: FirebaseAuth
+     private lateinit var user: FirebaseUser
+     private lateinit var database: Database
+-
+-    private lateinit var imageUri:Uri
+-    val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
++    private val imageBack = 1
++    lateinit var storage:StorageReference
++    private val viewModelLagArrangement: ViewModelLagArrangement by navGraphViewModels(R.id.lagArrangementFragment)
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+@@ -48,12 +51,11 @@
+         auth = Firebase.auth
+         user = auth.currentUser!!
+         database = Database()
+-
++        storage = FirebaseStorage.getInstance().reference.child("Arrangement")
+     }
+ 
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+-
+         datepicker()
+         clockpicker()
+ 
+@@ -73,33 +75,25 @@
+         }
+ 
+         btnBilde.setOnClickListener {
+-            /*//selectImage()
+-            val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
+-            tittelTF.setText(myViewModelLokasjon.latLng.value.toString())
+-            val name = myViewModelLokasjon.latLng.value*/
++            selectImage()
+         }
+ 
+         btnLag.setOnClickListener {
+             if (tittelTF.text.isEmpty() || beskrivelseTF.text.isEmpty() || stedTF.text.isEmpty() || dateTV.text.isEmpty() || tidTF.text.isEmpty()) {
+                 if(tittelTF.text.isEmpty()) {
+                     tittelTF.setError(resources.getString(R.string.glemt_felt_tittel))
+-                //tittelTF.setHintTextColor(resources.getColor(R.color.error))
+                 }
+                 if (beskrivelseTF.text.isEmpty()) {
+                     beskrivelseTF.setError(resources.getString(R.string.glemt_felt_beskrivelse))
+-                //beskrivelseTF.setHintTextColor(resources.getColor(R.color.error))
+                 }
+                 if(stedTF.text.isEmpty()) {
+                     stedTF.setError(resources.getString(R.string.glemt_felt_sted))
+-                //stedTF.setHintTextColor(resources.getColor(R.color.error))
+                 }
+                 if(dateTV.text.isEmpty()) {
+                     dateTV.setError(resources.getString(R.string.glemt_felt_dato))
+-                //dateTV.setHintTextColor(resources.getColor(R.color.error))
+                 }
+                 if (tidTF.text.isEmpty()) {
+                     tidTF.setError(resources.getString(R.string.glemt_felt_tid))
+-                //tidTF.setHintTextColor(resources.getColor(R.color.error))
+                 }
+             } else {
+                 val arr = Arrangement(
+@@ -111,8 +105,8 @@
+                     dateTV.text.toString(),
+                     tidTF.text.toString(),
+                     plasserTF.text.toString().toInt(),
+-                    myViewModelLokasjon.latLng.value?.latitude.toString(),
+-                    myViewModelLokasjon.latLng.value?.longitude.toString()
++                    viewModelLagArrangement.latLng.value?.latitude.toString(),
++                    viewModelLagArrangement.latLng.value?.longitude.toString()
+                 )
+                 val arrangementId = database.addArrangement(arr)
+                 Log.i("huge", arrangementId)
+@@ -124,28 +118,34 @@
+                 findNavController().navigate(action)
+             }
+         }
+-        
+-
+     }
+ 
+     private fun selectImage() {
+-        var intent = Intent()
+-        intent.type = "image/*"
+-        intent.action = Intent.ACTION_GET_CONTENT
+-        startActivityForResult(intent,1)
++        val intent = Intent(Intent(Intent.ACTION_GET_CONTENT))
++        intent.setType("image/*")
++        startActivityForResult(intent,imageBack)
+     }
+ 
+     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+         super.onActivityResult(requestCode, resultCode, data)
++            if (requestCode == imageBack && resultCode == RESULT_OK) {
++                val imageData = data!!.data
+ 
+-        if(requestCode==1 && data != null && data.data != null) {
+-            imageUri = data.data!!
+-        }
++                val imageName: StorageReference =
++                    storage.child("image" + imageData!!.lastPathSegment)
++                imageName.putFile(imageData)
++                    .addOnSuccessListener(OnSuccessListener { taskSnapShot ->
++                        Toast.makeText(context, "Upload suksessfull", Toast.LENGTH_SHORT).show()
++                    })
++            }
+     }
+ 
+     fun datepicker() {
+         dateImage = view?.findViewById(R.id.registrer_bruker_dp_icon)!!
+         dateTV = view?.findViewById(R.id.registrer_bruker_datepicker)!!
++        /*if (viewModelLagArrangement.dato.value != null) {
++            dateTV.text=viewModelLagArrangement.dato.value
++        }*/
+ 
+         val c = Calendar.getInstance()
+         val year = c.get(Calendar.YEAR)
+@@ -154,7 +154,8 @@
+ 
+         dateImage.setOnClickListener {
+             val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener{ view, mYear, mMonth, mDay ->
+-                dateTV.text = ""+mDay+"/"+mMonth+"/"+mYear
++                dateTV.text = "$mDay/$mMonth/$mYear"
++                viewModelLagArrangement.tid.value = dateTV.text.toString()
+             }, year, month, day)
+             dpd.show()
+         }
+@@ -163,6 +164,9 @@
+     fun clockpicker() {
+         tidTF = view?.findViewById(R.id.txt_lag_arrangement_tid)!!
+         tidBtn = view?.findViewById(R.id.txt_lag_arrangement_tidKnapp)!!
++        /*if (viewModelLagArrangement.tid.value!!.isNotEmpty()) {
++            tidTF.text = viewModelLagArrangement.tid.value.toString()
++        }*/
+ 
+         val mTimePicker: TimePickerDialog
+         val mcurrentTime = Calendar.getInstance()
+@@ -172,6 +176,7 @@
+         mTimePicker = TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {
+             override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                 tidTF.text = String.format("%d : %d", hourOfDay, minute)
++                viewModelLagArrangement.tid.value = String.format("%d : %d", hourOfDay, minute)
+             }
+         }, hour, minute, false)
+ 
+Index: app/src/main/res/layout/fragment_lag_arrangement_maps.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><fragment xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:map=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/lag_arrangement_map\"\r\n    android:name=\"com.google.android.gms.maps.SupportMapFragment\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".fragments.LagArrangementMapsFragment\">\r\n\r\n    <RelativeLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"50dp\"\r\n        android:layout_marginTop=\"10dp\"\r\n        android:layout_marginRight=\"10dp\"\r\n        android:layout_marginLeft=\"10dp\"\r\n        android:elevation=\"10dp\"\r\n        android:id=\"@+id/mapsLayout\">\r\n\r\n        <ImageView\r\n            android:id=\"@+id/maps_sook\"\r\n            android:layout_width=\"15dp\"\r\n            android:layout_height=\"15dp\"\r\n            android:layout_centerVertical=\"true\"\r\n            android:layout_marginLeft=\"10dp\"\r\n            android:background=\"#F3F0F1\"\r\n            android:backgroundTint=\"#0C0808\"\r\n            android:src=\"@drawable/ic_search\" />\r\n\r\n        <EditText\r\n            android:layout_width=\"250dp\"\r\n            android:layout_height=\"match_parent\"\r\n            android:layout_toRightOf=\"@id/maps_sook\"\r\n            android:layout_centerVertical=\"true\"\r\n            android:textSize=\"15sp\"\r\n            android:textColor=\"@color/black\"\r\n            android:id=\"@+id/maps_input_sook\"\r\n            android:background=\"@null\"\r\n            android:hint=\"Skriv inn noe for å søke\"\r\n            android:imeOptions=\"actionSearch\"/>\r\n        <Button\r\n            android:layout_width=\"120dp\"\r\n            android:layout_height=\"match_parent\"\r\n            style=\"@style/Margin_Default\"\r\n            android:id=\"@+id/googleMaps_sendData\"\r\n            android:text=\"Velg\"\r\n            android:layout_toEndOf=\"@+id/maps_input_sook\"\r\n            android:layout_centerVertical=\"true\"/>\r\n\r\n    </RelativeLayout>\r\n</fragment>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_lag_arrangement_maps.xml b/app/src/main/res/layout/fragment_lag_arrangement_maps.xml
+--- a/app/src/main/res/layout/fragment_lag_arrangement_maps.xml	(revision a70d938595455f8faaf57e23c06bc651bf4e6df4)
++++ b/app/src/main/res/layout/fragment_lag_arrangement_maps.xml	(date 1636397239636)
+@@ -37,14 +37,21 @@
+             android:background="@null"
+             android:hint="Skriv inn noe for å søke"
+             android:imeOptions="actionSearch"/>
++
++    </RelativeLayout>
++    <androidx.constraintlayout.widget.ConstraintLayout
++        android:layout_width="match_parent"
++        android:layout_height="match_parent">
++
+         <Button
+-            android:layout_width="120dp"
+-            android:layout_height="match_parent"
+-            style="@style/Margin_Default"
+             android:id="@+id/googleMaps_sendData"
+-            android:text="Velg"
+-            android:layout_toEndOf="@+id/maps_input_sook"
+-            android:layout_centerVertical="true"/>
++            style="@style/Margin_Default"
++            android:layout_width="180dp"
++            android:layout_height="60dp"
++            android:layout_centerVertical="true"
++            android:text="Bekfreft valgt lokasjon"
++            map:layout_constraintBottom_toBottomOf="parent"
++            map:layout_constraintEnd_toEndOf="parent" />
++    </androidx.constraintlayout.widget.ConstraintLayout>
+ 
+-    </RelativeLayout>
+ </fragment>
+\ No newline at end of file
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n    id 'kotlin-android'\r\n    id(\"androidx.navigation.safeargs.kotlin\")\r\n    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'\r\n}\r\n\r\nandroid {\r\n    compileSdk 31\r\n    defaultConfig {\r\n        applicationId \"com.example.greenbook\"\r\n        minSdk 21\r\n        targetSdk 31\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = '1.8'\r\n    }\r\n}\r\n\r\napply plugin: 'com.android.application'\r\napply plugin: 'com.google.gms.google-services'\r\n\r\ndependencies {\r\n    implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'\r\n    def nav_version = \"2.3.5\"\r\n\r\n    // Firebase\r\n    implementation platform('com.google.firebase:firebase-bom:28.4.2')\r\n    implementation 'com.google.firebase:firebase-database-ktx'\r\n    implementation 'com.google.firebase:firebase-auth-ktx'\r\n    implementation 'com.google.firebase:firebase-analytics'\r\n    implementation 'com.firebaseui:firebase-ui-auth:7.2.0'\r\n\r\n    // Navigation\r\n    implementation(\"androidx.navigation:navigation-fragment-ktx:$nav_version\")\r\n    implementation(\"androidx.navigation:navigation-ui-ktx:$nav_version\")\r\n\r\n    //google play services\r\n    implementation 'com.google.android.gms:play-services-location:18.0.0'\r\n    implementation 'com.google.android.gms:play-services-maps:18.0.0'\r\n\r\n    implementation 'androidx.core:core-ktx:1.6.0'\r\n    implementation 'androidx.appcompat:appcompat:1.3.1'\r\n    implementation 'com.google.android.material:material:1.4.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'\r\n    implementation 'androidx.legacy:legacy-support-v4:1.0.0'\r\n    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'\r\n    //noinspection GradleCompatible\r\n    implementation 'com.android.support:cardview-v7:28.0.0'\r\n    implementation 'androidx.recyclerview:recyclerview:1.2.1'\r\n    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'\r\n    implementation 'com.squareup.picasso:picasso:2.8'\r\n    testImplementation 'junit:junit:'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision a70d938595455f8faaf57e23c06bc651bf4e6df4)
++++ b/app/build.gradle	(date 1636397239648)
+@@ -3,6 +3,7 @@
+     id 'kotlin-android'
+     id("androidx.navigation.safeargs.kotlin")
+     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
++    id 'com.google.gms.google-services'
+ }
+ 
+ android {
+@@ -33,10 +34,11 @@
+ }
+ 
+ apply plugin: 'com.android.application'
++apply plugin: 'kotlin-android'
+ apply plugin: 'com.google.gms.google-services'
+ 
+ dependencies {
+-    implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
++    implementation 'com.google.android.libraries.places:places:2.4.0'
+     def nav_version = "2.3.5"
+ 
+     // Firebase
+@@ -45,6 +47,8 @@
+     implementation 'com.google.firebase:firebase-auth-ktx'
+     implementation 'com.google.firebase:firebase-analytics'
+     implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
++    implementation 'com.google.firebase:firebase-storage:20.0.0'
++    implementation 'com.google.firebase:firebase-database:20.0.2'
+ 
+     // Navigation
+     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+@@ -54,7 +58,7 @@
+     implementation 'com.google.android.gms:play-services-location:18.0.0'
+     implementation 'com.google.android.gms:play-services-maps:18.0.0'
+ 
+-    implementation 'androidx.core:core-ktx:1.6.0'
++    implementation 'androidx.core:core-ktx:1.7.0'
+     implementation 'androidx.appcompat:appcompat:1.3.1'
+     implementation 'com.google.android.material:material:1.4.0'
+     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+@@ -68,4 +72,6 @@
+     testImplementation 'junit:junit:'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
++    implementation "androidx.core:core-ktx:1.7.0"
++    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+ }
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.example.greenbook\">\r\n\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.GUI3\">\r\n        <!--\r\n             The API key for Google Maps-based APIs is defined as a string resource.\r\n             (See the file \"res/values/google_maps_api.xml\").\r\n             Note that the API key is linked to the encryption key used to sign the APK.\r\n             You need a different API key for each encryption key, including the release key that is used to\r\n             sign the APK for publishing.\r\n             You can define the keys for the debug and release targets in src/debug/ and src/release/.\r\n        -->\r\n        <meta-data\r\n            android:name=\"com.google.android.geo.API_KEY\"\r\n            android:value=\"@string/google_maps_key\" />\r\n        <activity\r\n            android:name=\".activities.GlemtPassord\"\r\n            android:exported=\"true\" />\r\n        <activity\r\n            android:name=\".fragments.GlemtPassrtActivity\"\r\n            android:exported=\"true\" />\r\n        <activity\r\n            android:name=\".activities.MainActivity\"\r\n            android:exported=\"true\"\r\n            android:theme=\"@style/Theme.GUI3.NoActionBar\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision a70d938595455f8faaf57e23c06bc651bf4e6df4)
++++ b/app/src/main/AndroidManifest.xml	(date 1636397239654)
+@@ -26,12 +26,6 @@
+             android:name="com.google.android.geo.API_KEY"
+             android:value="@string/google_maps_key" />
+         <activity
+-            android:name=".activities.GlemtPassord"
+-            android:exported="true" />
+-        <activity
+-            android:name=".fragments.GlemtPassrtActivity"
+-            android:exported="true" />
+-        <activity
+             android:name=".activities.MainActivity"
+             android:exported="true"
+             android:theme="@style/Theme.GUI3.NoActionBar">
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nbuildscript {\r\n    repositories {\r\n        google()\r\n        mavenCentral()\r\n    }\r\n    dependencies {\r\n        classpath \"com.android.tools.build:gradle:7.0.3\"\r\n        classpath \"org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31\"\r\n        classpath 'com.google.gms:google-services:4.3.10'\r\n        def nav_version = \"2.3.5\"\r\n        classpath(\"androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version\")\r\n        classpath \"com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.0\"\r\n\r\n        // NOTE: Do not place your application dependencies here; they belong\r\n        // in the individual module build.gradle files\r\n    }\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle b/build.gradle
+--- a/build.gradle	(revision a70d938595455f8faaf57e23c06bc651bf4e6df4)
++++ b/build.gradle	(date 1636397239659)
+@@ -1,5 +1,6 @@
+ // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ buildscript {
++    ext.kotlin_version = '1.6.0-RC2'
+     repositories {
+         google()
+         mavenCentral()
+@@ -11,7 +12,8 @@
+         def nav_version = "2.3.5"
+         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
+         classpath "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.0"
+-
++        classpath "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.0"
++        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+         // NOTE: Do not place your application dependencies here; they belong
+         // in the individual module build.gradle files
+     }
+Index: app/src/main/res/layout/fragment_autocomplete_support.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_autocomplete_support.xml b/app/src/main/res/layout/fragment_autocomplete_support.xml
+new file mode 100644
+--- /dev/null	(date 1636397239642)
++++ b/app/src/main/res/layout/fragment_autocomplete_support.xml	(date 1636397239642)
+@@ -0,0 +1,38 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++xmlns:app="http://schemas.android.com/apk/res-auto"
++xmlns:tools="http://schemas.android.com/tools"
++android:layout_width="match_parent"
++android:layout_height="wrap_content"
++android:orientation="vertical">
++
++<fragment
++    android:id="@+id/mapLocation"
++    android:name="com.google.android.gms.maps.MapFragment"
++    android:layout_width="0dp"
++    android:layout_height="0dp"
++    android:layout_marginBottom="2dp"
++    app:layout_constraintTop_toTopOf="parent"
++    app:layout_constraintStart_toStartOf="parent"
++    app:layout_constraintEnd_toEndOf="parent"
++    app:layout_constraintBottom_toTopOf="@+id/autoCompleteEditText"/>
++
++<androidx.appcompat.widget.AppCompatAutoCompleteTextView
++    android:id="@+id/autoCompleteEditText"
++    android:layout_width="0dp"
++    android:layout_height="wrap_content"
++    android:layout_gravity="center_vertical"
++    android:layout_weight="0.9"
++    android:gravity="start"
++    android:hint="Enter Location or Drag map to select location"
++    android:padding="10dp"
++    android:singleLine="true"
++    android:textColor="@color/black"
++    android:textColorHint="@color/black"
++    android:textSize="13sp"
++    app:layout_constraintStart_toStartOf="@+id/mapLocation"
++    app:layout_constraintEnd_toEndOf="@+id/mapLocation"
++    app:layout_constraintBottom_toBottomOf="parent"/>
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_lag_arrangement.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.drawerlayout.widget.DrawerLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\"fragments.LagArrangementFragment\">\r\n\r\n    <FrameLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\">\r\n\r\n\r\n\r\n        <androidx.constraintlayout.widget.ConstraintLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\">\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginStart=\"32dp\"\r\n                android:layout_marginTop=\"24dp\"\r\n                android:layout_marginEnd=\"32dp\"\r\n                android:background=\"@drawable/myrect\"\r\n                android:elevation=\"4dp\"\r\n                android:orientation=\"vertical\"\r\n                android:padding=\"8dp\"\r\n                app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toTopOf=\"parent\"\r\n                app:layout_constraintVertical_bias=\"0.0\">>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt_login\"\r\n                    style=\"@style/Title_Style\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:background=\"@drawable/tittelrect\"\r\n                    android:text=\"Nytt arrangement\"\r\n                    android:textAlignment=\"center\"\r\n                    android:textColor=\"@color/white\"\r\n                    tools:ignore=\"TextContrastCheck\" />\r\n\r\n                <EditText\r\n                    android:id=\"@+id/txt_tittel\"\r\n                    style=\"@style/Margin_Default\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:ems=\"10\"\r\n                    android:hint=\"Tittel\"\r\n                    android:inputType=\"textPersonName\"\r\n                    tools:ignore=\"TouchTargetSizeCheck\" />\r\n\r\n                <EditText\r\n                    android:id=\"@+id/txt_lag_arrangement_beskrivelse\"\r\n                    style=\"@style/Margin_Default\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:ems=\"10\"\r\n                    android:hint=\"Beskrivelse\"\r\n                    android:inputType=\"textPersonName\" />\r\n\r\n                <EditText\r\n                    android:id=\"@+id/txt_sted\"\r\n                    style=\"@style/Margin_Default\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:ems=\"10\"\r\n                    android:hint=\"Sted\"\r\n                    android:inputType=\"textPersonName\" />\r\n\r\n                <LinearLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:background=\"@drawable/myrect\"\r\n                    android:orientation=\"horizontal\">\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/registrer_bruker_dp_icon\"\r\n                        style=\"@style/Margin_Default\"\r\n                        android:layout_width=\"55dp\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_weight=\"1\"\r\n                        android:src=\"@drawable/arrangement\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/registrer_bruker_datepicker\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_weight=\"1\"\r\n                        style=\"@style/Margin_Default\"\r\n                        android:hint=\"@string/hint_datepicker\"/>\r\n                </LinearLayout>\r\n\r\n\r\n                <LinearLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:background=\"@drawable/myrect\"\r\n                    android:orientation=\"horizontal\">\r\n\r\n                    <ImageButton\r\n                        android:id=\"@+id/txt_lag_arrangement_tidKnapp\"\r\n                        style=\"@style/Margin_Default\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"35dp\"\r\n                        android:layout_weight=\"1\"\r\n                        android:src=\"@android:drawable/ic_menu_recent_history\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/txt_lag_arrangement_tid\"\r\n                        style=\"@style/Margin_Default\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_weight=\"1\"\r\n                        android:hint=\"Trykk på bilde for å velge tid\" />\r\n                </LinearLayout>\r\n\r\n                <EditText\r\n                    android:id=\"@+id/txt_plasser\"\r\n                    style=\"@style/Margin_Default\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:ems=\"10\"\r\n                    android:hint=\"Plasser\"\r\n                    android:inputType=\"number\" />\r\n\r\n                <LinearLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:orientation=\"horizontal\">\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/lag_arrangement_btnMap\"\r\n                        style=\"@style/Margin_Default\"\r\n                        android:layout_width=\"19dp\"\r\n                        android:layout_height=\"55dp\"\r\n                        android:layout_weight=\"1\"\r\n                        android:src=\"@android:drawable/ic_dialog_map\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/lag_arrangement_kartTekst\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        style=\"@style/Margin_Default\"\r\n                        android:layout_weight=\"1\"\r\n                        android:text=\"TextView\" />\r\n                </LinearLayout>\r\n\r\n                <LinearLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:orientation=\"horizontal\">\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/lag_arrangement_btnBilde\"\r\n                        style=\"@style/Margin_Default\"\r\n                        android:layout_width=\"103dp\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:src=\"@android:drawable/ic_menu_upload_you_tube\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/lag_arrangement_bilde\"\r\n                        style=\"@style/Margin_Default\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_weight=\"1\"\r\n                        android:text=\"TextView\" />\r\n                </LinearLayout>\r\n\r\n                <Button\r\n                    android:id=\"@+id/btn_registrer\"\r\n                    style=\"@style/Margin_Default\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"Opprett\" />\r\n\r\n            </LinearLayout>\r\n\r\n        </androidx.constraintlayout.widget.ConstraintLayout>\r\n    </FrameLayout>\r\n</androidx.drawerlayout.widget.DrawerLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_lag_arrangement.xml b/app/src/main/res/layout/fragment_lag_arrangement.xml
+--- a/app/src/main/res/layout/fragment_lag_arrangement.xml	(revision a70d938595455f8faaf57e23c06bc651bf4e6df4)
++++ b/app/src/main/res/layout/fragment_lag_arrangement.xml	(date 1636397239666)
+@@ -81,7 +81,7 @@
+                         android:id="@+id/registrer_bruker_dp_icon"
+                         style="@style/Margin_Default"
+                         android:layout_width="55dp"
+-                        android:layout_height="wrap_content"
++                        android:layout_height="30dp"
+                         android:layout_weight="1"
+                         android:src="@drawable/arrangement" />
+ 
+@@ -104,8 +104,8 @@
+                     <ImageButton
+                         android:id="@+id/txt_lag_arrangement_tidKnapp"
+                         style="@style/Margin_Default"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="35dp"
++                        android:layout_width="55dp"
++                        android:layout_height="30dp"
+                         android:layout_weight="1"
+                         android:src="@android:drawable/ic_menu_recent_history" />
+ 
+@@ -135,8 +135,8 @@
+                     <ImageView
+                         android:id="@+id/lag_arrangement_btnMap"
+                         style="@style/Margin_Default"
+-                        android:layout_width="19dp"
+-                        android:layout_height="55dp"
++                        android:layout_width="12dp"
++                        android:layout_height="30dp"
+                         android:layout_weight="1"
+                         android:src="@android:drawable/ic_dialog_map" />
+ 
