@@ -9,20 +9,24 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import com.example.greenbook.Database
 import com.example.greenbook.R
 import com.example.greenbook.dataObjekter.Arrangement
+import com.example.greenbook.dataObjekter.Innlegg
 import com.example.greenbook.viewModels.MyViewModelLokasjon
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
 class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
-
+    private val args: SkrivInnleggFragmentArgs by navArgs()
     lateinit var tittelTF: EditText
     lateinit var beskrivelseTF: EditText
     lateinit var stedTF: EditText
@@ -33,13 +37,19 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
     lateinit var dateImage: ImageView
     lateinit var dateTV:TextView
     lateinit var btnMaps:ImageView
+    lateinit var mapsTf: TextView
     private lateinit var bildeTF:TextView
     private lateinit var btnBilde:ImageView
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
     private lateinit var database: Database
+    private lateinit var uri:Uri
+    private val storage = FirebaseStorage.getInstance()
+    private val pickerContent = registerForActivityResult(ActivityResultContracts.GetContent()){
+        uri = it
+        bildeTF.text = uri.toString()
+    }
 
-    private lateinit var imageUri:Uri
     val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,18 +63,21 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        datepicker()
-        clockpicker()
-
         tittelTF = view.findViewById(R.id.txt_tittel)
         beskrivelseTF = view.findViewById(R.id.txt_lag_arrangement_beskrivelse)
         stedTF = view.findViewById(R.id.txt_sted)
         plasserTF = view.findViewById(R.id.txt_plasser)
         btnLag = view.findViewById(R.id.btn_registrer)
         btnMaps = view.findViewById(R.id.lag_arrangement_btnMap)
+        mapsTf = view.findViewById(R.id.lag_arrangement_kartTekst)
         btnBilde = view.findViewById(R.id.lag_arrangement_btnBilde)
         bildeTF = view.findViewById(R.id.lag_arrangement_bilde)
+
+        datepicker()
+        clockpicker()
+        if(myViewModelLokasjon.latLng.value!=null) {
+            mapsTf.text= "lokasjon er valgt"
+        }
 
 
         btnMaps.setOnClickListener {
@@ -73,74 +86,89 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
         }
 
         btnBilde.setOnClickListener {
-            /*//selectImage()
-            val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
-            tittelTF.setText(myViewModelLokasjon.latLng.value.toString())
-            val name = myViewModelLokasjon.latLng.value*/
+            pickerContent.launch("image/*")
         }
 
         btnLag.setOnClickListener {
             if (tittelTF.text.isEmpty() || beskrivelseTF.text.isEmpty() || stedTF.text.isEmpty() || dateTV.text.isEmpty() || tidTF.text.isEmpty()) {
-                if(tittelTF.text.isEmpty()) {
-                    tittelTF.setError(resources.getString(R.string.glemt_felt_tittel))
-                //tittelTF.setHintTextColor(resources.getColor(R.color.error))
+                if (tittelTF.text.isEmpty()) {
+                    tittelTF.error = resources.getString(R.string.glemt_felt_tittel)
                 }
                 if (beskrivelseTF.text.isEmpty()) {
-                    beskrivelseTF.setError(resources.getString(R.string.glemt_felt_beskrivelse))
-                //beskrivelseTF.setHintTextColor(resources.getColor(R.color.error))
+                    beskrivelseTF.error = resources.getString(R.string.glemt_felt_beskrivelse)
                 }
-                if(stedTF.text.isEmpty()) {
-                    stedTF.setError(resources.getString(R.string.glemt_felt_sted))
-                //stedTF.setHintTextColor(resources.getColor(R.color.error))
+                if (stedTF.text.isEmpty()) {
+                    stedTF.error = resources.getString(R.string.glemt_felt_sted)
                 }
-                if(dateTV.text.isEmpty()) {
-                    dateTV.setError(resources.getString(R.string.glemt_felt_dato))
-                //dateTV.setHintTextColor(resources.getColor(R.color.error))
+                if (dateTV.text.isEmpty()) {
+                    dateTV.error = resources.getString(R.string.glemt_felt_dato)
                 }
                 if (tidTF.text.isEmpty()) {
-                    tidTF.setError(resources.getString(R.string.glemt_felt_tid))
-                //tidTF.setHintTextColor(resources.getColor(R.color.error))
+                    tidTF.error = resources.getString(R.string.glemt_felt_tid)
                 }
             } else {
-                val arr = Arrangement(
-                    null,
-                    user.uid,
-                    tittelTF.text.toString(),
-                    beskrivelseTF.text.toString(),
-                    stedTF.text.toString(),
-                    dateTV.text.toString(),
-                    tidTF.text.toString(),
-                    plasserTF.text.toString().toInt(),
-                    myViewModelLokasjon.latLng.value?.latitude.toString(),
-                    myViewModelLokasjon.latLng.value?.longitude.toString()
-                )
-                val arrangementId = database.addArrangement(arr)
-                val action =
-                    LagArrangementFragmentDirections.actionLagArrangementFragmentToArrangementFragment(
-                        arrangementId,
-                        arr.tittel!!
+                if (bildeTF.text.toString().isNotEmpty()) {
+                    var bildeURL: String? = null
+                    val path = "Arrangement/" + UUID.randomUUID() + ".png"
+                    val arrangementRef = storage.getReference(path)
+                    val uploadTask = arrangementRef.putFile(uri)
+                    val getDownloadUriTask = uploadTask.continueWithTask { task ->
+                        if (!task.isSuccessful) {
+                            throw task.exception!!
+                        }
+                        arrangementRef.downloadUrl
+                    }.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            bildeURL = task.result.toString()
+                            val arr = Arrangement(
+                                null,
+                                user.uid,
+                                tittelTF.text.toString(),
+                                beskrivelseTF.text.toString(),
+                                stedTF.text.toString(),
+                                dateTV.text.toString(),
+                                tidTF.text.toString(),
+                                plasserTF.text.toString().toInt(),
+                                myViewModelLokasjon.latLng.value?.latitude.toString(),
+                                myViewModelLokasjon.latLng.value?.longitude.toString(),
+                                bildeURL
+                            )
+                            val arrangementId = database.addArrangement(arr)
+                            val action =
+                                LagArrangementFragmentDirections.actionLagArrangementFragmentToArrangementFragment(
+                                    arrangementId,
+                                    arr.tittel!!
+                                )
+                            findNavController().navigate(action)
+                        }
+                    }
+                } else {
+                    val arr = Arrangement(
+                        null,
+                        user.uid,
+                        tittelTF.text.toString(),
+                        beskrivelseTF.text.toString(),
+                        stedTF.text.toString(),
+                        dateTV.text.toString(),
+                        tidTF.text.toString(),
+                        plasserTF.text.toString().toInt(),
+                        myViewModelLokasjon.latLng.value?.latitude.toString(),
+                        myViewModelLokasjon.latLng.value?.longitude.toString()
                     )
-                findNavController().navigate(action)
+                    val arrangementId = database.addArrangement(arr)
+                    val action =
+                        LagArrangementFragmentDirections.actionLagArrangementFragmentToArrangementFragment(
+                            arrangementId,
+                            arr.tittel!!
+                        )
+                    findNavController().navigate(action)
+                }
             }
         }
         
 
     }
 
-    private fun selectImage() {
-        var intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent,1)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if(requestCode==1 && data != null && data.data != null) {
-            imageUri = data.data!!
-        }
-    }
 
     fun datepicker() {
         dateImage = view?.findViewById(R.id.registrer_bruker_dp_icon)!!

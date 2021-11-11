@@ -9,9 +9,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -30,7 +27,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">>
+                app:layout_constraintVertical_bias="0.0">
 
                 <TextView
                     android:id="@+id/txt_login"
@@ -71,6 +68,15 @@
                     android:hint="Sted"
                     android:inputType="textPersonName" />
 
+                <EditText
+                    android:id="@+id/txt_plasser"
+                    style="@style/Margin_Default"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Plasser"
+                    android:inputType="number" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -80,8 +86,8 @@
                     <ImageView
                         android:id="@+id/registrer_bruker_dp_icon"
                         style="@style/Margin_Default"
-                        android:layout_width="55dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="19dp"
+                        android:layout_height="55dp"
                         android:layout_weight="1"
                         android:src="@drawable/arrangement" />
 
@@ -101,11 +107,10 @@
                     android:background="@drawable/myrect"
                     android:orientation="horizontal">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/txt_lag_arrangement_tidKnapp"
-                        style="@style/Margin_Default"
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dp"
+                        android:layout_width="19dp"
+                        android:layout_height="55dp"
                         android:layout_weight="1"
                         android:src="@android:drawable/ic_menu_recent_history" />
 
@@ -118,15 +123,6 @@
                         android:hint="Trykk på bilde for å velge tid" />
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/txt_plasser"
-                    style="@style/Margin_Default"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Plasser"
-                    android:inputType="number" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -135,18 +131,18 @@
                     <ImageView
                         android:id="@+id/lag_arrangement_btnMap"
                         style="@style/Margin_Default"
-                        android:layout_width="19dp"
+                        android:layout_width="8dp"
                         android:layout_height="55dp"
                         android:layout_weight="1"
                         android:src="@android:drawable/ic_dialog_map" />
 
                     <TextView
                         android:id="@+id/lag_arrangement_kartTekst"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         style="@style/Margin_Default"
-                        android:layout_weight="1"
-                        android:text="TextView" />
+                        android:layout_width="wrap_content"
+                        android:hint="Trykk for å legge til lokasjon"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -157,17 +153,17 @@
                     <ImageView
                         android:id="@+id/lag_arrangement_btnBilde"
                         style="@style/Margin_Default"
-                        android:layout_width="103dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="77dp"
+                        android:layout_height="55dp"
                         android:src="@android:drawable/ic_menu_upload_you_tube" />
 
                     <TextView
                         android:id="@+id/lag_arrangement_bilde"
                         style="@style/Margin_Default"
                         android:layout_width="wrap_content"
+                        android:hint="Trykk for å legge til bilde "
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <Button
