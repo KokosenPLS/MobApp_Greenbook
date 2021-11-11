@@ -70,7 +70,6 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
 
         btn_join.setOnClickListener {
             if(btn_join.text.equals("Bli med")){
-
                 database.meldBrukerPåArrangement(user.uid, args.arrangementID)
             }
             else{

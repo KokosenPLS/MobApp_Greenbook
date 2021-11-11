@@ -76,7 +76,6 @@ class InnleggAdaptor (val innlegg : ArrayList<Innlegg>, val listener: OnItemClic
         } catch (ex: NullPointerException){
             Log.i("bilde", "har ikke bilde")
         }
-
     }
 
     interface OnItemClickListener{

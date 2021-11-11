@@ -1,5 +1,6 @@
 package com.example.greenbook.fragments
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -12,20 +13,31 @@ import androidx.navigation.fragment.navArgs
 import com.example.greenbook.Database
 import com.example.greenbook.R
 import com.example.greenbook.dataObjekter.Innlegg
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
+import java.net.URI
+import java.util.*
+import kotlin.coroutines.Continuation
 
 class SkrivInnleggFragment : Fragment(R.layout.fragment_skriv_innlegg) {
 
     private val args: SkrivInnleggFragmentArgs by navArgs()
+
     private lateinit var tekst: EditText
     private lateinit var bilde: ImageView
     private lateinit var velg_bilde: Button
+    private lateinit var bildeUri: Uri
     private val pickerContent = registerForActivityResult(ActivityResultContracts.GetContent()){
-        bilde.setImageURI(it)
+        bildeUri = it
+        bilde.setImageURI(bildeUri)
+        bilde.visibility = ImageView.VISIBLE
     }
     private lateinit var complete: Button
     private lateinit var database: Database
+    private val storage = FirebaseStorage.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,16 +63,37 @@ class SkrivInnleggFragment : Fragment(R.layout.fragment_skriv_innlegg) {
             else { // legge til i databasen
                 var bildeURL: String? = null
                 if (bilde.drawable != null) {
-                    // legg til bilde i database, få url
-                    // bildeURL = database.addBilde(bilde.drawable)
+                    // Legge til bilde i databasen
+                    val path = "innlegg/"+UUID.randomUUID()+".png"
+                    val innleggRef = storage.getReference(path)
+                    val uploadTask = innleggRef.putFile(bildeUri)
+                    val getDownloadUriTask = uploadTask.continueWithTask{ task ->
+                        if (!task.isSuccessful){
+                            throw task.exception!!
+                        }
+                        innleggRef.downloadUrl
+                    }.addOnCompleteListener { task ->
+                        if(task.isSuccessful){
+                            bildeURL = task.result.toString()
+                            val user = Firebase.auth.currentUser
+                            database = Database()
+                            database.addInnlegg(Innlegg(null, args.arrangementId, user?.uid!!, tekst.text.toString(), bildeURL))
+                            findNavController().navigateUp()
+                        }
+                    }
                 }
-                val user = Firebase.auth.currentUser
-                database = Database()
-                database.addInnlegg(Innlegg(null, args.arrangementId, user?.uid!!, tekst.text.toString(), bildeURL))
-                findNavController().navigateUp()
+                else{
+                    val user = Firebase.auth.currentUser
+                    database = Database()
+                    database.addInnlegg(Innlegg(null, args.arrangementId, user?.uid!!, tekst.text.toString(), bildeURL))
+                    findNavController().navigateUp()
+                }
+
             }
         }
 
     }
+
+
 
 }

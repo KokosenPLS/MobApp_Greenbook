@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.fragment.navArgs
 import com.example.greenbook.Database
@@ -15,12 +16,14 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
+import com.squareup.picasso.Picasso
 
 class InnleggFragment : Fragment(R.layout.fragment_innlegg) {
 
     private val args: InnleggFragmentArgs by navArgs()
 
     private lateinit var text: TextView
+    private lateinit var bilde: ImageView
     private lateinit var kommentarInput: EditText
     private lateinit var btnKommenter: Button
 
@@ -36,6 +39,7 @@ class InnleggFragment : Fragment(R.layout.fragment_innlegg) {
         text = view?.findViewById(R.id.innlegg_tekst)
         kommentarInput = view?.findViewById(R.id.innlegg_input_kommentar)
         btnKommenter = view?.findViewById(R.id.innlegg_btn_kommenter)
+        bilde = view?.findViewById(R.id.innlegg_display_bilde)
 
         btnKommenter.setOnClickListener {
             postKommentar()
@@ -46,6 +50,7 @@ class InnleggFragment : Fragment(R.layout.fragment_innlegg) {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val innlegg = snapshot.getValue<Innlegg>()
                 text.text = innlegg?.innlegg_beskrivelse
+                Picasso.get().load(innlegg?.bildeURL).into(bilde)
             }
 
             override fun onCancelled(error: DatabaseError) {
