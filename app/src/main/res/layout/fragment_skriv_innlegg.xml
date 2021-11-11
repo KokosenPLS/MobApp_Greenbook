@@ -50,7 +50,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/account" />
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/skriv_innlegg_btn_done"

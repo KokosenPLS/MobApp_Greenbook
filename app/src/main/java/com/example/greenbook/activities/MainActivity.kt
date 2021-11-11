@@ -92,8 +92,6 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if(item.itemId == R.id.menu_logout){
             loggedIn = false
