@@ -38,6 +38,7 @@
     <string name="velg_bilde">Velg bilde</string>
     <string name="skrivEnKommentar">Skriv en kommentar</string>
     <string name="kommenter">Kommenter</string>
+    <string name="title_activity_lag_arrangement_maps">LagArrangementMapsActivity</string>
 
 
 </resources>

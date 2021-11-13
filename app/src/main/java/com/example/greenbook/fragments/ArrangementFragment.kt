@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdaptor.OnItemClickListener{
 
@@ -43,6 +44,7 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
     private lateinit var btn_skrivInlegg: Button
     var innlegg: ArrayList<Innlegg> = ArrayList()
     private lateinit var googleMapsImage: ImageView
+    private lateinit var arrangementBilde:ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +62,7 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         btn_join = view?.findViewById(R.id.arrangement_btn_blimed)
         btn_skrivInlegg = view?.findViewById(R.id.arrangement_btn_skriv_innlegg)
         googleMapsImage = view?.findViewById(R.id.arrangement_goToGoogleMaps)
+        arrangementBilde=view.findViewById(R.id.arrangement_img)
 
         updateUI()
 
@@ -143,12 +146,17 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
                         arrangement.beskrivelse
                 )
         googleMapsImage.setOnClickListener{
-            val gmmIntentUri = Uri.parse("geo:0,0?q=-${arrangement.long},${arrangement.lat}")
-            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-            mapIntent.setPackage("com.google.android.apps.maps")
-            startActivity(mapIntent)
+            if(arrangement.long!=null && arrangement.lat!=null) {
+                val gmmIntentUri = Uri.parse("geo:${arrangement.lat},${arrangement.long}")
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                mapIntent.setPackage("com.google.android.apps.maps")
+                startActivity(mapIntent)
+            }else{
+                Toast.makeText(context, "Admin har ikke valgt lokasjon", Toast.LENGTH_SHORT).show()
+            }
         }
-
+        if(arrangement.bildeUrl !=null)
+            Picasso.get().load(arrangement.bildeUrl).into(arrangementBilde)
     }
 
     override fun onItemClick(position: Int) {
