@@ -1,5 +1,6 @@
 package com.example.greenbook.fragments
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -31,7 +32,7 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
     lateinit var beskrivelseTF: EditText
     lateinit var stedTF: EditText
     lateinit var tidTF: TextView
-    lateinit var tidBtn: ImageButton
+    lateinit var tidBtn: ImageView
     lateinit var plasserTF: EditText
     lateinit var btnLag: Button
     lateinit var dateImage: ImageView
@@ -49,8 +50,7 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
         uri = it
         bildeTF.text = uri.toString()
     }
-
-    val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
+    private val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -165,11 +165,9 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
                 }
             }
         }
-        
-
     }
 
-
+    @SuppressLint("SetTextI18n")
     fun datepicker() {
         dateImage = view?.findViewById(R.id.registrer_bruker_dp_icon)!!
         dateTV = view?.findViewById(R.id.registrer_bruker_datepicker)!!
@@ -181,7 +179,7 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
 
         dateImage.setOnClickListener {
             val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener{ view, mYear, mMonth, mDay ->
-                dateTV.text = ""+mDay+"/"+mMonth+"/"+mYear
+                dateTV.text = "$mDay/$mMonth/$mYear"
             }, year, month, day)
             dpd.show()
         }
