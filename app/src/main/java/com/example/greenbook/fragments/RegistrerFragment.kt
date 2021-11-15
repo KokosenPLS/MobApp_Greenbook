@@ -127,8 +127,6 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
         }
     }
 
-    // TODO: 10/28/2021 lar denne stå her, du kan da velge hva du skal gjøre med den
-
     /*private fun isDatoValid(): Boolean{
 
         val day = fdato_day.text.toString().toInt()

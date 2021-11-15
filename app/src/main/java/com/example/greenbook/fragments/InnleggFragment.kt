@@ -128,7 +128,6 @@ class InnleggFragment : Fragment(R.layout.fragment_innlegg), KommentarAdaptor.On
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
         }
 

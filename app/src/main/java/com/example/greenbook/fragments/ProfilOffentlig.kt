@@ -106,7 +106,6 @@ class ProfilOffentlig : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
         }
         database.database.child("followers").child(args.brukerID).addValueEventListener(følgereListener)

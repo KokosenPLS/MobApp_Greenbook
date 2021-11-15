@@ -130,7 +130,6 @@ class PrivatProfilFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
         }
         database.database.child("followers").child(auth.uid.toString()).addValueEventListener(følgereListener)

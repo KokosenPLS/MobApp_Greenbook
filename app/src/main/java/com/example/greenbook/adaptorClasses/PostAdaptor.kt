@@ -90,7 +90,7 @@ class PostAdaptor(val arrangement : ArrayList<Arrangement>, val listener: OnItem
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
 
         }

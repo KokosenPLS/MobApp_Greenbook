@@ -134,7 +134,7 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
 
         }
