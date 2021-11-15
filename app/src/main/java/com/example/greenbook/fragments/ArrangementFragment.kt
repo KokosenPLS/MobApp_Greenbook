@@ -54,14 +54,19 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tittel = view?.findViewById(R.id.arrangement_tittel)
-        beskrivelse = view?.findViewById(R.id.arrangement_txt_beskrivelse)
-        btn_påmeldte = view?.findViewById(R.id.arrangement_påmeldte)
-        btn_join = view?.findViewById(R.id.arrangement_btn_blimed)
-        btn_skrivInlegg = view?.findViewById(R.id.arrangement_btn_skriv_innlegg)
-        googleMapsImage = view?.findViewById(R.id.arrangement_goToGoogleMaps)
+        tittel = view.findViewById(R.id.arrangement_tittel)
+        beskrivelse = view.findViewById(R.id.arrangement_txt_beskrivelse)
+        btn_påmeldte = view.findViewById(R.id.arrangement_påmeldte)
+        btn_join = view.findViewById(R.id.arrangement_btn_blimed)
+        btn_skrivInlegg = view.findViewById(R.id.arrangement_btn_skriv_innlegg)
+        googleMapsImage = view.findViewById(R.id.arrangement_goToGoogleMaps)
 
         updateUI()
+
+        btn_påmeldte.setOnClickListener {
+            val action = ArrangementFragmentDirections.actionArrangementFragmentToDeltakereArrangement(args.arrangementID, args.arrangementNavn)
+            findNavController().navigate(action)
+        }
 
         btn_skrivInlegg.setOnClickListener{
             val action = ArrangementFragmentDirections.actionArrangementFragmentToSkrivInnleggFragment(args.arrangementID)

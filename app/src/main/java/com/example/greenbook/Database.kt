@@ -2,6 +2,7 @@ package com.example.greenbook
 
 import com.example.greenbook.dataObjekter.Arrangement
 import com.example.greenbook.dataObjekter.Innlegg
+import com.example.greenbook.dataObjekter.Kommentar
 import com.example.greenbook.dataObjekter.Profil
 import com.google.firebase.database.*
 
@@ -58,6 +59,19 @@ class Database {
             )
         ref.child(innlegg.arrangementId!!).child(innleggId!!).setValue(ferdigInnlegg)
         return innleggId
+    }
+
+    fun addKommentar(kommentar: Kommentar){
+        val ref = database.child("kommentarer").child(kommentar.innleggId!!)
+        val kommentarId = ref.push().key
+        val ferdigKommentar = Kommentar(
+            kommentarId,
+            kommentar.kommentarId,
+            kommentar.brukerId,
+            kommentar.kommentarTekst,
+            kommentar.timestamp
+        )
+        ref.child(kommentarId!!).setValue(ferdigKommentar)
     }
 
     fun follow(id: String, følgerId: String){

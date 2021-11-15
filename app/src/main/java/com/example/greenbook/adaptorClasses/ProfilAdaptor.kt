@@ -13,11 +13,12 @@ class ProfilAdaptor(val profiler: ArrayList<Profil>, val listener: OnItemClickLi
 
     inner class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView),
         View.OnClickListener{
+
         val bilde: ImageView = itemView.findViewById(R.id.profilBildeDisplay)
         val navn: TextView = itemView.findViewById(R.id.profilNavnDisplay)
 
         init {
-            navn.setOnClickListener(this)
+            itemView.setOnClickListener(this)
         }
 
         override fun onClick(p0: View?) {
@@ -34,7 +35,8 @@ class ProfilAdaptor(val profiler: ArrayList<Profil>, val listener: OnItemClickLi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // TODO < Lage ny profiladaptor med connection til database >
+        val profil = profiler[position]
+        holder.navn.text = "${profil.fornavn} ${profil.etternavn}"
     }
 
     interface OnItemClickListener{

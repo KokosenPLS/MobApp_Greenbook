@@ -46,15 +46,15 @@ class SkrivInnleggFragment : Fragment(R.layout.fragment_skriv_innlegg) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tekst = view?.findViewById(R.id.skriv_innlegg_tekst)
-        bilde = view?.findViewById(R.id.skriv_innlegg_bilde)
-        velg_bilde = view?.findViewById(R.id.skriv_innlegg_btn_bilde)
+        tekst = view.findViewById(R.id.skriv_innlegg_tekst)
+        bilde = view.findViewById(R.id.skriv_innlegg_bilde)
+        velg_bilde = view.findViewById(R.id.skriv_innlegg_btn_bilde)
 
         velg_bilde.setOnClickListener {
             pickerContent.launch("image/*")
         }
 
-        complete = view?.findViewById(R.id.skriv_innlegg_btn_done)
+        complete = view.findViewById(R.id.skriv_innlegg_btn_done)
         complete.setOnClickListener {
 
             if(tekst.text.isEmpty()){
