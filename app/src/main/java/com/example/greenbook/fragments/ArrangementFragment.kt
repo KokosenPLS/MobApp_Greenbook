@@ -4,6 +4,7 @@ package com.example.greenbook.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.navigation.fragment.findNavController
@@ -61,8 +62,9 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         btn_skrivInlegg = view.findViewById(R.id.arrangement_btn_skriv_innlegg)
         googleMapsImage = view.findViewById(R.id.arrangement_goToGoogleMaps)
 
-
         updateUI()
+
+        Log.i("btn", btn_påmeldte.text.toString())
 
         btn_påmeldte.setOnClickListener {
             val action = ArrangementFragmentDirections.actionArrangementFragmentToDeltakereArrangement(args.arrangementID, args.arrangementNavn)
@@ -81,9 +83,6 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
             else{
                 database.meldBrukerAvArrangement(user.uid, args.arrangementID)
             }
-        }
-        btn_påmeldte.setOnClickListener {
-
         }
     }
     fun hentInnlegg(){
