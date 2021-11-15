@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".fragments.ProfilOffentlig">>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,9 +15,11 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/arrangement_img"
+                android:id="@+id/profil_offentlig_bilde"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:maxHeight="125dp"
+                android:adjustViewBounds="true"
                 android:paddingTop="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +27,7 @@
                 app:srcCompat="@mipmap/ic_launcher_round" />
 
             <TextView
-                android:id="@+id/arrangement_tittel"
+                android:id="@+id/profil_offentlig_navn"
                 style="@style/Title_Style"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -34,10 +37,10 @@
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/arrangement_img" />
+                app:layout_constraintTop_toBottomOf="@+id/profil_offentlig_bilde" />
 
             <TextView
-                android:id="@+id/txt_beskrivelse"
+                android:id="@+id/profil_offentlig_bio"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -47,40 +50,40 @@
                 android:text="Biotekst kommer herBiotekst kommer herBiotekst kommer herBiotekst kommer herBiotekst kommer herBiotekst kommer herBiotekst kommer her"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/arrangement_btn_blimed" />
+                app:layout_constraintTop_toBottomOf="@+id/profil_offentlig_btn_følg" />
 
             <Button
-                android:id="@+id/arrangement_påmeldte"
+                android:id="@+id/profil_offentlig_følgere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:text="22 Følgere"
-                app:layout_constraintEnd_toStartOf="@+id/arrangement_btn_blimed"
+                app:layout_constraintEnd_toStartOf="@+id/profil_offentlig_btn_følg"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/arrangement_btn_blimed" />
+                app:layout_constraintTop_toTopOf="@+id/profil_offentlig_btn_følg" />
 
             <Button
-                android:id="@+id/arrangement_btn_blimed"
+                android:id="@+id/profil_offentlig_btn_følg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Følg"
-                app:layout_constraintEnd_toStartOf="@+id/arrangement_btn_skriv_innlegg"
+                app:layout_constraintEnd_toStartOf="@+id/profil_offentlig_melding"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/arrangement_påmeldte"
-                app:layout_constraintTop_toBottomOf="@+id/arrangement_tittel" />
+                app:layout_constraintStart_toEndOf="@+id/profil_offentlig_følgere"
+                app:layout_constraintTop_toBottomOf="@+id/profil_offentlig_navn" />
 
             <Button
-                android:id="@+id/arrangement_btn_skriv_innlegg"
+                android:id="@+id/profil_offentlig_melding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="melding"
                 app:icon="@drawable/ic_message"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/arrangement_btn_blimed"
-                app:layout_constraintTop_toTopOf="@+id/arrangement_btn_blimed" />
+                app:layout_constraintStart_toEndOf="@+id/profil_offentlig_btn_følg"
+                app:layout_constraintTop_toTopOf="@+id/profil_offentlig_btn_følg" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView2"
@@ -93,7 +96,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_beskrivelse" />
+                app:layout_constraintTop_toBottomOf="@+id/profil_offentlig_bio" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

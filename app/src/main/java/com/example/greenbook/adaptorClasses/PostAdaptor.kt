@@ -54,7 +54,8 @@ class PostAdaptor(val arrangement : ArrayList<Arrangement>, val listener: OnItem
         holder.sted.text = arrangement[position].sted
         holder.tid.text = arrangement[position].tid
         holder.beskrivelse.text = arrangement[position].beskrivelse
-        Picasso.get().load("https://picsum.photos/900/600?random&")
+        if(arrangement[position].bildeUrl !=null)
+            Picasso.get().load(arrangement[position].bildeUrl).into(holder.bilde)
         val database = Database()
         holder.btnJoin.setOnClickListener {
             if(holder.btnJoin.text.equals("Bli med")) {

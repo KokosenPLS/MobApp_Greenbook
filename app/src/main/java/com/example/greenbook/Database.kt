@@ -75,9 +75,14 @@ class Database {
     }
 
     fun follow(id: String, følgerId: String){
-        database.child("follows").child(id).setValue(følgerId) // bruker følger
-        database.child("followers").child(følgerId).setValue(id) // folk som følger bruker
+        database.child("follows").child(id).child(følgerId).setValue(true) // bruker følger
+        database.child("followers").child(følgerId).child(id).setValue(true) // folk som følger bruker
         // Kanskje litt dobbeltlagring, men blir lettere å lete igjennom data
+    }
+
+    fun stopFollow(id: String, følgerId: String){
+        database.child("follows").child(id).child(følgerId).removeValue()
+        database.child("followers").child(følgerId).child(id).removeValue()
     }
 
 }

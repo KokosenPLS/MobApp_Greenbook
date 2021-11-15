@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="6dp"
-    tools:context=".fragments.ProfilFragment">
+    tools:context=".fragments.PrivatProfilFragment">
 
     <ImageView
-        android:id="@+id/profil_bilde"
+        android:id="@+id/profil_privat_profilBilde"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:maxHeight="125dp"
+        android:adjustViewBounds="true"
         android:paddingTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +20,7 @@
         tools:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/profil_navn"
+        android:id="@+id/profil_privat_navn"
         style="@style/Title_Style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -28,10 +30,10 @@
         android:text="Ola Nordmann"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profil_bilde" />
+        app:layout_constraintTop_toBottomOf="@+id/profil_privat_profilBilde" />
 
     <Button
-        android:id="@+id/profil_btn_følgere"
+        android:id="@+id/profil_privat_følgere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="false"
@@ -39,40 +41,39 @@
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:text="38 følgere"
-        app:layout_constraintEnd_toStartOf="@+id/profil_button_follow"
+        app:layout_constraintEnd_toStartOf="@+id/profil_privat_button_redigerBilde"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profil_navn" />
+        app:layout_constraintTop_toBottomOf="@+id/profil_privat_navn" />
 
     <Button
-        android:id="@+id/profil_button_follow"
+        android:id="@+id/profil_privat_button_redigerBilde"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="4dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:text="Følg"
-        app:layout_constraintEnd_toStartOf="@+id/profil_btn_send_melding"
+        android:text="Endre bilde"
+        app:layout_constraintEnd_toStartOf="@+id/profil_privat_btn_redigerBio"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/profil_btn_følgere"
-        app:layout_constraintTop_toBottomOf="@+id/profil_navn" />
+        app:layout_constraintStart_toEndOf="@+id/profil_privat_følgere"
+        app:layout_constraintTop_toBottomOf="@+id/profil_privat_navn" />
 
     <Button
-        android:id="@+id/profil_btn_send_melding"
+        android:id="@+id/profil_privat_btn_redigerBio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="4dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:text="Melding"
-        app:icon="@drawable/ic_message"
+        android:text="Lagre endringer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/profil_button_follow"
-        app:layout_constraintTop_toBottomOf="@+id/profil_navn" />
+        app:layout_constraintStart_toEndOf="@+id/profil_privat_button_redigerBilde"
+        app:layout_constraintTop_toBottomOf="@+id/profil_privat_navn" />
 
-    <TextView
-        android:id="@+id/profil_txt_bio"
+    <EditText
+        android:id="@+id/profil_privat_txt_bio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -82,10 +83,10 @@
         android:elevation="4dp"
         android:gravity="start"
         android:padding="6dp"
-        android:text="Biotekst kommer herBiotekst kommer herBiotekst kommer herBiotekst kommer herBiotekst kommer herBiotekst kommer herBiotekst kommer her"
+        android:hint="Lag en bio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profil_button_follow" />
+        app:layout_constraintTop_toBottomOf="@+id/profil_privat_button_redigerBilde" />
 
     <TextView
         android:id="@+id/profil_txt_innlegg"
@@ -101,5 +102,5 @@
         android:text="Her kommer innlegg til personen Her kommer innlegg til personen Her kommer innlegg til personen Her kommer innlegg til personen Her kommer innlegg til personen "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profil_txt_bio" />
+        app:layout_constraintTop_toBottomOf="@+id/profil_privat_txt_bio" />
 </androidx.constraintlayout.widget.ConstraintLayout>

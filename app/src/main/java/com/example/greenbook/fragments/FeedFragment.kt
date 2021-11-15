@@ -66,7 +66,6 @@ class FeedFragment() : Fragment(R.layout.feed_fragment), PostAdaptor.OnItemClick
             }
         }
         database.database.child("arrangement").addValueEventListener(arrangementListener)
-
     }
 
     private fun update(arr: ArrayList<Arrangement>){
