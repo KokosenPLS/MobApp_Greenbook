@@ -47,9 +47,13 @@
 
             <ImageView
                 android:id="@+id/skriv_innlegg_bilde"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:maxHeight="250dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:visibility="gone" />
 
             <Button

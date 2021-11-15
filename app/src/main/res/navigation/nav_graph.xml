@@ -100,10 +100,13 @@
     <fragment
         android:id="@+id/deltakereArrangement"
         android:name="com.example.greenbook.fragments.DeltakereArrangementFragment"
-        android:label="Deltakere"
+        android:label="Deltakere i {arrangementTittel}"
         tools:layout="@layout/fragment_deltakere_arrangement">
         <argument
             android:name="arrangementID"
+            app:argType="string" />
+        <argument
+            android:name="arrangementTittel"
             app:argType="string" />
     </fragment>
     <fragment
