@@ -54,7 +54,6 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
         view?.findViewById<Button>(R.id.btn_registrer).setOnClickListener {
                 if(email.text.isEmpty()){
                     email.setError(resources.getString(R.string.tomEpost_error))
-                    //email.setHintTextColor(resources.getColor(R.color.error))
                     //Denne er litt bugga/funker ikke
                 }else if(isEmailValid(email.toString()))
                         email.setError(resources.getString(R.string.validitetEpost_error))
@@ -62,19 +61,15 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
 
                 if(passord.text.isEmpty()){
                     passord.setError(resources.getString(R.string.tomPassord_error))
-                    //passord.setHintTextColor(resources.getColor(R.color.error))
                 }
                 if(passord2.text.isEmpty()){
                     passord2.setError(resources.getString(R.string.tomPassord_error))
-                    //passord2.setHintTextColor(resources.getColor(R.color.error))
                 }
                 if(fornavn.text.isEmpty()){
                     fornavn.setError(resources.getString(R.string.tomFornavn_error))
-                    //fornavn.setHintTextColor(resources.getColor(R.color.error))
                 }
                 if(etternavn.text.isEmpty()){
                     etternavn.setError(resources.getString(R.string.tomEtternavn_error))
-                    //etternavn.setHintTextColor(resources.getColor(R.color.error))
                 }
                 if(fdato.text.isEmpty()){
                     fdato.setHint(resources.getString(R.string.tomFDato_error))
@@ -112,7 +107,6 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
     }
 
     fun datepicker() {
-        // TODO: Truls lettere om du også gjøre textview klikkbar
         datoKnapp = view?.findViewById(R.id.registrer_bruker_dp_icon)!!
         fdato = view?.findViewById(R.id.registrer_bruker_datepicker)!!
 

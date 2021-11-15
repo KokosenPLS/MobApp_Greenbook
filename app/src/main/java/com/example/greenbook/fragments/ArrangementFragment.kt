@@ -4,7 +4,6 @@ package com.example.greenbook.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.navigation.fragment.findNavController
@@ -24,7 +23,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
@@ -56,13 +54,13 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tittel = view?.findViewById(R.id.arrangement_tittel)
+        tittel = view?.findViewById(R.id.profil_offentlig_navn)
         beskrivelse = view?.findViewById(R.id.arrangement_txt_beskrivelse)
-        btn_påmeldte = view?.findViewById(R.id.arrangement_påmeldte)
-        btn_join = view?.findViewById(R.id.arrangement_btn_blimed)
-        btn_skrivInlegg = view?.findViewById(R.id.arrangement_btn_skriv_innlegg)
+        btn_påmeldte = view?.findViewById(R.id.profil_offentlig_følgere)
+        btn_join = view?.findViewById(R.id.profil_offentlig_btn_følg)
+        btn_skrivInlegg = view?.findViewById(R.id.profil_offentlig_melding)
         googleMapsImage = view?.findViewById(R.id.arrangement_goToGoogleMaps)
-        arrangementBilde=view.findViewById(R.id.arrangement_img)
+        arrangementBilde=view.findViewById(R.id.profil_offentlig_bilde)
 
         updateUI()
 
@@ -78,6 +76,9 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
             else{
                 database.meldBrukerAvArrangement(user.uid, args.arrangementID)
             }
+        }
+        btn_påmeldte.setOnClickListener {
+
         }
     }
     fun hentInnlegg(){
