@@ -27,7 +27,7 @@ import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
 class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
-    private val args: SkrivInnleggFragmentArgs by navArgs()
+    //private val args:LagArrangementMapsFragmentArgs by navArgs()
     lateinit var tittelTF: EditText
     lateinit var beskrivelseTF: EditText
     lateinit var stedTF: EditText
@@ -49,6 +49,7 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
     private val pickerContent = registerForActivityResult(ActivityResultContracts.GetContent()){
         uri = it
         bildeTF.text = uri.toString()
+        myViewModelLokasjon.uri.value = uri
     }
     private val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
 
@@ -72,13 +73,14 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
         mapsTf = view.findViewById(R.id.lag_arrangement_kartTekst)
         btnBilde = view.findViewById(R.id.lag_arrangement_btnBilde)
         bildeTF = view.findViewById(R.id.lag_arrangement_bilde)
+        dateImage = view?.findViewById(R.id.registrer_bruker_dp_icon)
+        dateTV = view?.findViewById(R.id.registrer_bruker_datepicker)
+        tidTF = view?.findViewById(R.id.txt_lag_arrangement_tid)
+        tidBtn = view?.findViewById(R.id.txt_lag_arrangement_tidKnapp)
 
+        updateUI()
         datepicker()
         clockpicker()
-        if(myViewModelLokasjon.latLng.value!=null) {
-            mapsTf.text= "lokasjon er valgt"
-        }
-
 
         btnMaps.setOnClickListener {
             val action = LagArrangementFragmentDirections.actionLagArrangementFragmentToLagArrangementMapsFragment()
@@ -167,11 +169,25 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
         }
     }
 
+    fun updateUI() {
+        // Når man navigerer seg til maps, er det er bug som nullstiller ulike felt. Dette er løsningen min for å fikse dette
+        if(myViewModelLokasjon.uri.value !=null) {
+            uri = myViewModelLokasjon.uri.value!!
+            bildeTF.text = uri.toString()
+        }
+        if(myViewModelLokasjon.latLng.value!=null) {
+            mapsTf.text= "lokasjon er valgt"
+        }
+        if (myViewModelLokasjon.dato.value!=null){
+            dateTV.text = myViewModelLokasjon.dato.value.toString()
+        }
+        if(myViewModelLokasjon.tid.value!=null) {
+            tidTF.text = myViewModelLokasjon.tid.value.toString()
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     fun datepicker() {
-        dateImage = view?.findViewById(R.id.registrer_bruker_dp_icon)!!
-        dateTV = view?.findViewById(R.id.registrer_bruker_datepicker)!!
-
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
@@ -179,16 +195,16 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
 
         dateImage.setOnClickListener {
             val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener{ view, mYear, mMonth, mDay ->
-                dateTV.text = "$mDay/$mMonth/$mYear"
+                if("$mDay/$mMonth/$mYear".isNotEmpty()) {
+                    dateTV.text = "$mDay/$mMonth/$mYear"
+                    myViewModelLokasjon.dato.value = "$mDay/$mMonth/$mYear"
+                }
             }, year, month, day)
             dpd.show()
         }
     }
 
     fun clockpicker() {
-        tidTF = view?.findViewById(R.id.txt_lag_arrangement_tid)!!
-        tidBtn = view?.findViewById(R.id.txt_lag_arrangement_tidKnapp)!!
-
         val mTimePicker: TimePickerDialog
         val mcurrentTime = Calendar.getInstance()
         val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
@@ -196,7 +212,10 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
 
         mTimePicker = TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {
             override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-                tidTF.text = String.format("%d : %d", hourOfDay, minute)
+                if(String.format("%d : %d", hourOfDay, minute).isNotEmpty()) {
+                    tidTF.text = String.format("%d : %d", hourOfDay, minute)
+                    myViewModelLokasjon.tid.value = String.format("%d : %d", hourOfDay, minute)
+                }
             }
         }, hour, minute, false)
 

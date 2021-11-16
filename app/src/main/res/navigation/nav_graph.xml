@@ -124,12 +124,8 @@
     <fragment
         android:id="@+id/lagArrangementMapsFragment"
         android:name="com.example.greenbook.fragments.LagArrangementMapsFragment"
-        android:label="fragment_lag_arrangement_maps"
-        tools:layout="@layout/fragment_lag_arrangement_maps" >
-        <action
-            android:id="@+id/action_lagArrangementMapsFragment_to_lagArrangementFragment"
-            app:destination="@id/lagArrangementFragment" />
-    </fragment>
+        android:label="Velg lokasjon"
+        tools:layout="@layout/fragment_lag_arrangement_maps" />
   <fragment
         android:id="@+id/glemtPassordFragment"
         android:name="com.example.greenbook.fragments.GlemtPassordFragment"
