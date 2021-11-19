@@ -61,6 +61,7 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         btn_join = view.findViewById(R.id.arrangement_btn_blimed)
         btn_skrivInlegg = view.findViewById(R.id.arrangement_btn_skriv_innlegg)
         googleMapsImage = view.findViewById(R.id.arrangement_goToGoogleMaps)
+        arrangementBilde = view.findViewById(R.id.arrangement_bilde)
 
         updateUI()
 
