@@ -27,7 +27,7 @@ class DeltakereArrangementFragment : Fragment(R.layout.fragment_deltakere_arrang
     private val args: DeltakereArrangementFragmentArgs by navArgs()
 
     private var deltakere = ArrayList<Profil>()
-    private var brukerStrings = ArrayList<String>()
+    private var deltakereStrings = ArrayList<String>()
     private val database = Database()
 
     private lateinit var recyclerView: RecyclerView
@@ -39,29 +39,49 @@ class DeltakereArrangementFragment : Fragment(R.layout.fragment_deltakere_arrang
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = view?.findViewById(R.id.arrangementDeltakereRc)!!
-
-        recyclerView?.layoutManager = LinearLayoutManager(view?.context)
+        recyclerView = view.findViewById(R.id.arrangementDeltakereRc)!!
 
         val gridLayout = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
 
-        recyclerView?.setHasFixedSize(true)
-        recyclerView?.layoutManager = gridLayout
-        recyclerView?.adapter = ProfilAdaptor(deltakere, this)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = gridLayout
+        val adaptor = ProfilAdaptor(deltakere, this)
+        recyclerView.adapter =  adaptor
 
-        hentDeltakere()
+        hentDeltakere(adaptor)
 
     }
 
-    private fun hentDeltakere() {
+    private fun hentDeltakere(adaptor: ProfilAdaptor) {
+
+        val profilListener = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val bruker = snapshot.getValue<Profil>()
+                    var found = false
+                    for(user in deltakere){
+                        if (user.equals(bruker  ))
+                            found = true
+                    }
+                    if(!found)
+                        deltakere.add(bruker!!)
+
+                    adaptor.notifyDataSetChanged()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        }
+
         val deltakereListener = object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.hasChildren()){
                     for(bruker in snapshot.children){
                         val deltakerString = bruker.key
-                        brukerStrings.add(deltakerString!!)
+                        deltakereStrings.add(deltakerString!!)
+                        database.database.child("bruker").child(deltakerString!!).addValueEventListener(profilListener)
                     }
-                    visDeltakere()
                 }
                 else{
                     // Ingen brukere
@@ -74,37 +94,9 @@ class DeltakereArrangementFragment : Fragment(R.layout.fragment_deltakere_arrang
         database.database.child("påmeldinger").child(args.arrangementID).addValueEventListener(deltakereListener)
     }
 
-    private fun visDeltakere() {
-
-        val deltakereListener = object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    val bruker = snapshot.getValue<Profil>()
-                    deltakere.add(bruker!!)
-                    Log.i("brukere", deltakere.size.toString())
-                    recyclerView.adapter?.notifyDataSetChanged()
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-        }
-
-        for(bruker in brukerStrings){
-           database.database.child("bruker").child(bruker).addValueEventListener(deltakereListener)
-
-        }
-        Log.i("array", deltakere.size.toString())
-        Log.i("strings", brukerStrings.size.toString())
-    }
-
-    companion object {
-        fun newInstance() = DeltakereArrangementFragment()
-    }
-
     override fun onItemClick(position: Int) {
         val bruker = deltakere[position]
-        val action = NavGraphDirections.actionGlobalProfilOffentlig(brukerStrings[position], "${bruker.fornavn} ${bruker.etternavn}")
+        val action = NavGraphDirections.actionGlobalProfilOffentlig(deltakereStrings[position], "${bruker.fornavn} ${bruker.etternavn}")
         findNavController().navigate(action)
     }
 
