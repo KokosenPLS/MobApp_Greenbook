@@ -100,12 +100,20 @@
     <fragment
         android:id="@+id/lagArrangementMapsFragment"
         android:name="com.example.greenbook.fragments.LagArrangementMapsFragment"
-        android:label="fragment_lag_arrangement_maps"
+
+        android:label="Velg lokasjon"
         tools:layout="@layout/fragment_lag_arrangement_maps" >
         <action
             android:id="@+id/action_lagArrangementMapsFragment_to_lagArrangementFragment"
             app:destination="@id/lagArrangementFragment" />
     </fragment>
+
+  <fragment
+        android:id="@+id/glemtPassordFragment"
+        android:name="com.example.greenbook.fragments.GlemtPassordFragment"
+        android:label="fragment_glemt_passord"
+        tools:layout="@layout/fragment_glemt_passord" />
+
     <fragment
 
         android:id="@+id/skrivInnleggFragment"

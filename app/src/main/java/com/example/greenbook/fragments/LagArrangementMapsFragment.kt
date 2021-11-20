@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -35,6 +36,7 @@ class LagArrangementMapsFragment : Fragment(R.layout.fragment_lag_arrangement_ma
 
     private var markerLokasjon: LatLng? = null
     private val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
+    private lateinit var btnVelLokasjon:Button
 
     @SuppressLint("RestrictedApi")
     private val callback = OnMapReadyCallback { mMap ->
@@ -46,7 +48,12 @@ class LagArrangementMapsFragment : Fragment(R.layout.fragment_lag_arrangement_ma
             mMap.clear()
             mMap.addMarker(MarkerOptions().position(LatLng(it.latitude,it.longitude)))
             markerLokasjon= LatLng(it.latitude,it.longitude)
+        }
+
+        btnVelLokasjon = view?.findViewById(R.id.btn_maps_velgLokasjon)!!
+        btnVelLokasjon.setOnClickListener {
             myViewModelLokasjon.latLng.value = markerLokasjon
+            findNavController().navigateUp()
         }
 
         Places.initialize(getApplicationContext(), "AIzaSyDo2As499vwKMIgnn0Xja27cn6aD0lCtjM")
@@ -71,6 +78,8 @@ class LagArrangementMapsFragment : Fragment(R.layout.fragment_lag_arrangement_ma
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.lag_arrangement_map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+
+
     }
 
 
@@ -79,12 +88,7 @@ class LagArrangementMapsFragment : Fragment(R.layout.fragment_lag_arrangement_ma
             mMap.addMarker(MarkerOptions().position(LatLng(latLng.latitude, latLng.longitude)))
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
             markerLokasjon=latLng
-            myViewModelLokasjon.latLng.value = markerLokasjon
-
     }
-
-
-
 }
 
 
