@@ -48,8 +48,6 @@ class InnleggFragment : Fragment(R.layout.fragment_innlegg), KommentarAdaptor.On
     }
 
     private fun hentKommentarer() {
-
-
         val kommentarListener = object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(kommentar in snapshot.children ){
