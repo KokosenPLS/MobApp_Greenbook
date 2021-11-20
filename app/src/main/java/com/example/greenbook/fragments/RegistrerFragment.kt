@@ -159,7 +159,8 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
                         email.editText?.text.toString(),
                         fornavn.editText?.text.toString(),
                         etternavn.editText?.text.toString(),
-                        fdato.text.toString()
+                        fdato.text.toString(),
+                        "https://firebasestorage.googleapis.com/v0/b/greenbook-a2981.appspot.com/o/Profil%2F8183db5c-916b-4073-86c5-848a2b0a4d13.png?alt=media&token=b140743a-3b1b-46f9-82c3-877308d2c8b1"
                     )
                     database.addBruker(user?.uid!!, bruker)
                     reload()
