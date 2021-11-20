@@ -27,53 +27,76 @@
             android:text="@string/Registrer"
             android:textAlignment="center" />
 
-        <EditText
-            android:id="@+id/txt_email"
-            style="@style/Margin_Default"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_input_email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="E-post"
-            android:inputType="textEmailAddress"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:layout_height="match_parent"
+            android:paddingTop="8dp"
+            android:paddingBottom="10dp"
+            app:errorEnabled="true">
 
-        <EditText
-            android:id="@+id/registrer_bruker_passord_1"
-            style="@style/Margin_Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Passord"
-            android:inputType="textPassword"
-            tools:ignore="TouchTargetSizeCheck" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="E-post"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/registrer_bruker_passord_2"
-            style="@style/Margin_Default"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_input_passord"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Skriv inn passord på nytt"
-            android:inputType="textPassword"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp"
+            app:errorEnabled="true">
 
-        <EditText
-            android:id="@+id/txt_tittel"
-            style="@style/Margin_Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Fornavn"
-            android:inputType="textPersonName" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Passord"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/txt_etternavn"
-            style="@style/Margin_Default"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_input_passord_confirm"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Etternavn"
-            android:inputType="textPersonName" />
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Skriv inn passord på nytt"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_input_fornavn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Fornavn"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_input_etternavn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Etternavn"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,21 +104,43 @@
             android:background="@drawable/myrect"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/registrer_bruker_dp_icon"
-                style="@style/Margin_Default"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/arrangement" />
+                app:layout_constraintBottom_toBottomOf="@+id/registrer_bruker_datepicker"
+                app:layout_constraintTop_toBottomOf="@+id/registrer_bruker_datepicker">
 
-            <TextView
-                android:id="@+id/registrer_bruker_datepicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                style="@style/Margin_Default"
-                android:hint="@string/hint_datepicker"/>
+                <ImageView
+                    android:id="@+id/registrer_bruker_dp_icon"
+                    style="@style/Margin_Default"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/arrangement"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/registrer_bruker_datepicker"
+                    style="@style/Margin_Default"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_datepicker"
+                    app:layout_constraintBottom_toBottomOf="@+id/registrer_bruker_dp_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/registrer_bruker_dp_icon"
+                    app:layout_constraintTop_toTopOf="@+id/registrer_bruker_dp_icon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
 
         <Button
@@ -103,6 +148,7 @@
             style="@style/Margin_Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/Reg_btn" />
 
     </LinearLayout>
