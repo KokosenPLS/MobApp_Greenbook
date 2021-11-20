@@ -41,10 +41,12 @@ class Database {
 
     fun meldBrukerPåArrangement(id: String, arrangementId: String){
         database.child("påmeldinger").child(arrangementId).child(id).setValue(true)
+        database.child("påmeldt").child(id).child(arrangementId).setValue(true)
     }
 
     fun meldBrukerAvArrangement(id: String, arrangementId: String){
         database.child("påmeldinger").child(arrangementId).child(id).removeValue()
+        database.child("påmeldt").child(id).child(arrangementId).removeValue()
     }
 
     fun addInnlegg(innlegg: Innlegg): String{

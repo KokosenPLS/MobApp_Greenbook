@@ -7,13 +7,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.greenbook.Database
+import com.example.greenbook.NavGraphDirections
 import com.example.greenbook.R
+import com.example.greenbook.adaptorClasses.PostAdaptor
+import com.example.greenbook.dataObjekter.Arrangement
+import com.example.greenbook.dataObjekter.Post
 import com.example.greenbook.dataObjekter.Profil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -26,7 +30,7 @@ import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 
-class ProfilOffentlig : Fragment() {
+class ProfilOffentlig : Fragment(R.layout.fragment_profil_offentlig), PostAdaptor.OnItemClickListener {
 
     private val args: ProfilOffentligArgs by navArgs()
 
@@ -40,6 +44,8 @@ class ProfilOffentlig : Fragment() {
     private lateinit var user: FirebaseUser
     private lateinit var database: Database
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var påmeldteArrangement: ArrayList<Arrangement>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,13 +54,10 @@ class ProfilOffentlig : Fragment() {
         user = auth.currentUser!!
         database = Database()
 
-    }
+        påmeldteArrangement = ArrayList()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_profil_offentlig, container, false)
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,6 +82,14 @@ class ProfilOffentlig : Fragment() {
                     database.stopFollow(auth.uid.toString(),args.brukerID)
             }
         }
+
+        recyclerView = view.findViewById(R.id.profil_offentlig_påmeldinger_rc)!!
+        val adapter = PostAdaptor(påmeldteArrangement, this)
+        recyclerView.layoutManager = LinearLayoutManager(view.context)
+        recyclerView.adapter = adapter
+
+        hentArrangement(adapter)
+
         updateUI()
     }
 
@@ -113,14 +124,57 @@ class ProfilOffentlig : Fragment() {
         database.database.child("followers").child(args.brukerID).addValueEventListener(følgereListener)
     }
 
+    private fun hentArrangement(adaptor: PostAdaptor) {
+
+        val arrangementListener = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val arrangement = snapshot.getValue<Arrangement>()
+                    var found = false
+                    for(arr in påmeldteArrangement){
+                        if (arr.equals(arrangement))
+                            found = true
+                    }
+                    if(!found)
+                        påmeldteArrangement.add(arrangement!!)
+                }
+                Log.i("arrangement", påmeldteArrangement.size.toString())
+                adaptor.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        }
+
+        val påmeldingerListener = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    for(påmelding in snapshot.children){
+                        database.database.child("arrangement").child(påmelding.key!!).addValueEventListener(arrangementListener)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        }
+        database.database.child("påmeldt").child(args.brukerID).addValueEventListener(påmeldingerListener)
+
+    }
+
     @SuppressLint("SetTextI18n")
     private fun update(profil: Profil){
         navnTV.text = profil.fornavn + " " + profil.etternavn
-        bioTV.setText(profil.bio)
+        if(profil.bio != null)
+            bioTV.setText(profil.bio)
+        else
+            bioTV.setText("${profil.fornavn} har ikke skrvet en bio ennå")
         if(profil.imgUrl !=null)
             Picasso.get().load(profil.imgUrl).into(profilBilde)
     }
 
-    companion object {
+    override fun onItemClick(position: Int) {
+        val action = NavGraphDirections.actionGlobalArrangementFragment(påmeldteArrangement[position].arrangementId!!,påmeldteArrangement[position].tittel!! )
+        findNavController().navigate(action)
     }
 }
