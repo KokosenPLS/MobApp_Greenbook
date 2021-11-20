@@ -146,7 +146,7 @@
     <fragment
         android:id="@+id/profilOffentlig"
         android:name="com.example.greenbook.fragments.ProfilOffentlig"
-        android:label="fragment_profil_offentlig"
+        android:label="{brukernavn}"
         tools:layout="@layout/fragment_profil_offentlig" >
         <argument
             android:name="brukerID"
