@@ -158,6 +158,7 @@ class ProfilOffentlig : Fragment(R.layout.fragment_profil_offentlig), PostAdapto
             override fun onCancelled(error: DatabaseError) {
             }
         }
+
         database.database.child("påmeldt").child(args.brukerID).addValueEventListener(påmeldingerListener)
 
     }
