@@ -2,6 +2,7 @@ package com.example.greenbook.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,7 @@ import com.squareup.picasso.Picasso
 class ProfilOffentlig : Fragment() {
 
     private val args: ProfilOffentligArgs by navArgs()
+
     private lateinit var profilBilde: ImageView
     private lateinit var navnTV: TextView
     private lateinit var btn_displayFølgere: Button

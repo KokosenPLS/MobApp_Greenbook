@@ -108,12 +108,6 @@
             app:destination="@id/lagArrangementFragment" />
     </fragment>
 
-  <fragment
-        android:id="@+id/glemtPassordFragment"
-        android:name="com.example.greenbook.fragments.GlemtPassordFragment"
-        android:label="fragment_glemt_passord"
-        tools:layout="@layout/fragment_glemt_passord" />
-
     <fragment
 
         android:id="@+id/skrivInnleggFragment"
@@ -157,6 +151,10 @@
         <argument
             android:name="brukerID"
             app:argType="string" />
+        <argument
+            android:name="brukernavn"
+            app:argType="string" />
     </fragment>
+    <action android:id="@+id/action_global_profilOffentlig" app:destination="@id/profilOffentlig" />
 
 </navigation>

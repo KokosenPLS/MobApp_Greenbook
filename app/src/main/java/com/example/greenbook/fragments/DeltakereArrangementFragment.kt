@@ -104,7 +104,7 @@ class DeltakereArrangementFragment : Fragment(R.layout.fragment_deltakere_arrang
 
     override fun onItemClick(position: Int) {
         val bruker = deltakere[position]
-        val action = NavGraphDirections.actionGlobalProfilFragment(brukerStrings.get(position), "${bruker.fornavn} ${bruker.etternavn}")
+        val action = NavGraphDirections.actionGlobalProfilOffentlig(brukerStrings[position], "${bruker.fornavn} ${bruker.etternavn}")
         findNavController().navigate(action)
     }
 
