@@ -10,8 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.GravityCompat
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.greenbook.Database
+import com.example.greenbook.NavGraphDirections
 import com.example.greenbook.R
 import com.example.greenbook.dataObjekter.Profil
 import com.google.firebase.auth.FirebaseAuth
@@ -74,6 +77,11 @@ class PrivatProfilFragment : Fragment() {
 
        button_privat_RedigerBio.setOnClickListener {
             updateProfil()
+       }
+
+       button_privat_folgere.setOnClickListener {
+           val action =  PrivatProfilFragmentDirections.actionProfilFragmentToFoolgerFragment(auth.uid.toString(),"navn") // TODO: 11/20/2021 Når man sender navnet rund skal det også inn her, venter på at alex skal gjøre det 
+           findNavController().navigate(action)
        }
 
     }
