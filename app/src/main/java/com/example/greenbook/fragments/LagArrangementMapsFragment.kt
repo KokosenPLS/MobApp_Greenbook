@@ -32,7 +32,7 @@ import com.google.android.libraries.places.api.Places
 
 
 
-class LagArrangementMapsFragment : Fragment() {
+class LagArrangementMapsFragment : Fragment(R.layout.fragment_lag_arrangement_maps) {
 
     private var markerLokasjon: LatLng? = null
     private val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
@@ -72,14 +72,6 @@ class LagArrangementMapsFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_lag_arrangement_maps, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

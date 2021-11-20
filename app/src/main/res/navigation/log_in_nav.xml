@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/log_in_nav"
+    app:startDestination="@id/loggInnFragment">
+
+    <fragment
+        android:id="@+id/loggInnFragment"
+        android:name="com.example.greenbook.fragments.LoggInnFragment"
+        android:label="LoggInnFragment" >
+        <action
+            android:id="@+id/action_loggInnFragment_to_glemtPassordFragment"
+            app:destination="@id/glemtPassordFragment" />
+        <action
+            android:id="@+id/action_loggInnFragment_to_registrerFragment"
+            app:destination="@id/registrerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/glemtPassordFragment"
+        android:name="com.example.greenbook.fragments.GlemtPassordFragment"
+        android:label="fragment_glemt_passord"
+        tools:layout="@layout/fragment_glemt_passord" />
+    <fragment
+        android:id="@+id/registrerFragment"
+        android:name="com.example.greenbook.fragments.RegistrerFragment"
+        android:label="RegistrerFragment" />
+</navigation>

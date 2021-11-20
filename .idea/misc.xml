@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/activity_main.xml" value="0.19322916666666667" />
+        <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/activity_not_logged_in.xml" value="0.36666666666666664" />
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/deltakere_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/fragment_arrangement.xml" value="0.16" />
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/fragment_deltakere_arrangement.xml" value="0.36666666666666664" />
@@ -13,6 +15,7 @@
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/fragment_skriv_innlegg.xml" value="0.22" />
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/innlegg_row.xml" value="0.3446557971014493" />
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/kommentar_display_row.xml" value="0.35778985507246375" />
+        <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/nav_header.xml" value="0.36666666666666664" />
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/profil_display_row.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/layout/fragment_arrangement.xml" value="0.259375" />
       </map>
