@@ -138,7 +138,6 @@ class ProfilOffentlig : Fragment(R.layout.fragment_profil_offentlig), PostAdapto
                     if(!found)
                         påmeldteArrangement.add(arrangement!!)
                 }
-                Log.i("arrangement", påmeldteArrangement.size.toString())
                 adaptor.notifyDataSetChanged()
             }
 
