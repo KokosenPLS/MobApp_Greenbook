@@ -3,32 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loggInnFragment">
+    app:startDestination="@id/feedFragment">
 
-    <fragment
-        android:id="@+id/loggInnFragment"
-        android:name="com.example.greenbook.fragments.LoggInnFragment"
-        android:label="LoggInnFragment" >
-        <action
-            android:id="@+id/action_loggInnFragment_to_registrerFragment"
-            app:destination="@id/registrerFragment" />
-        <action
-            android:id="@+id/action_loggInnFragment_to_feedFragment"
-            app:destination="@id/feedFragment" />
-        <action
-            android:id="@+id/action_loggInnFragment_to_glemtPassordFragment"
-            app:destination="@id/glemtPassordFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/registrerFragment"
-        android:name="com.example.greenbook.fragments.RegistrerFragment"
-        android:label="RegistrerFragment" >
-        <action
-            android:id="@+id/action_registrerFragment_to_feedFragment"
-            app:destination="@id/feedFragment"
-            app:popUpTo="@id/registrerFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
     <fragment
         android:id="@+id/feedFragment"
         android:name="com.example.greenbook.fragments.FeedFragment"
@@ -130,11 +106,6 @@
             android:id="@+id/action_lagArrangementMapsFragment_to_lagArrangementFragment"
             app:destination="@id/lagArrangementFragment" />
     </fragment>
-  <fragment
-        android:id="@+id/glemtPassordFragment"
-        android:name="com.example.greenbook.fragments.GlemtPassordFragment"
-        android:label="fragment_glemt_passord"
-        tools:layout="@layout/fragment_glemt_passord" />
     <fragment
 
         android:id="@+id/skrivInnleggFragment"

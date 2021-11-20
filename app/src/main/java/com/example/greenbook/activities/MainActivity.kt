@@ -35,8 +35,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var database: Database
     private lateinit var auth: FirebaseAuth
 
-    private var loggedIn = false // Fiksa en bug når appen kom tilbake fra velge bilde activity
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -101,32 +99,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if(item.itemId == R.id.menu_logout){
-            loggedIn = false
             auth.signOut()
             reload()
-
             true
         }
         else
             item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
-
-    override fun onStart() {
-        super.onStart()
-
-        val user = auth.currentUser
-        if(user != null && !loggedIn){
-            val action = LoggInnFragmentDirections.actionLoggInnFragmentToFeedFragment()
-
-            navController.navigate(action)
-            loggedIn = true
-        }
-        else{
-            supportActionBar?.hide()
-            findViewById<DrawerLayout>(R.id.drawer_layout).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        }
-    }
-
 
     private fun reload(){
         finish()
