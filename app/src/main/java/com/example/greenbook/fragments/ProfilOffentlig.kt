@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.greenbook.Database
 import com.example.greenbook.R
@@ -80,6 +81,11 @@ class ProfilOffentlig : Fragment() {
             }
         }
         updateUI()
+
+        btn_displayFølgere.setOnClickListener {
+            val action =  ProfilOffentligDirections.actionProfilOffentligToFoolgerFragment(args.brukerID,args.brukernavn)
+            findNavController().navigate(action)
+        }
     }
 
     private fun updateUI(){

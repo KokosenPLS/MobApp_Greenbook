@@ -1,13 +1,17 @@
 package com.example.greenbook.adaptorClasses
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenbook.R
 import com.example.greenbook.dataObjekter.Profil
+import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 
 class ProfilAdaptor(val profiler: ArrayList<Profil>, val listener: OnItemClickListener) : RecyclerView.Adapter<ProfilAdaptor.ViewHolder>(){
 
@@ -36,6 +40,9 @@ class ProfilAdaptor(val profiler: ArrayList<Profil>, val listener: OnItemClickLi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val profil = profiler[position]
+        if(profil.imgUrl !=null) {
+            Picasso.get().load(profil.imgUrl).into(holder.bilde)
+        }
         holder.navn.text = "${profil.fornavn} ${profil.etternavn}"
     }
 
@@ -46,6 +53,4 @@ class ProfilAdaptor(val profiler: ArrayList<Profil>, val listener: OnItemClickLi
     override fun getItemCount(): Int  {
         return profiler.size
     }
-
-
 }

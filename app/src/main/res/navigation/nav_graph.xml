@@ -47,6 +47,9 @@
         <argument
             android:name="brukernavn"
             app:argType="string" />
+        <action
+            android:id="@+id/action_profilFragment_to_foolgerFragment"
+            app:destination="@id/foolgerFragment" />
     </fragment>
     <fragment
         android:id="@+id/lagArrangementFragment"
@@ -154,7 +157,22 @@
         <argument
             android:name="brukernavn"
             app:argType="string" />
+        <action
+            android:id="@+id/action_profilOffentlig_to_foolgerFragment"
+            app:destination="@id/foolgerFragment" />
     </fragment>
     <action android:id="@+id/action_global_profilOffentlig" app:destination="@id/profilOffentlig" />
+    <fragment
+        android:id="@+id/foolgerFragment"
+        android:name="com.example.greenbook.fragments.FoolgerFragment"
+        android:label="{brukernavn}"
+        tools:layout="@layout/fragment_foolger" >
+        <argument
+            android:name="brukerId"
+            app:argType="string" />
+        <argument
+            android:name="brukernavn"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
