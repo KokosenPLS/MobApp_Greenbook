@@ -1,6 +1,7 @@
 package com.example.greenbook.dataObjekter
 
 data class Profil(
+    var brukerId: String ?=null,
     val email: String ?= null,
     val fornavn: String ?= null,
     val etternavn: String ?= null,

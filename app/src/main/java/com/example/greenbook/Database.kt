@@ -1,9 +1,6 @@
 package com.example.greenbook
 
-import com.example.greenbook.dataObjekter.Arrangement
-import com.example.greenbook.dataObjekter.Innlegg
-import com.example.greenbook.dataObjekter.Kommentar
-import com.example.greenbook.dataObjekter.Profil
+import com.example.greenbook.dataObjekter.*
 import com.google.firebase.database.*
 
 class Database {
@@ -85,6 +82,13 @@ class Database {
     fun stopFollow(id: String, følgerId: String){
         database.child("follows").child(id).child(følgerId).removeValue()
         database.child("followers").child(følgerId).child(id).removeValue()
+    }
+
+    fun sendMelding(melding: ChatMessage){
+        val localref = database.child("meldinger")
+        val meldingId = localref.push().key.toString()
+        localref.child(melding.sender!!).child(melding.reciever!!).child(meldingId).setValue(melding)
+        localref.child(melding.reciever!!).child(melding.sender!!).child(meldingId).setValue(melding)
     }
 
 }
