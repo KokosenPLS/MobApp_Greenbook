@@ -14,7 +14,7 @@
     <string name="EMAIL_REGEX">"^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"</string>
 
     <!-- LagArrangementFragment-->
-    <string name="hint_datepicker">Trykk for å velge fødselsdato</string>
+    <string name="hint_datepicker">Trykk for å velge dato</string>
 
     <string name="glemt_felt_tittel">Tittel kan ikke være tom</string>
     <string name="glemt_felt_beskrivelse">Beskrivelse kan ikke være tom</string>

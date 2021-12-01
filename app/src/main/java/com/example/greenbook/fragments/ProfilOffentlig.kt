@@ -79,7 +79,7 @@ class ProfilOffentlig : Fragment(R.layout.fragment_profil_offentlig), PostAdapto
                 if (args.brukerID!=auth.uid.toString())
                     database.follow(auth.uid.toString(), args.brukerID)
                 else
-                    Toast.makeText(context, "Du kan ikke følge deg selv", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Du kan ikke slutte å følge deg selv", Toast.LENGTH_SHORT).show()
             }
             else{
                 if (args.brukerID!=auth.uid.toString())
