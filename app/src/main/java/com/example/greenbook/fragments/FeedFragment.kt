@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
@@ -57,7 +58,7 @@ class FeedFragment() : Fragment(R.layout.feed_fragment), PostAdaptor.OnItemClick
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(arr in snapshot.children){
                     val arra= arr.getValue<Arrangement>()
-                    arrangement.add(arra!!)
+                    arrangement.add(0,arra!!)
                 }
                 update(arrangement)
             }

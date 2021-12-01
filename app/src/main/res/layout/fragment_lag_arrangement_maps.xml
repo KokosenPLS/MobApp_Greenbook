@@ -7,25 +7,44 @@
     android:layout_height="match_parent"
     tools:context=".fragments.LagArrangementMapsFragment">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical"
-            android:background="@color/black"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.InboxFollowFragment">
+
+        <LinearLayout
+            android:id="@+id/googleMaps_DisplayAutocomplete"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:orientation="vertical"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/autocomplete_fragment"
-                android:background="@android:color/white"
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/btn_maps_velgLokasjon"
-                style="@style/Margin_Default"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Opprett" />
-
+                android:background="@android:color/white" />
         </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_maps_velgLokasjon"
+            style="@style/Margin_Default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Velg lokasjon"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/googleMaps_DisplayAutocomplete" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
 </fragment>

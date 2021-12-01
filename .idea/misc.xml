@@ -14,11 +14,12 @@
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/fragment_profil.xml" value="0.36666666666666664" />
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/fragment_profil_offentlig.xml" value="0.332703213610586" />
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/fragment_registrer.xml" value="0.33" />
-
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/fragment_skriv_innlegg.xml" value="0.22" />
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/innlegg_row.xml" value="0.3446557971014493" />
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/kommentar_display_row.xml" value="0.35778985507246375" />
         <entry key="..\:/Koding/MobApp_Greenbook/app/src/main/res/layout/profil_display_row.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/drawable/image_profil_design.xml" value="0.5615384615384615" />
+        <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/drawable/sirkuler_bilde.xml" value="0.5615384615384615" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/layout/activity_launch.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/layout/chat_message.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/layout/chat_message_recieved.xml" value="0.5541666666666667" />
@@ -30,6 +31,8 @@
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/layout/fragment_dine_arrangementer.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/layout/fragment_foolger.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/layout/fragment_glemt_passord.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/layout/fragment_inbox_follow.xml" value="0.3307291666666667" />
+        <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/layout/fragment_lag_arrangement_maps.xml" value="0.3307291666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/layout/fragment_logg_inn.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/layout/fragment_profil.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Truls/AndroidStudioProjects/MobApp_Greenbook/app/src/main/res/layout/fragment_profil_offentlig.xml" value="0.5541666666666667" />

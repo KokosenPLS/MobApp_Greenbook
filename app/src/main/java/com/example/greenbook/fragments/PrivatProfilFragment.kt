@@ -29,7 +29,6 @@ import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import java.util.*
 
-
 class PrivatProfilFragment : Fragment() {
     private lateinit var button_privat_folgere:Button
     private lateinit var button_privat_RedigerBilde:Button
@@ -44,14 +43,14 @@ class PrivatProfilFragment : Fragment() {
     private lateinit var dinProfil:Profil
     private val storage = FirebaseStorage.getInstance()
     private val pickerContent = registerForActivityResult(ActivityResultContracts.GetContent()){
-        uri = it
+            uri = it
         Picasso.get().load(uri).into(imageView_privat_profilBilde)
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        uri = Uri.EMPTY // må sette den til tom i starten, for å sjekke om den er tom senere
         auth = Firebase.auth
         user = auth.currentUser!!
         database = Database()
@@ -69,14 +68,28 @@ class PrivatProfilFragment : Fragment() {
         textView_privat_navn = requireView().findViewById(R.id.profil_privat_navn)
         button_privat_RedigerBio = requireView().findViewById(R.id.profil_privat_btn_redigerBio)
 
-       updateUI()
+        textView_privat_bioTekst.setInputType(0)
+        updateUI()
 
        button_privat_RedigerBilde.setOnClickListener {
-            pickerContent.launch("image/*")
+           if (button_privat_RedigerBio.text.equals("Update")) {
+               Toast.makeText(context, "Du må trykke på update, for å endre bilde", Toast.LENGTH_SHORT).show()
+           } else {
+               pickerContent.launch("image/*")
+           }
        }
 
        button_privat_RedigerBio.setOnClickListener {
-            updateProfil()
+           if(button_privat_RedigerBio.text.equals("Update")) {
+               button_privat_RedigerBio.text = "LAGRE"
+               textView_privat_bioTekst.setInputType(1)
+           }
+           else {
+               updateProfil()
+               textView_privat_bioTekst.setInputType(0)
+               textView_privat_bioTekst.setKeyListener(null)
+               button_privat_RedigerBio.text = "Update"
+           }
        }
 
        button_privat_folgere.setOnClickListener {
@@ -87,30 +100,44 @@ class PrivatProfilFragment : Fragment() {
     }
 
     private fun updateProfil() {
-        var bildeURL: String? = null
-        val path = "Profil/" + UUID.randomUUID() + ".png"
-        val profilRef = storage.getReference(path)
-        val uploadTask = profilRef.putFile(uri)
-        val getDownloadUriTask = uploadTask.continueWithTask { task ->
-            if (!task.isSuccessful) {
-                throw task.exception!!
-            }
-            profilRef.downloadUrl
-        }.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                bildeURL = task.result.toString()
-                val profil = Profil(
-                    dinProfil.email,
-                    dinProfil.fornavn,
-                    dinProfil.etternavn,
-                    dinProfil.fdato,
-                    bildeURL,
-                    textView_privat_bioTekst.text.toString()
-                )
-                database.addBruker(auth.uid.toString(),profil)
-            }
+        if(uri == Uri.EMPTY) {
+            val profil = Profil(
+                dinProfil.email,
+                dinProfil.fornavn,
+                dinProfil.etternavn,
+                dinProfil.fdato,
+                dinProfil.imgUrl,
+                textView_privat_bioTekst.text.toString()
+            )
+            database.addBruker(auth.uid.toString(), profil)
+            Toast.makeText(context, "Profil er oppdatert", Toast.LENGTH_SHORT).show()
         }
-        Toast.makeText(context, "Profil er oppdatert", Toast.LENGTH_SHORT).show()
+        else {
+            var bildeURL: String? = null
+            val path = "Profil/" + UUID.randomUUID() + ".png"
+            val profilRef = storage.getReference(path)
+            val uploadTask = profilRef.putFile(uri)
+            val getDownloadUriTask = uploadTask.continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    throw task.exception!!
+                }
+                profilRef.downloadUrl
+            }.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    bildeURL = task.result.toString()
+                    val profil = Profil(
+                        dinProfil.email,
+                        dinProfil.fornavn,
+                        dinProfil.etternavn,
+                        dinProfil.fdato,
+                        bildeURL,
+                        textView_privat_bioTekst.text.toString()
+                    )
+                    database.addBruker(auth.uid.toString(), profil)
+                }
+            }
+            Toast.makeText(context, "Profil er oppdatert", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

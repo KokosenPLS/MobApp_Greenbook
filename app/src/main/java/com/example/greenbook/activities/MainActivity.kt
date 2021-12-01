@@ -7,6 +7,9 @@ import android.provider.SyncStateContract.Helpers.update
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.TextureView
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -34,6 +37,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var database: Database
     private lateinit var auth: FirebaseAuth
+    //nav header
+    private lateinit var navnNavHeader:TextView
+    private lateinit var mailNavHeader:TextView
+    private lateinit var bildeNavHeader:ImageView
+    private lateinit var brukerNavn:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         database = Database()
+        getProfil()
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
@@ -74,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_account -> {
-                    val action =  NavGraphDirections.actionGlobalProfilFragment(auth.uid.toString(), "et navn")
+                    val action =  NavGraphDirections.actionGlobalProfilFragment(auth.uid.toString(), brukerNavn)
                     navController.navigate(action)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
@@ -124,8 +133,17 @@ class MainActivity : AppCompatActivity() {
         database.database.child("bruker").child(auth.uid.toString()).addValueEventListener(profilListener)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun update(profil: Profil){
-        // TODO: 11/15/2021 legg inn infor til navgraph og fiks så navnet i selve navgrap pluss email blir endret
+        navnNavHeader = findViewById(R.id.nav_header_navn)
+        mailNavHeader = findViewById(R.id.nav_header_email)
+        bildeNavHeader = findViewById(R.id.nav_header_bilde)
+
+        brukerNavn = profil.fornavn + " " + profil.etternavn
+        navnNavHeader.text = profil.fornavn + " " + profil.etternavn
+        mailNavHeader.text = profil.email
+        if(profil.imgUrl !=null)
+            Picasso.get().load(profil.imgUrl).into(bildeNavHeader)
     }
 
 

@@ -15,6 +15,7 @@ class Database {
 
     fun addBruker(id: String, bruker: Profil){
         database.child("bruker").child(id).setValue(bruker)
+        follow(id,id)
     }
 
     fun addArrangement(arrangement: Arrangement): String{
