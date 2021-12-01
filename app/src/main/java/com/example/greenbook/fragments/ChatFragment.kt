@@ -29,18 +29,8 @@ class ChatFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val meldinger: ArrayList<ChatMessage> = ArrayList()
-        var testbool: Boolean = true
 
-        for (i in 1..50) {
-            meldinger.add(
-                ChatMessage(
-                    "Dette er melding $i i chatten",
-                    testbool,
-                    "16:20"
-                )
-            )
-            testbool = !testbool
-        }
+
 
 
         val recyclerView = view?.findViewById<RecyclerView>(R.id.chatRecyclerView)

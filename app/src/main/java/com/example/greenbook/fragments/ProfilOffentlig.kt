@@ -49,7 +49,7 @@ class ProfilOffentlig : Fragment(R.layout.fragment_profil_offentlig), PostAdapto
     private lateinit var database: Database
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var påmeldteArrangement: ArrayList<Arrangement>
+    private var påmeldteArrangement = ArrayList<Arrangement>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,10 +57,6 @@ class ProfilOffentlig : Fragment(R.layout.fragment_profil_offentlig), PostAdapto
         auth = Firebase.auth
         user = auth.currentUser!!
         database = Database()
-
-        påmeldteArrangement = ArrayList()
-
-
 
     }
 
@@ -87,7 +83,7 @@ class ProfilOffentlig : Fragment(R.layout.fragment_profil_offentlig), PostAdapto
             }
         }
 
-        recyclerView = view.findViewById(R.id.profil_offentlig_påmeldinger_rc)!!
+        recyclerView = view.findViewById(R.id.profil_offentlig_påmeldinger_rc)
         val adapter = PostAdaptor(påmeldteArrangement, this)
         recyclerView.layoutManager = LinearLayoutManager(view.context)
         recyclerView.adapter = adapter
@@ -117,9 +113,9 @@ class ProfilOffentlig : Fragment(R.layout.fragment_profil_offentlig), PostAdapto
             override fun onDataChange(snapshot: DataSnapshot) {
                 val joined = snapshot.childrenCount.toInt()
                 if(joined == 1)
-                    btn_displayFølgere.text = joined.toString() + "følgere"
+                    btn_displayFølgere.text = joined.toString() + "følger"
                 else
-                    btn_displayFølgere.text = joined.toString() + " følger"
+                    btn_displayFølgere.text = joined.toString() + " følgere"
 
                 if(snapshot.hasChild(auth.uid.toString()))
                     btn_følg.text =  "Følger"
@@ -144,10 +140,11 @@ class ProfilOffentlig : Fragment(R.layout.fragment_profil_offentlig), PostAdapto
                         if (arr.equals(arrangement))
                             found = true
                     }
-                    if(!found)
+                    if(!found) {
                         påmeldteArrangement.add(arrangement!!)
+                        adaptor.notifyDataSetChanged()
+                    }
                 }
-                adaptor.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {

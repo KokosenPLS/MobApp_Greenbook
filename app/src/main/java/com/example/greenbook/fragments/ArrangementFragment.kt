@@ -63,6 +63,13 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         googleMapsImage = view.findViewById(R.id.arrangement_goToGoogleMaps)
         arrangementBilde = view.findViewById(R.id.arrangement_bilde)
 
+        val recyclerView = view.findViewById<RecyclerView>(R.id.arrangement_innlegg_rv)
+
+        recyclerView.layoutManager = LinearLayoutManager(view.context)
+        val adaptor = InnleggAdaptor(innlegg, this)
+        recyclerView.adapter = adaptor
+
+        hentInnlegg(adaptor)
         updateUI()
 
         Log.i("btn", btn_påmeldte.text.toString())
@@ -86,27 +93,34 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
             }
         }
     }
-    fun hentInnlegg(){
+    private fun hentInnlegg(adaptor: InnleggAdaptor){
         innlegg = ArrayList()
+        Log.i("innlegg", "henter innlegg")
         val arrangementListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for(arr in snapshot.children){
-                    val inl= arr.getValue<Innlegg>()
-                    innlegg.add(inl!!)
+                if(snapshot.exists()) {
+                    for (brukerinnlegg in snapshot.children) {
+                        val inl = brukerinnlegg.getValue<Innlegg>()
+                        var found = false
+                        for (value in innlegg) {
+                            if (value.equals(inl)){
+                                found = true
+                                Log.i("innlegg", "exists ${value.innleggId}")
+                            }
+                        }
+                        if(!found) {
+                            Log.i("innlegg", "adding ${inl?.innleggId}")
+                            innlegg.add(inl!!)
+                            Log.i("innlegg", "size ${innlegg.size}")
+                            adaptor.notifyDataSetChanged()
+                        }
+                    }
                 }
-                update(innlegg)
             }
             override fun onCancelled(error: DatabaseError) {
             }
         }
         database.database.child("innlegg").child(args.arrangementID).addValueEventListener(arrangementListener)
-    }
-
-    private fun update(arr: ArrayList<Innlegg>){
-        val recyclerView = getView()?.findViewById<RecyclerView>(R.id.arrangement_innlegg_rv)
-
-        recyclerView?.layoutManager = LinearLayoutManager(view?.context)
-        recyclerView?.adapter = InnleggAdaptor(arr, this)
     }
 
     private fun updateUI(){
@@ -141,10 +155,10 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         }
 
         database.database.child("påmeldinger").child(args.arrangementID).addValueEventListener(deltakereListener)
-        hentInnlegg()
     }
 
     private fun update(arrangement: Arrangement){
+        this.arrangement = arrangement
         tittel.text = arrangement.tittel
         beskrivelse.text = (
                         "Sted: " + arrangement.sted + "\n"+

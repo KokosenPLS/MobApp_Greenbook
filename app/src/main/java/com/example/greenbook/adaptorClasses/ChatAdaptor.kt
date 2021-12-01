@@ -34,26 +34,6 @@ class ChatAdaptor(val meldinger: ArrayList<ChatMessage>): RecyclerView.Adapter<C
             toggleVisibility(holder.timestamp)
         }
 
-        if(meldinger[position].sender){
-            holder.cardMessage.setBackgroundResource(R.color.greenbook_selected)
-
-            // https://stackoverflow.com/questions/8049620/how-to-set-layout-gravity-programmatically
-            // For å sette egensendt melding til høyre
-            val params = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                gravity = Gravity.END
-            }
-
-            holder.cardMessage.layoutParams = params
-            holder.cardTimestamp.layoutParams = params
-
-        }
-        else{
-
-        }
-
     }
 
     private fun toggleVisibility(view: TextView){

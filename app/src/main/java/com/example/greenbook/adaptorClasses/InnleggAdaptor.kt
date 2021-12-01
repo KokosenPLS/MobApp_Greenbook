@@ -85,4 +85,6 @@ class InnleggAdaptor (val innlegg : ArrayList<Innlegg>, val listener: OnItemClic
     override fun getItemCount(): Int {
         return innlegg.size
     }
+
+    
 }
