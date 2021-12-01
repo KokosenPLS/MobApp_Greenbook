@@ -1,17 +1,28 @@
 package com.example.greenbook.adaptorClasses
 
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.os.Build
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColor
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenbook.dataObjekter.ChatMessage
 import com.example.greenbook.R
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import kotlin.coroutines.coroutineContext
 
-class ChatAdaptor(val meldinger: ArrayList<ChatMessage>): RecyclerView.Adapter<ChatAdaptor.ViewHolder>() {
+class ChatAdaptor(val meldinger: ArrayList<ChatMessage>, val context: Context): RecyclerView.Adapter<ChatAdaptor.ViewHolder>() {
 
     inner class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
         val cardMessage: CardView = itemView.findViewById(R.id.card_chat_message)
@@ -25,35 +36,35 @@ class ChatAdaptor(val meldinger: ArrayList<ChatMessage>): RecyclerView.Adapter<C
         return ViewHolder(view)
     }
 
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.melding.text = meldinger[position].message
-        holder.timestamp.text = meldinger[position].timestamp
+        val melding = meldinger[position]
+        val user = Firebase.auth.currentUser
+        val timestamp = getTimeStamp(melding.timestamp!!)
+        if(user?.uid?.equals(melding.sender)!!){
+            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            params.gravity = Gravity.END
+            holder.cardMessage.layoutParams = params
+            holder.cardMessage.setCardBackgroundColor(context.getColor(R.color.greenbook_chat))
+        }
+
+        holder.melding.text = melding.message
+        holder.timestamp.text = timestamp
 
         // Fin kode hehe
         holder.melding.setOnClickListener {
             toggleVisibility(holder.timestamp)
         }
 
-        if(meldinger[position].sender){
-            holder.cardMessage.setBackgroundResource(R.color.greenbook_selected)
+    }
 
-            // https://stackoverflow.com/questions/8049620/how-to-set-layout-gravity-programmatically
-            // For å sette egensendt melding til høyre
-            val params = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                gravity = Gravity.END
-            }
+    private fun getTimeStamp(timestamp: String): String {
+        var split = timestamp.split(" ")
 
-            holder.cardMessage.layoutParams = params
-            holder.cardTimestamp.layoutParams = params
+        var split2 = split[1].split(":")
 
-        }
-        else{
-
-        }
-
+        return "${split2[0]}:${split2[1]}"
     }
 
     private fun toggleVisibility(view: TextView){

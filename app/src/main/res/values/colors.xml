@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="greenbook">#92AA83</color>
     <color name="greenbook_selected">#FFB0CC9E</color>
+    <color name="greenbook_chat">#CCE6BB</color>
     <color name="boxGrey">#EDECEC</color>
     <color name="joined">#2196F3</color>
     <color name="error">#C81B1B</color>
