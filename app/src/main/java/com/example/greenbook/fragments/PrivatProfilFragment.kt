@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.GravityCompat
+import androidx.core.view.isInvisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -86,6 +87,7 @@ class PrivatProfilFragment : Fragment(R.layout.fragment_profil), PostAdaptor.OnI
         hentArrangement(adapter)
 
         textView_privat_bioTekst.setInputType(0)
+        button_privat_RedigerBilde.visibility= Button.INVISIBLE
         updateUI()
 
        button_privat_RedigerBilde.setOnClickListener {
@@ -100,12 +102,14 @@ class PrivatProfilFragment : Fragment(R.layout.fragment_profil), PostAdaptor.OnI
            if(button_privat_RedigerBio.text.equals("Update")) {
                button_privat_RedigerBio.text = "LAGRE"
                textView_privat_bioTekst.setInputType(1)
+               button_privat_RedigerBilde.visibility= Button.VISIBLE
            }
            else {
                updateProfil()
                textView_privat_bioTekst.setInputType(0)
                textView_privat_bioTekst.setKeyListener(null)
                button_privat_RedigerBio.text = "Update"
+               button_privat_RedigerBilde.visibility= Button.INVISIBLE
            }
        }
 
