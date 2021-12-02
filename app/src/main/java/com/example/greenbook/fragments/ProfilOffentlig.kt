@@ -100,6 +100,11 @@ class ProfilOffentlig : Fragment(R.layout.fragment_profil_offentlig), PostAdapto
             val action =  ProfilOffentligDirections.actionProfilOffentligToFoolgerFragment(args.brukerID,args.brukernavn)
             findNavController().navigate(action)
         }
+
+        btn_melding.setOnClickListener(){
+            val action = NavGraphDirections.actionGlobalChatFragment(args.brukerID, args.brukernavn)
+            findNavController().navigate(action)
+        }
     }
 
     private fun updateUI(){

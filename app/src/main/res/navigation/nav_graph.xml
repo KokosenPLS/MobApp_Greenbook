@@ -176,6 +176,6 @@
         <argument
             android:name="brukernavn"
             app:argType="string" />
-    </fragment>
+    </fragment><action android:id="@+id/action_global_chatFragment" app:destination="@id/chatFragment"/>
 
 </navigation>
