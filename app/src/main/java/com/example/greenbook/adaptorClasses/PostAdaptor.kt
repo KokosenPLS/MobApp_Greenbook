@@ -1,13 +1,16 @@
 package com.example.greenbook.adaptorClasses
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color.blue
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenbook.Database
 import com.example.greenbook.R
@@ -21,7 +24,7 @@ import com.google.firebase.database.collection.LLRBNode
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
-class PostAdaptor(val arrangement : ArrayList<Arrangement>, val listener: OnItemClickListener) : RecyclerView.Adapter<PostAdaptor.ViewHolder>() {
+class PostAdaptor(val arrangement : ArrayList<Arrangement>, val listener: OnItemClickListener, val context: Context) : RecyclerView.Adapter<PostAdaptor.ViewHolder>() {
 
     inner class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView),
     View.OnClickListener{
@@ -72,6 +75,7 @@ class PostAdaptor(val arrangement : ArrayList<Arrangement>, val listener: OnItem
         }
 
         val deltakereListener = object : ValueEventListener {
+            @RequiresApi(Build.VERSION_CODES.M)
             @SuppressLint("ResourceAsColor")
             override fun onDataChange(snapshot: DataSnapshot) {
                 val joined = snapshot.childrenCount.toInt()
@@ -80,12 +84,10 @@ class PostAdaptor(val arrangement : ArrayList<Arrangement>, val listener: OnItem
                 else
                     holder.skal.text  = joined.toString() + " påmeldte"
                 if(snapshot.hasChild(Firebase.auth.currentUser?.uid!!)){
-
-                    holder.btnJoin.setBackgroundColor(R.color.joined)
+                    holder.btnJoin.setBackgroundColor(context.getColor(R.color.greenbook_selected))
                 }
                 else{
-
-                    holder.btnJoin.setBackgroundColor(R.color.greenbook_selected)
+                    holder.btnJoin.setBackgroundColor(context.getColor(R.color.greenbook))
                 }
             }
 
