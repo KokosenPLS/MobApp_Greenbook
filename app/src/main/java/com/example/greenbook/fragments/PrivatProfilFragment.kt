@@ -102,6 +102,7 @@ class PrivatProfilFragment : Fragment() {
     private fun updateProfil() {
         if(uri == Uri.EMPTY) {
             val profil = Profil(
+                dinProfil.brukerId,
                 dinProfil.email,
                 dinProfil.fornavn,
                 dinProfil.etternavn,
@@ -126,6 +127,7 @@ class PrivatProfilFragment : Fragment() {
                 if (task.isSuccessful) {
                     bildeURL = task.result.toString()
                     val profil = Profil(
+                        dinProfil.brukerId,
                         dinProfil.email,
                         dinProfil.fornavn,
                         dinProfil.etternavn,
