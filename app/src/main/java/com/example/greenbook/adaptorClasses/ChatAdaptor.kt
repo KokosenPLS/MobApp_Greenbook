@@ -46,6 +46,7 @@ class ChatAdaptor(val meldinger: ArrayList<ChatMessage>, val context: Context): 
             val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             params.gravity = Gravity.END
             holder.cardMessage.layoutParams = params
+            holder.cardTimestamp.layoutParams = params
             holder.cardMessage.setCardBackgroundColor(context.getColor(R.color.greenbook_chat))
         }
 

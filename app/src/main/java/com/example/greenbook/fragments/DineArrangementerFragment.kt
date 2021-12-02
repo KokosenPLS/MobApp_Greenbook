@@ -27,6 +27,7 @@ class DineArrangementerFragment : Fragment(R.layout.fragment_dine_arrangementer)
     private lateinit var database: Database
     private lateinit var user: FirebaseUser
     private lateinit var arrangement :ArrayList<Arrangement>
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +40,10 @@ class DineArrangementerFragment : Fragment(R.layout.fragment_dine_arrangementer)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        recyclerView= view.findViewById(R.id.dine_arrangement_rc)
+        val adapter = PostAdaptor(this.arrangement, this)
+        recyclerView?.layoutManager = LinearLayoutManager(view?.context)
         hentArrangementer()
-
-
 
     }
 
@@ -53,17 +54,17 @@ class DineArrangementerFragment : Fragment(R.layout.fragment_dine_arrangementer)
                 val arrangementListener = object : ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val arr = snapshot.getValue<Arrangement>()
-                        updateList(arr!!)
+                        arrangement.add(arr!!)
                     }
 
                     override fun onCancelled(error: DatabaseError) {
                     }
                 }
 
+                arrangement.clear()
                 for(arr in snapshot.children){
                     database.database.child("arrangement").child(arr.key!!).addValueEventListener(arrangementListener)
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -72,14 +73,6 @@ class DineArrangementerFragment : Fragment(R.layout.fragment_dine_arrangementer)
 
         database.database.child("arrangerer").child(user.uid).addValueEventListener(mineArrListener)
 
-    }
-
-    private fun updateList(arrangement: Arrangement){
-        this.arrangement.add(arrangement)
-        val recyclerView = getView()?.findViewById<RecyclerView>(R.id.dine_arrangement_rc)
-
-        recyclerView?.layoutManager = LinearLayoutManager(view?.context)
-        recyclerView?.adapter = PostAdaptor(this.arrangement, this)
     }
 
     override fun onItemClick(position: Int) {

@@ -101,7 +101,8 @@
                     android:id="@+id/profil_offentlig_påmeldinger_rc"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false" />
 
             </LinearLayout>
 
