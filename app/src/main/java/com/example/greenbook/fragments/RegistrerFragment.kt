@@ -156,6 +156,7 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     val bruker = Profil(
+                        user?.uid!!,
                         email.editText?.text.toString(),
                         fornavn.editText?.text.toString(),
                         etternavn.editText?.text.toString(),
