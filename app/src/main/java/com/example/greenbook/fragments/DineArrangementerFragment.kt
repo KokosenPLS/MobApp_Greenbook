@@ -28,6 +28,7 @@ class DineArrangementerFragment : Fragment(R.layout.fragment_dine_arrangementer)
     private lateinit var user: FirebaseUser
     private lateinit var arrangement :ArrayList<Arrangement>
     private lateinit var recyclerView: RecyclerView
+    private lateinit var adaptor: PostAdaptor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,10 +42,10 @@ class DineArrangementerFragment : Fragment(R.layout.fragment_dine_arrangementer)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView= view.findViewById(R.id.dine_arrangement_rc)
-        val adapter = PostAdaptor(this.arrangement, this)
+        adaptor = PostAdaptor(this.arrangement, this)
+        recyclerView.adapter = adaptor
         recyclerView?.layoutManager = LinearLayoutManager(view?.context)
         hentArrangementer()
-
     }
 
     private fun hentArrangementer(){
@@ -55,16 +56,19 @@ class DineArrangementerFragment : Fragment(R.layout.fragment_dine_arrangementer)
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val arr = snapshot.getValue<Arrangement>()
                         arrangement.add(arr!!)
+                        adaptor.notifyDataSetChanged()
                     }
 
                     override fun onCancelled(error: DatabaseError) {
                     }
+
                 }
 
                 arrangement.clear()
                 for(arr in snapshot.children){
                     database.database.child("arrangement").child(arr.key!!).addValueEventListener(arrangementListener)
                 }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
