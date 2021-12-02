@@ -74,7 +74,7 @@ class FeedFragment() : Fragment(R.layout.feed_fragment), PostAdaptor.OnItemClick
         val recyclerView = getView()?.findViewById<RecyclerView>(R.id.recyclerView)
 
         recyclerView?.layoutManager = LinearLayoutManager(view?.context)
-        recyclerView?.adapter = PostAdaptor(arr, this)
+        recyclerView?.adapter = PostAdaptor(arr, this, requireContext())
     }
 
     override fun onItemClick(position: Int) {

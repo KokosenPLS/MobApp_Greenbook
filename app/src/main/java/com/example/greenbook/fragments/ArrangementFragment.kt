@@ -145,6 +145,7 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
     }
 
     private fun update(arrangement: Arrangement){
+        this.arrangement = arrangement
         tittel.text = arrangement.tittel
         beskrivelse.text = (
                         "Sted: " + arrangement.sted + "\n"+

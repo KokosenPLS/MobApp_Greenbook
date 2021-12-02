@@ -80,7 +80,7 @@ class PrivatProfilFragment : Fragment(R.layout.fragment_profil), PostAdaptor.OnI
         button_privat_RedigerBio = requireView().findViewById(R.id.profil_privat_btn_redigerBio)
 
         recyclerView = view.findViewById(R.id.profil_privat_recyclerview)
-        val adapter = PostAdaptor(påmeldteArrangement, this)
+        val adapter = PostAdaptor(påmeldteArrangement, this, requireContext())
         recyclerView.layoutManager = LinearLayoutManager(view.context)
         recyclerView.adapter = adapter
         hentArrangement(adapter)

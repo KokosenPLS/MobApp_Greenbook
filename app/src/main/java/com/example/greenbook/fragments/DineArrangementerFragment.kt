@@ -42,7 +42,7 @@ class DineArrangementerFragment : Fragment(R.layout.fragment_dine_arrangementer)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView= view.findViewById(R.id.dine_arrangement_rc)
-        adaptor = PostAdaptor(this.arrangement, this)
+        adaptor = PostAdaptor(this.arrangement, this, requireContext())
         recyclerView.adapter = adaptor
         recyclerView?.layoutManager = LinearLayoutManager(view?.context)
         hentArrangementer()

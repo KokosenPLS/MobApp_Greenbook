@@ -88,7 +88,7 @@ class ProfilOffentlig : Fragment(R.layout.fragment_profil_offentlig), PostAdapto
         }
 
         recyclerView = view.findViewById(R.id.profil_offentlig_påmeldinger_rc)!!
-        val adapter = PostAdaptor(påmeldteArrangement, this)
+        val adapter = PostAdaptor(påmeldteArrangement, this, requireContext())
         recyclerView.layoutManager = LinearLayoutManager(view.context)
         recyclerView.adapter = adapter
 
