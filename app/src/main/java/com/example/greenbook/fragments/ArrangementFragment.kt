@@ -152,13 +152,15 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
                         arrangement.beskrivelse
                 )
         googleMapsImage.setOnClickListener{
-            if(arrangement.long!=null && arrangement.lat!=null) {
-                val gmmIntentUri = Uri.parse("geo:${arrangement.lat},${arrangement.long}")
+            Log.i("tag", arrangement.long.toString() + arrangement.lat.toString())
+            if(arrangement.long=="null" || arrangement.lat=="null") {
+                Toast.makeText(context, "Admin har ikke valgt lokasjon", Toast.LENGTH_SHORT).show()
+            }else{
+                //Uri.parse("geo:0,0?q=-33.8666,151.1957(Google+Sydney)")
+                val gmmIntentUri = Uri.parse("geo:0,0?q=${arrangement.lat},${arrangement.long}(${arrangement.tittel})")
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 mapIntent.setPackage("com.google.android.apps.maps")
                 startActivity(mapIntent)
-            }else{
-                Toast.makeText(context, "Admin har ikke valgt lokasjon", Toast.LENGTH_SHORT).show()
             }
         }
         if(arrangement.bildeUrl !=null)
