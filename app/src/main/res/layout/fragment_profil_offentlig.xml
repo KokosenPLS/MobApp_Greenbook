@@ -61,7 +61,7 @@
                         android:clickable="false"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="22 Følgere" />
+                        android:text="Følgere" />
 
                     <Button
                         android:id="@+id/profil_offentlig_btn_følg"

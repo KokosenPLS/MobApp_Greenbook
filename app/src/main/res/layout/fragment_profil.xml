@@ -7,102 +7,100 @@
     android:padding="6dp"
     tools:context=".fragments.PrivatProfilFragment">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profil_privat_profilBilde"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:maxHeight="125dp"
-        android:paddingTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:civ_border_width="2dp"
-        app:civ_border_color="#FF000000"
-        android:src="@mipmap/ic_launcher_round" />
-
-    <TextView
-        android:id="@+id/profil_privat_navn"
-        style="@style/Title_Style"
+    <ScrollView
+        android:id="@+id/scrollView4"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/tittelrect"
-        android:elevation="4dp"
-        android:text="Ola Nordmann"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profil_privat_profilBilde" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/profil_privat_følgere"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:elevation="4dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:text="38 følgere"
-        app:layout_constraintEnd_toStartOf="@+id/profil_privat_button_redigerBilde"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profil_privat_navn" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/profil_privat_button_redigerBilde"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="4dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:text="Endre bilde"
-        app:layout_constraintEnd_toStartOf="@+id/profil_privat_btn_redigerBio"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/profil_privat_følgere"
-        app:layout_constraintTop_toBottomOf="@+id/profil_privat_navn" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profil_privat_profilBilde"
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:maxHeight="125dp"
+                android:src="@mipmap/ic_launcher_round"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp" />
 
-    <Button
-        android:id="@+id/profil_privat_btn_redigerBio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="4dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:text="Update"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/profil_privat_button_redigerBilde"
-        app:layout_constraintTop_toBottomOf="@+id/profil_privat_navn" />
+            <TextView
+                android:id="@+id/profil_privat_navn"
+                style="@style/Title_Style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/tittelrect"
+                android:elevation="4dp"
+                android:text="Ola Nordmann" />
 
-    <EditText
-        android:id="@+id/profil_privat_txt_bio"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/myrect"
-        android:elevation="4dp"
-        android:gravity="start"
-        android:padding="6dp"
-        android:hint="Lag en bio"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profil_privat_button_redigerBilde" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/profil_txt_innlegg"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/myrect"
-        android:elevation="4dp"
-        android:gravity="start"
-        android:padding="6dp"
-        android:text="Her kommer innlegg til personen Her kommer innlegg til personen Her kommer innlegg til personen Her kommer innlegg til personen Her kommer innlegg til personen "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profil_privat_txt_bio" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/profil_privat_følgere"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:elevation="4dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="38 følgere" />
+
+                    <Button
+                        android:id="@+id/profil_privat_button_redigerBilde"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:elevation="4dp"
+                        android:text="Endre bilde" />
+
+                    <Button
+                        android:id="@+id/profil_privat_btn_redigerBio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="4dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="Update" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/profil_privat_txt_bio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/myrect"
+                    android:elevation="4dp"
+                    android:gravity="start"
+                    android:hint="Lag en bio"
+                    android:padding="6dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/profil_privat_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

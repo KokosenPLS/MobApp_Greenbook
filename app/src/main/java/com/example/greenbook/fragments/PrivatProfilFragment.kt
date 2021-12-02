@@ -13,9 +13,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.greenbook.Database
 import com.example.greenbook.NavGraphDirections
 import com.example.greenbook.R
+import com.example.greenbook.adaptorClasses.PostAdaptor
+import com.example.greenbook.dataObjekter.Arrangement
 import com.example.greenbook.dataObjekter.Profil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -28,14 +32,19 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import java.util.*
+import kotlin.collections.ArrayList
 
-class PrivatProfilFragment : Fragment() {
+class PrivatProfilFragment : Fragment(R.layout.fragment_profil), PostAdaptor.OnItemClickListener{
+
+    private val args: PrivatProfilFragmentArgs by navArgs()
+
     private lateinit var button_privat_folgere:Button
     private lateinit var button_privat_RedigerBilde:Button
     private lateinit var button_privat_RedigerBio:Button
     private lateinit var imageView_privat_profilBilde: ImageView
     private lateinit var textView_privat_navn: TextView
     private lateinit var textView_privat_bioTekst: EditText
+    private lateinit var recyclerView: RecyclerView
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
     private lateinit var database: Database
@@ -47,6 +56,8 @@ class PrivatProfilFragment : Fragment() {
         Picasso.get().load(uri).into(imageView_privat_profilBilde)
     }
 
+    private lateinit var påmeldteArrangement: ArrayList<Arrangement>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +65,7 @@ class PrivatProfilFragment : Fragment() {
         auth = Firebase.auth
         user = auth.currentUser!!
         database = Database()
-
+        påmeldteArrangement = ArrayList()
 
     }
 
@@ -67,6 +78,12 @@ class PrivatProfilFragment : Fragment() {
         textView_privat_bioTekst = requireView().findViewById(R.id.profil_privat_txt_bio)
         textView_privat_navn = requireView().findViewById(R.id.profil_privat_navn)
         button_privat_RedigerBio = requireView().findViewById(R.id.profil_privat_btn_redigerBio)
+
+        recyclerView = view.findViewById(R.id.profil_privat_recyclerview)
+        val adapter = PostAdaptor(påmeldteArrangement, this)
+        recyclerView.layoutManager = LinearLayoutManager(view.context)
+        recyclerView.adapter = adapter
+        hentArrangement(adapter)
 
         textView_privat_bioTekst.setInputType(0)
         updateUI()
@@ -93,9 +110,47 @@ class PrivatProfilFragment : Fragment() {
        }
 
        button_privat_folgere.setOnClickListener {
-           val action =  PrivatProfilFragmentDirections.actionProfilFragmentToFoolgerFragment(auth.uid.toString(),"navn") // TODO: 11/20/2021 Når man sender navnet rund skal det også inn her, venter på at alex skal gjøre det 
+           val action =  PrivatProfilFragmentDirections.actionProfilFragmentToFoolgerFragment(auth.uid.toString(), textView_privat_navn.text.toString())
            findNavController().navigate(action)
        }
+
+    }
+
+    private fun hentArrangement(adaptor: PostAdaptor) {
+
+        val arrangementListener = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val arrangement = snapshot.getValue<Arrangement>()
+                    var found = false
+                    for(arr in påmeldteArrangement){
+                        if (arr.equals(arrangement))
+                            found = true
+                    }
+                    if(!found)
+                        påmeldteArrangement.add(arrangement!!)
+                }
+                adaptor.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        }
+
+        val påmeldingerListener = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    for(påmelding in snapshot.children){
+                        database.database.child("arrangement").child(påmelding.key!!).addValueEventListener(arrangementListener)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        }
+
+        database.database.child("påmeldt").child(args.brukerID).addValueEventListener(påmeldingerListener)
 
     }
 
@@ -142,10 +197,6 @@ class PrivatProfilFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            return inflater.inflate(R.layout.fragment_profil, container, false)
-    }
-
     private fun updateUI(){
         val profilListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -182,7 +233,8 @@ class PrivatProfilFragment : Fragment() {
             Picasso.get().load(profil.imgUrl).into(imageView_privat_profilBilde)
     }
 
-    companion object {
-        fun newInstance() = PrivatProfilFragment()
+    override fun onItemClick(position: Int) {
+        val action = NavGraphDirections.actionGlobalArrangementFragment(påmeldteArrangement[position].arrangementId!!,påmeldteArrangement[position].tittel!! )
+        findNavController().navigate(action)
     }
 }
