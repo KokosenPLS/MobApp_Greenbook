@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.size
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,6 +43,8 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
     private lateinit var btn_join: Button
     private lateinit var btn_skrivInlegg: Button
     var innlegg: ArrayList<Innlegg> = ArrayList()
+    private lateinit var innleggRecyclerView: RecyclerView
+    private lateinit var innleggAdaptor: InnleggAdaptor
     private lateinit var googleMapsImage: ImageView
     private lateinit var arrangementBilde:ImageView
 
@@ -63,6 +66,12 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         googleMapsImage = view.findViewById(R.id.arrangement_goToGoogleMaps)
         arrangementBilde = view.findViewById(R.id.arrangement_bilde)
 
+        innleggRecyclerView = view.findViewById(R.id.arrangement_innlegg_rv)
+        innleggAdaptor = InnleggAdaptor(innlegg, this)
+        innleggRecyclerView.layoutManager = LinearLayoutManager(view?.context)
+        innleggRecyclerView.adapter = innleggAdaptor
+
+        hentInnlegg()
         updateUI()
 
         Log.i("btn", btn_påmeldte.text.toString())
@@ -87,14 +96,15 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         }
     }
     fun hentInnlegg(){
-        innlegg = ArrayList()
         val arrangementListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                innlegg.clear()
                 for(arr in snapshot.children){
                     val inl= arr.getValue<Innlegg>()
                     innlegg.add(inl!!)
+                    Log.i("innlegg", inl.innlegg_beskrivelse!!)
                 }
-                update(innlegg)
+                innleggAdaptor.notifyDataSetChanged()
             }
             override fun onCancelled(error: DatabaseError) {
             }
@@ -102,12 +112,6 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         database.database.child("innlegg").child(args.arrangementID).addValueEventListener(arrangementListener)
     }
 
-    private fun update(arr: ArrayList<Innlegg>){
-        val recyclerView = getView()?.findViewById<RecyclerView>(R.id.arrangement_innlegg_rv)
-
-        recyclerView?.layoutManager = LinearLayoutManager(view?.context)
-        recyclerView?.adapter = InnleggAdaptor(arr, this)
-    }
 
     private fun updateUI(){
         val arrangementListener = object : ValueEventListener {
@@ -141,7 +145,7 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         }
 
         database.database.child("påmeldinger").child(args.arrangementID).addValueEventListener(deltakereListener)
-        hentInnlegg()
+
     }
 
     private fun update(arrangement: Arrangement){
@@ -149,13 +153,14 @@ class ArrangementFragment : Fragment(R.layout.fragment_arrangement), InnleggAdap
         tittel.text = arrangement.tittel
         beskrivelse.text = (
                         "Sted: " + arrangement.sted + "\n"+
+                        "Dato: " + arrangement.dato + "\n"+
                         "Tid: " + arrangement.tid + "\n"+
                         arrangement.beskrivelse
                 )
         googleMapsImage.setOnClickListener{
             Log.i("tag", arrangement.long.toString() + arrangement.lat.toString())
             if(arrangement.long=="null" || arrangement.lat=="null") {
-                Toast.makeText(context, "Admin har ikke valgt lokasjon", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Arrangøren har ikke valgt lokasjon", Toast.LENGTH_SHORT).show()
             }else{
                 //Uri.parse("geo:0,0?q=-33.8666,151.1957(Google+Sydney)")
                 val gmmIntentUri = Uri.parse("geo:0,0?q=${arrangement.lat},${arrangement.long}(${arrangement.tittel})")

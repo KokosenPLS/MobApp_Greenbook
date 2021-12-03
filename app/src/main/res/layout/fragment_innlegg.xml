@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/innlegg_input_kommentar"
-        app:layout_constraintTop_toBottomOf="@+id/innlegg_tekst"
+        app:layout_constraintTop_toBottomOf="@+id/innlegg_display_bilde"
         tools:layout_editor_absoluteX="10dp" />
 
     <EditText

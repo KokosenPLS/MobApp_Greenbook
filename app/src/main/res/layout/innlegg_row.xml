@@ -5,7 +5,6 @@
     android:id="@+id/innlegg_bilde"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
     android:background="@drawable/myrect"
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
@@ -47,24 +46,13 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/innlegg_btn_ant_kommentarer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="X kommentarer"
-        app:layout_constraintEnd_toStartOf="@+id/innlegg_btn_se_kommentarer"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/innlegg_txt" />
-
-    <Button
         android:id="@+id/innlegg_btn_se_kommentarer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Se kommentarer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/innlegg_btn_ant_kommentarer"
-        app:layout_constraintTop_toTopOf="@+id/innlegg_btn_ant_kommentarer" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/innlegg_txt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

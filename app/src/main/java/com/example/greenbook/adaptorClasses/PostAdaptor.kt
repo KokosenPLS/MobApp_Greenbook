@@ -26,6 +26,8 @@ import com.squareup.picasso.Picasso
 
 class PostAdaptor(val arrangement : ArrayList<Arrangement>, val listener: OnItemClickListener, val context: Context) : RecyclerView.Adapter<PostAdaptor.ViewHolder>() {
 
+    val user = Firebase.auth.currentUser
+
     inner class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView),
     View.OnClickListener{
         val tittel: TextView = itemView.findViewById(R.id.tittel)
@@ -79,6 +81,8 @@ class PostAdaptor(val arrangement : ArrayList<Arrangement>, val listener: OnItem
             @SuppressLint("ResourceAsColor")
             override fun onDataChange(snapshot: DataSnapshot) {
                 val joined = snapshot.childrenCount.toInt()
+                if(snapshot.hasChild(user?.uid!!))
+                    holder.btnJoin.text = "Påmeldt"
                 if(joined == 1)
                     holder.skal.text  = joined.toString() + " påmeldt"
                 else

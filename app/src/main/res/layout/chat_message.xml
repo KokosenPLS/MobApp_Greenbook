@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
+            android:maxWidth="250dp"
             android:padding="8dp"
             android:text="Melding som ble sendt" />
     </androidx.cardview.widget.CardView>

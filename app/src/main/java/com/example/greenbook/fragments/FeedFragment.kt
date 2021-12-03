@@ -46,9 +46,6 @@ class FeedFragment() : Fragment(R.layout.feed_fragment), PostAdaptor.OnItemClick
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
         hentArrangementer()
     }
 
