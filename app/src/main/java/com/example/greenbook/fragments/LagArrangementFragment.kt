@@ -92,79 +92,84 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
         }
 
         btnLag.setOnClickListener {
-            if (tittelTF.text.isEmpty() || beskrivelseTF.text.isEmpty() || stedTF.text.isEmpty() || dateTV.text.isEmpty() || tidTF.text.isEmpty()) {
-                if (tittelTF.text.isEmpty()) {
-                    tittelTF.error = resources.getString(R.string.glemt_felt_tittel)
-                }
-                if (beskrivelseTF.text.isEmpty()) {
-                    beskrivelseTF.error = resources.getString(R.string.glemt_felt_beskrivelse)
-                }
-                if (stedTF.text.isEmpty()) {
-                    stedTF.error = resources.getString(R.string.glemt_felt_sted)
-                }
-                if (dateTV.text.isEmpty()) {
-                    dateTV.error = resources.getString(R.string.glemt_felt_dato)
-                }
-                if (tidTF.text.isEmpty()) {
-                    tidTF.error = resources.getString(R.string.glemt_felt_tid)
+            lagArr()
+        }
+    }
+
+    //lager arrangement
+    fun lagArr() {
+        if (tittelTF.text.isEmpty() || beskrivelseTF.text.isEmpty() || stedTF.text.isEmpty() || dateTV.text.isEmpty() || tidTF.text.isEmpty()) {
+            if (tittelTF.text.isEmpty()) {
+                tittelTF.error = resources.getString(R.string.glemt_felt_tittel)
+            }
+            if (beskrivelseTF.text.isEmpty()) {
+                beskrivelseTF.error = resources.getString(R.string.glemt_felt_beskrivelse)
+            }
+            if (stedTF.text.isEmpty()) {
+                stedTF.error = resources.getString(R.string.glemt_felt_sted)
+            }
+            if (dateTV.text.isEmpty()) {
+                dateTV.error = resources.getString(R.string.glemt_felt_dato)
+            }
+            if (tidTF.text.isEmpty()) {
+                tidTF.error = resources.getString(R.string.glemt_felt_tid)
+            }
+        } else {
+            if (bildeTF.text.toString().isNotEmpty()) {
+                var bildeURL: String? = null
+                val path = "Arrangement/" + UUID.randomUUID() + ".png"
+                val arrangementRef = storage.getReference(path)
+                val uploadTask = arrangementRef.putFile(uri)
+                val getDownloadUriTask = uploadTask.continueWithTask { task ->
+                    if (!task.isSuccessful) {
+                        throw task.exception!!
+                    }
+                    arrangementRef.downloadUrl
+                }.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        bildeURL = task.result.toString()
+                        val arr = Arrangement(
+                            null,
+                            user.uid,
+                            tittelTF.text.toString(),
+                            beskrivelseTF.text.toString(),
+                            stedTF.text.toString(),
+                            dateTV.text.toString(),
+                            tidTF.text.toString(),
+                            plasserTF.text.toString().toInt(),
+                            myViewModelLokasjon.latLng.value?.latitude.toString(),
+                            myViewModelLokasjon.latLng.value?.longitude.toString(),
+                            bildeURL
+                        )
+                        val arrangementId = database.addArrangement(arr)
+                        val action =
+                            LagArrangementFragmentDirections.actionLagArrangementFragmentToArrangementFragment(
+                                arrangementId,
+                                arr.tittel!!
+                            )
+                        findNavController().navigate(action)
+                    }
                 }
             } else {
-                if (bildeTF.text.toString().isNotEmpty()) {
-                    var bildeURL: String? = null
-                    val path = "Arrangement/" + UUID.randomUUID() + ".png"
-                    val arrangementRef = storage.getReference(path)
-                    val uploadTask = arrangementRef.putFile(uri)
-                    val getDownloadUriTask = uploadTask.continueWithTask { task ->
-                        if (!task.isSuccessful) {
-                            throw task.exception!!
-                        }
-                        arrangementRef.downloadUrl
-                    }.addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            bildeURL = task.result.toString()
-                            val arr = Arrangement(
-                                null,
-                                user.uid,
-                                tittelTF.text.toString(),
-                                beskrivelseTF.text.toString(),
-                                stedTF.text.toString(),
-                                dateTV.text.toString(),
-                                tidTF.text.toString(),
-                                plasserTF.text.toString().toInt(),
-                                myViewModelLokasjon.latLng.value?.latitude.toString(),
-                                myViewModelLokasjon.latLng.value?.longitude.toString(),
-                                bildeURL
-                            )
-                            val arrangementId = database.addArrangement(arr)
-                            val action =
-                                LagArrangementFragmentDirections.actionLagArrangementFragmentToArrangementFragment(
-                                    arrangementId,
-                                    arr.tittel!!
-                                )
-                            findNavController().navigate(action)
-                        }
-                    }
-                } else {
-                    val arr = Arrangement(
-                        null,
-                        user.uid,
-                        tittelTF.text.toString(),
-                        beskrivelseTF.text.toString(),
-                        stedTF.text.toString(),
-                        dateTV.text.toString(),
-                        tidTF.text.toString(),
-                        plasserTF.text.toString().toInt(),
-                        myViewModelLokasjon.latLng.value?.latitude.toString(),
-                        myViewModelLokasjon.latLng.value?.longitude.toString()
+                val arr = Arrangement(
+                    null,
+                    user.uid,
+                    tittelTF.text.toString(),
+                    beskrivelseTF.text.toString(),
+                    stedTF.text.toString(),
+                    dateTV.text.toString(),
+                    tidTF.text.toString(),
+                    plasserTF.text.toString().toInt(),
+                    myViewModelLokasjon.latLng.value?.latitude.toString(),
+                    myViewModelLokasjon.latLng.value?.longitude.toString()
+                )
+                val arrangementId = database.addArrangement(arr)
+                val action =
+                    LagArrangementFragmentDirections.actionLagArrangementFragmentToArrangementFragment(
+                        arrangementId,
+                        arr.tittel!!
                     )
-                    val arrangementId = database.addArrangement(arr)
-                    val action =
-                        LagArrangementFragmentDirections.actionLagArrangementFragmentToArrangementFragment(
-                            arrangementId,
-                            arr.tittel!!
-                        )
-                    findNavController().navigate(action)
-                }
+                findNavController().navigate(action)
             }
         }
     }
