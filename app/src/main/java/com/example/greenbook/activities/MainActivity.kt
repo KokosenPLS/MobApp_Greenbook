@@ -1,6 +1,7 @@
 package com.example.greenbook.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.SyncStateContract.Helpers.update
@@ -118,7 +119,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun reload(){
         finish()
-        startActivity(intent)
+        startActivity(Intent(this, LaunchActivity::class.java))
     }
 
     private fun getProfil(){
