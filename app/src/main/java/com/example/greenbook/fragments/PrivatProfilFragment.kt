@@ -218,9 +218,9 @@ class PrivatProfilFragment : Fragment(R.layout.fragment_profil), PostAdaptor.OnI
             override fun onDataChange(snapshot: DataSnapshot) {
                 val joined = snapshot.childrenCount.toInt()
                 if(joined == 1)
-                    button_privat_folgere.text = joined.toString() + "følgere"
-                else
                     button_privat_folgere.text = joined.toString() + " følger"
+                else
+                    button_privat_folgere.text = joined.toString() + " følgere"
             }
 
             override fun onCancelled(error: DatabaseError) {
