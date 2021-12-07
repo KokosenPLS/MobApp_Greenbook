@@ -215,14 +215,13 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
         val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
         val minute = mcurrentTime.get(Calendar.MINUTE)
 
-        mTimePicker = TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {
-            override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        mTimePicker = TimePickerDialog(requireContext(),
+            { view, hourOfDay, minute ->
                 if(String.format("%d : %d", hourOfDay, minute).isNotEmpty()) {
                     tidTF.text = String.format("%d : %d", hourOfDay, minute)
                     myViewModelLokasjon.tid.value = String.format("%d : %d", hourOfDay, minute)
                 }
-            }
-        }, hour, minute, true)
+            }, hour, minute, true)
 
         tidBtn.setOnClickListener {
             mTimePicker.show()
