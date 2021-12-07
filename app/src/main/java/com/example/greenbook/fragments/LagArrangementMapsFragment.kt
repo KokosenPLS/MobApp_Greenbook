@@ -36,7 +36,7 @@ class LagArrangementMapsFragment : Fragment(R.layout.fragment_lag_arrangement_ma
 
     private var markerLokasjon: LatLng? = null
     private val myViewModelLokasjon: MyViewModelLokasjon by navGraphViewModels(R.id.lagArrangementFragment)
-    private lateinit var btnVelLokasjon:Button
+    private lateinit var btnVelgLokasjon:Button
 
     @SuppressLint("RestrictedApi")
     private val callback = OnMapReadyCallback { mMap ->
@@ -50,8 +50,8 @@ class LagArrangementMapsFragment : Fragment(R.layout.fragment_lag_arrangement_ma
             markerLokasjon= LatLng(it.latitude,it.longitude)
         }
 
-        btnVelLokasjon = view?.findViewById(R.id.btn_maps_velgLokasjon)!!
-        btnVelLokasjon.setOnClickListener {
+        btnVelgLokasjon = view?.findViewById(R.id.btn_maps_velgLokasjon)!!
+        btnVelgLokasjon.setOnClickListener {
             myViewModelLokasjon.latLng.value = markerLokasjon
             findNavController().navigateUp()
         }

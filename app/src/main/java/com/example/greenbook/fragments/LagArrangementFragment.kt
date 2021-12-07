@@ -222,7 +222,7 @@ class LagArrangementFragment : Fragment(R.layout.fragment_lag_arrangement) {
                     myViewModelLokasjon.tid.value = String.format("%d : %d", hourOfDay, minute)
                 }
             }
-        }, hour, minute, false)
+        }, hour, minute, true)
 
         tidBtn.setOnClickListener {
             mTimePicker.show()
