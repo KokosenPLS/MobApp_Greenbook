@@ -128,21 +128,36 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
     }
 
     fun validateFdato(): Boolean{
+        val year = fdato.text.toString().split("/".toRegex())[2].toInt()
+        val month = fdato.text.toString().split("/".toRegex())[1].toInt()
+        val day = fdato.text.toString().split("/".toRegex())[0].toInt()
+
         if(fdato.text.isEmpty()){
             fdato.hint = "Du må velge en fødselsdato"
             fdato.setHintTextColor(resources.getColor(R.color.error))
             return false
         }
-        else if (fdato.text.toString().split("/".toRegex())[2].toInt() > Calendar.getInstance().get(Calendar.YEAR) - 13){
+        else if (!validateDate(year, month, day)){
             fdato.hint = "Du er ikke gammel nok til å registrere deg"
             fdato.text = null
             fdato.setHintTextColor(resources.getColor(R.color.error))
             return false
         }
         else{
-            Log.i("confirm", "ok")
             return true
         }
+    }
+
+    fun validateDate(year: Int, month: Int, day: Int): Boolean{
+        val calender = Calendar.getInstance()
+        if(year > calender.get(Calendar.YEAR)-13)
+            return false
+        if(month > calender.get(Calendar.MONTH))
+            return false
+        if(day > calender.get(Calendar.DAY_OF_MONTH))
+            return false
+
+        return true
     }
 
     fun validateInput() {
@@ -195,7 +210,7 @@ class RegistrerFragment : Fragment(R.layout.fragment_registrer) {
         //Vet ikke om du har funnet koden her, Truls?
         //https://stackoverflow.com/questions/45842167/how-to-use-datepickerdialog-in-kotlin   ???
         val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
+        val year = c.get(Calendar.YEAR) - 13
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 

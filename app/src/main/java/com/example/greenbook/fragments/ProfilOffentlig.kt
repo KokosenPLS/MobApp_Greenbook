@@ -122,9 +122,9 @@ class ProfilOffentlig : Fragment(R.layout.fragment_profil_offentlig), PostAdapto
             override fun onDataChange(snapshot: DataSnapshot) {
                 val joined = snapshot.childrenCount.toInt()
                 if(joined == 1)
-                    btn_displayFølgere.text = joined.toString() + "følgere"
-                else
                     btn_displayFølgere.text = joined.toString() + " følger"
+                else
+                    btn_displayFølgere.text = joined.toString() + " følgere"
 
                 if(snapshot.hasChild(auth.uid.toString()))
                     btn_følg.text =  "Følger"

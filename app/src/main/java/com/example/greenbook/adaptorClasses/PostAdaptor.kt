@@ -40,6 +40,10 @@ class PostAdaptor(val arrangement : ArrayList<Arrangement>, val listener: OnItem
 
         init {
             tittel.setOnClickListener(this)
+            tid.setOnClickListener(this)
+            sted.setOnClickListener(this)
+            beskrivelse.setOnClickListener(this)
+            bilde.setOnClickListener(this)
         }
 
         override fun onClick(p0: View?) {
